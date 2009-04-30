@@ -2,7 +2,7 @@
 # Rakefile for Chef Server Repository
 #
 # Author:: Adam Jacob (<adam@opscode.com>)
-# Copyright:: Copyright (c) 2008 OpsCode, Inc.
+# Copyright:: Copyright (c) 2008 Opscode, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,7 +54,12 @@ end
 desc "Test your cookbooks for syntax errors"
 task :test do
   puts "** Testing your cookbooks for syntax errors"
-  Dir[ File.join(TOPDIR, "cookbooks", "**", "*.rb") ].each do |recipe|
+
+  recipes = ["*cookbooks"].map { |folder|
+    Dir[File.join(TOPDIR, folder, "**", "*.rb")]
+  }.flatten
+
+  recipes.each do |recipe|
     print "Testing recipe #{recipe}: "
     sh %{ruby -c #{recipe}} do |ok, res|
       if ! ok
@@ -80,7 +85,7 @@ task :install => [ :update, :test ] do
   puts "* Installing new Cookbooks"
   sh "sudo rsync -rlP --delete --exclude '.svn' cookbooks/ #{COOKBOOK_PATH}"
   puts "* Installing new Site Cookbooks"
-  sh "sudo rsync -rlP --delete --exclude '.svn' site-cookbooks/ #{SITE_COOKBOOK_PATH}"
+  sh "sudo rsync -rlP --delete --exclude '.svn' cookbooks/ #{SITE_COOKBOOK_PATH}"
   puts "* Installing new Chef Server Config"
   sh "sudo cp config/server.rb #{CHEF_SERVER_CONFIG}"
   puts "* Installing new Chef Client Config"
@@ -90,9 +95,9 @@ end
 desc "By default, run rake test"
 task :default => [ :test ]
 
-desc "Create a new cookbook (with COOKBOOK=name)"
+desc "Create a new cookbook (with COOKBOOK=name, optional CB_PREFIX=site-)"
 task :new_cookbook do
-  create_cookbook(File.join(TOPDIR, "cookbooks"))
+  create_cookbook(File.join(TOPDIR, "#{ENV["CB_PREFIX"]}cookbooks"))
 end
 
 def create_cookbook(dir)
