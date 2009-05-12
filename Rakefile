@@ -85,11 +85,11 @@ task :install => [ :update, :test ] do
   puts "* Installing new Cookbooks"
   sh "sudo rsync -rlP --delete --exclude '.svn' cookbooks/ #{COOKBOOK_PATH}"
   puts "* Installing new Site Cookbooks"
-  sh "sudo rsync -rlP --delete --exclude '.svn' cookbooks/ #{SITE_COOKBOOK_PATH}"
-  puts "* Installing new Chef Server Config"
-  sh "sudo cp config/server.rb #{CHEF_SERVER_CONFIG}"
-  puts "* Installing new Chef Client Config"
-  sh "sudo cp config/client.rb #{CHEF_CLIENT_CONFIG}"
+  sh "sudo rsync -rlP --delete --exclude '.svn' site-cookbooks/ #{SITE_COOKBOOK_PATH}"
+  # puts "* Installing new Chef Server Config"
+  # sh "sudo cp config/server.rb #{CHEF_SERVER_CONFIG}"
+  # puts "* Installing new Chef Client Config"
+  # sh "sudo cp config/client.rb #{CHEF_CLIENT_CONFIG}"
 end
 
 desc "By default, run rake test"
