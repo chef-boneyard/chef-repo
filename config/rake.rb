@@ -9,16 +9,16 @@ COMPANY_NAME = "Example Com"
 SSL_COUNTRY_NAME = "US"
 
 # The State Name to use for SSL Certificates
-SSL_STATE_NAME = "Washington"
+SSL_STATE_NAME = "Several"
 
 # The Locality Name for SSL - typically, the city
-SSL_LOCALITY_NAME = "Seattle"
+SSL_LOCALITY_NAME = "Locality"
 
 # What department?
 SSL_ORGANIZATIONAL_UNIT_NAME = "Operations"
 
 # The SSL contact email address
-SSL_EMAIL_ADDRESS = "operations@example.com"
+SSL_EMAIL_ADDRESS = "ops@example.com"
 
 # License for new Cookbooks
 # Can be :apachev2 or :none
@@ -29,10 +29,10 @@ NEW_COOKBOOK_LICENSE = :apachev2
 ##########################
 
 # Where to find upstream cookbooks
-COOKBOOK_PATH = "/var/chef/cookbooks"
+COOKBOOK_PATH = "/srv/chef/cookbooks"
 
 # Where to find site-local modifications to upstream cookbooks
-SITE_COOKBOOK_PATH = "/var/chef/site-cookbooks"
+SITE_COOKBOOK_PATH = "/srv/chef/site-cookbooks"
 
 # Chef Config Path
 CHEF_CONFIG_PATH = "/etc/chef"
