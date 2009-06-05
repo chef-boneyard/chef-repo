@@ -52,3 +52,6 @@ TOPDIR = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 
 # Where to store certificates generated with ssl_cert
 CADIR = File.expand_path(File.join(TOPDIR, "certificates"))
+
+# Where to store the mtime cache for the recipe/template syntax check
+TEST_CACHE = File.expand_path(File.join(TOPDIR, ".rake_test_cache"))
