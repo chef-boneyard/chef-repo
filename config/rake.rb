@@ -28,11 +28,14 @@ NEW_COOKBOOK_LICENSE = :apachev2
 # Chef Repository Layout #
 ##########################
 
-# Where to find upstream cookbooks
+# Where to install upstream cookbooks for serving
 COOKBOOK_PATH = "/srv/chef/cookbooks"
 
-# Where to find site-local modifications to upstream cookbooks
+# Where to install site-local modifications to upstream cookbooks
 SITE_COOKBOOK_PATH = "/srv/chef/site-cookbooks"
+
+# Where to install roles
+ROLE_PATH = "/srv/chef/roles"
 
 # Chef Config Path
 CHEF_CONFIG_PATH = "/etc/chef"
