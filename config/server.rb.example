@@ -1,0 +1,33 @@
+#
+# Example Chef Server Config File
+#
+# We recommend using Opscode's chef cookbook for managing chef itself,
+# instead of using this file.
+
+log_level          :info
+log_location       "/var/log/chef/server.log"
+ssl_verify_mode    :verify_none
+registration_url   "https://localhost"
+openid_url         "https://localhost"
+template_url       "https://localhost"
+remotefile_url     "https://localhost"
+search_url         "https://localhost"
+role_url           "https://localhost"
+
+#validation_token   "change_this_token"
+
+cookbook_path      [ "/srv/chef/site-cookbooks", "/srv/chef/cookbooks" ]
+
+file_store_path    "/srv/chef/file_store"
+file_cache_path    "/srv/chef/cache"
+node_path          "/srv/chef/nodes"
+openid_store_path  "/srv/chef/openid/store"
+openid_cstore_path "/srv/chef/openid/cstore"
+search_index_path  "/srv/chef/search_index"
+
+# uncomment and modify to allow specific openid providers
+#openid_providers   [ "https://localhost", "https://chef" ]
+# uncomment and modify to lock down openid identifiers, ie 'some_user.myopenid.com'
+#authorized_openid_identifiers [ "" ]
+
+Chef::Log::Formatter.show_time = true

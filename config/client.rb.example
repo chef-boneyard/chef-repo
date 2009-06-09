@@ -1,0 +1,22 @@
+#
+# Example Chef Client Config File
+#
+# We recommend using Opscode's chef cookbook for managing chef itself,
+# instead of using this file.
+
+log_level          :info
+log_location       STDOUT
+ssl_verify_mode    :verify_none
+registration_url   "https://chef.localdomain"
+openid_url         "https://chef.localdomain"
+template_url       "https://chef.localdomain"
+remotefile_url     "https://chef.localdomain"
+search_url         "https://chef.localdomain"
+role_url           "https://chef.localdomain"
+
+file_store_path    "/srv/chef/file_store"
+file_cache_path    "/srv/chef/cache"
+
+pid_file           "/var/run/chef/chef-client.pid"
+
+Chef::Log::Formatter.show_time = true
