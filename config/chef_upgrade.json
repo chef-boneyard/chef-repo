@@ -1,0 +1,7 @@
+{
+  "chef": {
+    "server_version": "0.7.0",
+    "client_version": "0.7.0",
+    "server_path": "/usr/lib/ruby/gems/1.8/gems/chef-server-0.7.0"
+  }
+}
