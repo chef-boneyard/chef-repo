@@ -2,7 +2,7 @@
 # Example Chef Server Config File
 #
 # We recommend using Opscode's chef cookbook for managing chef itself,
-# instead of using this file.
+# instead of using this file. It is provided as an example.
 
 log_level          :info
 log_location       "/var/log/chef/server.log"
