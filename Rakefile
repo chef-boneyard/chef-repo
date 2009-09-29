@@ -22,14 +22,22 @@ require 'rubygems'
 require 'chef'
 require 'json'
 
-# Make sure you have loaded constants first
+# Load constants from rake config file.
 require File.join(File.dirname(__FILE__), 'config', 'rake')
 
-# And choosen a VCS
+# Detect the version control system and assign to $vcs. Used by the update
+# task in chef_repo.rake (below). The install task calls update, so this 
+# is run whenever the repo is installed.
+#
+# Comment out these lines to skip the update.
+
 if File.directory?(File.join(TOPDIR, ".svn"))
   $vcs = :svn
 elsif File.directory?(File.join(TOPDIR, ".git"))
   $vcs = :git
 end
+
+# Load common, useful tasks from Chef.
+# rake -T to see the tasks this loads.
 
 load 'chef/tasks/chef_repo.rake'
