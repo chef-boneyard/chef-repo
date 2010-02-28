@@ -1,1 +1,4 @@
-Create roles here, in either .rb or .json files. Any roles created here win vs those created in the webui.
+Create roles here, in either .rb or .json files. To install roles on the
+server, use knife. We provide an example role here.
+
+knife role from file roles/base_example.rb

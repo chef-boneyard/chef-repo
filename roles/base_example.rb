@@ -1,5 +1,5 @@
 name "base_example"
-description "Base role applied to all nodes."
+description "Example base role applied to all nodes."
 # List of recipes and roles to apply. Requires Chef 0.8, earlier versions use 'recipes()'.
 #run_list()
 

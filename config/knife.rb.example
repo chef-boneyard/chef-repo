@@ -1,0 +1,10 @@
+log_level                :info
+log_location             STDOUT
+node_name                'chef_admin'
+client_key               '/home/chef_admin/.chef/chef_admin.pem'
+validation_client_name   'chef-validator'
+validation_key           '/home/chef_admin/.chef/chef-validator.pem'
+chef_server_url          'http://chef.example.com:4000'
+cache_type               'BasicFile'
+cache_options( :path => '/home/chef_admin/.chef/checksums' )
+cookbook_path [ './cookbooks', './site-cookbooks' ]

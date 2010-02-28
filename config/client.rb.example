@@ -7,16 +7,15 @@
 log_level          :info
 log_location       STDOUT
 ssl_verify_mode    :verify_none
-registration_url   "https://chef.localdomain"
-openid_url         "https://chef.localdomain"
-template_url       "https://chef.localdomain"
-remotefile_url     "https://chef.localdomain"
-search_url         "https://chef.localdomain"
-role_url           "https://chef.localdomain"
+chef_server_url    "http://chef.example.com:4000"
+
+validation_client_name "chef-validator"
+validation_key         "/etc/chef/validation.pem"
+client_key             "/etc/chef/client.pem"
 
 file_store_path    "/srv/chef/file_store"
 file_cache_path    "/srv/chef/cache"
 
 pid_file           "/var/run/chef/chef-client.pid"
 
-Chef::Log::Formatter.show_time = true
+Mixlib::Log::Formatter.show_time = true
