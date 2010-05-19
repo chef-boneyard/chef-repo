@@ -1,2 +1,2 @@
-This directory contains cookbooks that modify upstream ones,
+This directory contains cookbooks that modify upstream ones in cookbooks/,
 or that are specific to your site.

@@ -1,1 +1,3 @@
-This directory contains certificates created by the Rakefile.
+Creating SSL certificates is a common task done in web application
+infrastructures, so a rake task is provided to generate certificates.
+These certificates are stored here by the ssl_cert task.

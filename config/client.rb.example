@@ -1,7 +1,7 @@
 #
 # Example Chef Client Config File
 #
-# We recommend using Opscode's chef cookbook for managing chef itself,
+# Use Opscode's chef cookbook for managing chef itself,
 # instead of using this file. It is provided as an example.
 
 log_level          :info

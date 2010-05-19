@@ -1,3 +1,5 @@
+# This file provided as an example. Run 'knife configure' to generate a
+# config file for your local user.
 log_level                :info
 log_location             STDOUT
 node_name                'chef_admin'
