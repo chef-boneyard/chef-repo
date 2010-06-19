@@ -1,12 +1,18 @@
-# This file provided as an example. Run 'knife configure' to generate a
-# config file for your local user.
+# This file is provided as an example when using the Opscode Platform
+# as the Chef Server. You were prompted to download a config file
+# when you signed up for the Opscode Platform that looks like this.
+#
+# Replace USERNAME with your Opscode username and ORGNAME
+# with your Opscode Platform organization name.
+#
+current_dir = File.dirname(__FILE__)
 log_level                :info
 log_location             STDOUT
-node_name                'chef_admin'
-client_key               '/home/chef_admin/.chef/chef_admin.pem'
-validation_client_name   'chef-validator'
-validation_key           '/home/chef_admin/.chef/chef-validator.pem'
-chef_server_url          'http://chef.example.com:4000'
+node_name                "USERNAME"
+client_key               "#{current_dir}/USERNAME.pem"
+validation_client_name   "ORGANIZATION-validator"
+validation_key           "#{current_dir}/ORGANIZATION-validator.pem"
+chef_server_url          "https://api.opscode.com/organizations/ORGANIZATION"
 cache_type               'BasicFile'
-cache_options( :path => '/home/chef_admin/.chef/checksums' )
-cookbook_path [ './cookbooks', './site-cookbooks' ]
+cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+cookbook_path            ["#{current_dir}/../cookbooks"]

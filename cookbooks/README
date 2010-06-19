@@ -1,1 +1,2 @@
-Remove this file to clone an upstream git repository of cookbooks
+Download cookbooks into this directory from the Opscode Cookbooks site
+using knife, or remove this file to clone an upstream Git Repository.
