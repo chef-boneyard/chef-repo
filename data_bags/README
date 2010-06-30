@@ -1,4 +1,8 @@
-Create data bag JSON files in subdirectories by data bag name. Then
+First, create the data bag. Name it whatever you want.
+
+    knife data bag create BAG
+
+Next, create data bag JSON files in subdirectories by data bag name. Then
 upload the items to the Chef Server with knife:
 
     knife data bag from file BAG FILE
@@ -11,3 +15,7 @@ For example, create a bag named 'apps' with an item named 'instiki':
 Then upload it to the server:
 
     knife data bag from file apps instiki.json
+
+For more information about data bags, see the Chef wiki.
+
+http://wiki.opscode.com/display/chef/Data+Bags
