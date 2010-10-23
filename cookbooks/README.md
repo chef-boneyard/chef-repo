@@ -1,6 +1,17 @@
 This directory contains the cookbooks used to configure systems in your infrastructure with Chef.
 
-Configure knife to use your preferred copyright holder, email contact and license. Add the following lines to `~/chef-repo/.chef/knife.rb`.
+Knife needs to be configured to know where the cookbooks are located with the `cookbook_path` setting. If this is not set, then several cookbook operations will fail to work properly.
+
+    cookbook_path ["./cookbooks"]
+
+This setting tells knife to look for the cookbooks directory in the present working directory. This means the knife cookbook subcommands need to be run in the `chef-repo` directory itself. To make sure that the cookbooks can be found elsewhere inside the repository, use an absolute path. This is a Ruby file, so something like the following can be used:
+
+    current_dir = File.dirname(__FILE__)
+    cookbook_path ["#{current_dir}/../cookbooks"]
+
+Which will set `current_dir` to the location of the knife.rb file itself (e.g. `~/chef-repo/.chef/knife.rb`).
+
+Configure knife to use your preferred copyright holder, email contact and license. Add the following lines to `.chef/knife.rb`.
 
     cookbook_copyright "Example, Com."
     cookbook_email     "cookbooks@example.com"
