@@ -1,0 +1,200 @@
+{
+  "attributes": {
+    "accounts\/sudo": {
+      "type": "hash",
+      "description": "Hash of attributes",
+      "multiple_values": false,
+      "display_name": "Sudo Account Management",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default\/do_ssh": {
+      "default": "true",
+      "type": "string",
+      "description": "By default manage SSH files",
+      "multiple_values": false,
+      "display_name": "Account Default SSH setting",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/sudo\/groups": {
+      "default": "",
+      "type": "array",
+      "description": "Groups who are allowed sudo ALL",
+      "multiple_values": false,
+      "display_name": "Sudo Groups",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default": {
+      "type": "hash",
+      "description": "Default Settings",
+      "multiple_values": false,
+      "display_name": "Accounts Defaults",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default\/file_backup": {
+      "default": "2",
+      "type": "string",
+      "description": "Number of files to keep as backup when copying files in place",
+      "multiple_values": false,
+      "display_name": "Account File backups",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/sudo\/users": {
+      "default": "",
+      "type": "array",
+      "description": "Users who are allowed to sudo ALL",
+      "multiple_values": false,
+      "display_name": "Sudo users",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts": {
+      "type": "hash",
+      "description": "Hash of Accounts attributes",
+      "multiple_values": false,
+      "display_name": "Accounts Hash",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default\/shell": {
+      "default": "\/bin\/bash",
+      "type": "string",
+      "description": "Path to shell set during account creation when none is explicitly provided",
+      "multiple_values": false,
+      "display_name": "Account Default Shell",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default\/group": {
+      "default": "users",
+      "type": "string",
+      "description": "Default unix group to use when none is explicitly provided",
+      "multiple_values": false,
+      "display_name": "Account Default Group",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/cookbook": {
+      "default": "accounts",
+      "type": "string",
+      "description": "The name of the cookbook where the files for each account are stored",
+      "multiple_values": false,
+      "display_name": "cookbook that contains the per account files",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/dir": {
+      "default": "\/home",
+      "type": "string",
+      "description": "Default Home Directory for Accounts",
+      "multiple_values": false,
+      "display_name": "Accounts Directory",
+      "recipes": [
+
+      ],
+      "required": false
+    },
+    "accounts\/default\/do_sudo": {
+      "default": "false",
+      "type": "string",
+      "description": "By default enable sudo access",
+      "multiple_values": false,
+      "display_name": "Account Default sudo setting",
+      "recipes": [
+
+      ],
+      "required": false
+    }
+  },
+  "recommendations": {
+
+  },
+  "maintainer_email": "sander@vanzoest.com",
+  "recipes": {
+    "accounts::apps": "Shortcut for Application Specific Role accounts",
+    "accounts::sysadmins": "Shortcut for loading all system administrator accounts",
+    "accounts": "",
+    "accounts": "Generic Account Setup, users can be added via definition",
+    "accounts::staff": "Shortcut for loading all staff accounts"
+  },
+  "suggestions": {
+
+  },
+  "name": "accounts",
+  "license": "Apache 2.0",
+  "version": "0.1.0",
+  "conflicting": {
+    "sudo": [
+
+    ]
+  },
+  "description": "System Accounts management",
+  "providing": {
+    "accounts::apps": [
+
+    ],
+    "accounts::sysadmins": [
+
+    ],
+    "accounts": [
+
+    ],
+    "accounts::staff": [
+
+    ],
+    "agroup(:group, :sudo)": [
+
+    ],
+    "account(:user, :group, :ssh, :sudo)": [
+
+    ]
+  },
+  "replacing": {
+    "sudo": [
+
+    ]
+  },
+  "long_description": "= DESCRIPTION:\n\n  This cookbook combines system account management for different services under a single interface.\n  It currently manages users, groups and the associate ssh and sudo settings.\n\n  It provides the following definitions:\n\n  - account\n\n  - agroup\n\n  It uses the cookbook files directory for all the files used for each account (ssh, etc.), which could be a symlink, \n  git submodule or however you would like to manage that data.\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n  include_recipe \"accounts\"\n\n  # optionally set node[:accounts][:cookbook] to the cookbook that contains the config files\n\n  account \"role\" do\n    uid \"700\"\n    account_type \"role\"\n    comment \"Role Account\"\n    ssh false\n    sudo true\n  end\n  \n  agroup \"users\" do\n    gid \"100\"\n    sudo true\n  end\n",
+  "dependencies": {
+
+  },
+  "platforms": {
+    "ubuntu": [
+
+    ],
+    "centos": [
+
+    ],
+    "debian": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "maintainer": "Sander van Zoest"
+}
