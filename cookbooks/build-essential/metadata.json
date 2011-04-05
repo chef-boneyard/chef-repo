@@ -1,23 +1,24 @@
 {
-  "license": "Apache 2.0",
-  "recipes": {
-    "build-essential": ""
+  "providing": {
   },
-  "conflicting": {
-
+  "license": "Apache 2.0",
+  "maintainer": "Opscode, Inc.",
+  "replacing": {
+  },
+  "maintainer_email": "cookbooks@opscode.com",
+  "groupings": {
+  },
+  "description": "Installs C compiler / build tools",
+  "version": "0.7.0",
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "recipes": {
+  },
+  "suggestions": {
   },
   "dependencies": {
-
-  },
-  "providing": {
-    "build-essential": [
-
-    ]
-  },
-  "long_description": "",
-  "description": "Installs C compiler \/ build tools",
-  "replacing": {
-
   },
   "platforms": {
     "debian": [
@@ -30,17 +31,8 @@
 
     ]
   },
-  "version": "0.7.0",
-  "maintainer": "Opscode, Inc.",
-  "recommendations": {
-
-  },
   "name": "build-essential",
-  "maintainer_email": "cookbooks@opscode.com",
-  "attributes": {
-
-  },
-  "suggestions": {
-
+  "long_description": "",
+  "conflicting": {
   }
 }

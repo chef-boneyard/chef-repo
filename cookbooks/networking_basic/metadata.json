@@ -1,35 +1,35 @@
 {
-    "version": "0.0.2",
-    "maintainer": "fredz",
-    "replacing": {
-    },
-    "description": "Install Basic Netwoking Tools ans Utilities on Debian5 and Ubuntu10",
-    "recipes": {
-    },
-    "maintainer_email": "fred@frederico-araujo.com",
-    "groupings": {
-    },
-    "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
-    "attributes": {
-    },
-    "recommendations": {
-    },
-    "dependencies": {
-    },
-    "suggestions": {
-    },
-    "conflicting": {
-    },
-    "license": "Apache 2.0",
-    "name": "networking_basic",
-    "providing": {
-    },
-    "platforms": {
-      "debian": [
+  "providing": {
+  },
+  "license": "Apache 2.0",
+  "maintainer": "fredz",
+  "replacing": {
+  },
+  "maintainer_email": "fred@frederico-araujo.com",
+  "groupings": {
+  },
+  "description": "Install Basic Netwoking Tools ans Utilities on Debian5 and Ubuntu10",
+  "version": "0.0.2",
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "recipes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+    "debian": [
 
-      ],
-      "ubuntu": [
+    ],
+    "ubuntu": [
 
-      ]
-    }
+    ]
+  },
+  "name": "networking_basic",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "conflicting": {
   }
+}
