@@ -1,4 +1,4 @@
 <% @ports.each do |port| %>
-# Port <%= @port %> 
+# Port <%= port %> 
 -A FWR -p tcp -m tcp --dport <%= port %> -j ACCEPT
 <% end %>
