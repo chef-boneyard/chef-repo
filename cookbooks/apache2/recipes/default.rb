@@ -62,7 +62,7 @@ if platform?("centos", "redhat", "fedora", "suse", "arch")
     mode 0755
     action :create
   end
-  
+
   cookbook_file "/usr/local/bin/apache2_module_conf_generate.pl" do
     source "apache2_module_conf_generate.pl"
     mode 0755
@@ -78,24 +78,24 @@ if platform?("centos", "redhat", "fedora", "suse", "arch")
       action :create
     end
   end
-    
+
   execute "generate-module-list" do
-    if node[:kernel][:machine] == "x86_64" 
+    if node[:kernel][:machine] == "x86_64"
       libdir = value_for_platform("arch" => { "default" => "lib" }, "default" => "lib64")
-    else 
+    else
       libdir = "lib"
     end
     command "/usr/local/bin/apache2_module_conf_generate.pl /usr/#{libdir}/httpd/modules /etc/httpd/mods-available"
     action :run
   end
-  
+
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
       mode 0755
       owner "root"
       group "root"
-    end  
+    end
   end
 
   # installed by default on centos/rhel, remove in favour of mods-enabled
@@ -107,7 +107,7 @@ if platform?("centos", "redhat", "fedora", "suse", "arch")
     action :delete
     backup false
   end
-  
+
   # welcome page moved to the default-site.rb temlate
   file "#{node[:apache][:dir]}/conf.d/welcome.conf" do
     action :delete
@@ -210,10 +210,8 @@ end
 
 if node.recipe? "iptables"
   include_recipe "iptables"
-  node[:apache][:listen_ports].each do :listen_port
-    iptables_rule "port_apache" do
-      variables :port => :listen_port
-      enable true
-    end
+  iptables_rule "port_apache" do
+    variables :port => node[:apache][:listen_ports]
+    enable true
   end
 end
