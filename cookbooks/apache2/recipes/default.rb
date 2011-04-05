@@ -207,3 +207,10 @@ apache_site "default" if platform?("centos", "redhat", "fedora")
 service "apache2" do
   action :start
 end
+
+if node.recipe? "iptables"
+  include_recipe "iptables"
+  iptables_rule "port_apache" do
+    enable true
+  end
+end
