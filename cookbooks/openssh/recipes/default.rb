@@ -52,7 +52,7 @@ service "ssh" do
   action [ :enable, :start ]
 end
 
-if node.run_list.include? "iptables"
+if node.recipe? "iptables"
   include_recipe "iptables"
   iptables_rule "port_ssh" do
     enable true
