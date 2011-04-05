@@ -211,7 +211,7 @@ end
 if node.recipe? "iptables"
   include_recipe "iptables"
   iptables_rule "port_apache" do
-    variables :port => node[:apache][:listen_ports]
+    variables :ports => node[:apache][:listen_ports]
     enable true
   end
 end
