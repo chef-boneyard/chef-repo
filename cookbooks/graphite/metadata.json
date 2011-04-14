@@ -1,0 +1,41 @@
+{
+  "name": "graphite",
+  "description": "Installs/Configures graphite",
+  "long_description": "= DESCRIPTION:\n\nInstalls and configures Graphite http://graphite.wikidot.com/\n\n= REQUIREMENTS:\n\nUbuntu 10.04 (Lucid)\n\n= ATTRIBUTES:\n\n= USAGE:\n\nrecipe[graphite] should build a stand-alone Graphite installation.\n\nrecipe[graphite::ganglia] integrates with Ganglia. You'll want at\nleast one monitor node (i.e. recipe[ganglia]) node to be running\nto use it.\n\n= CAVEATS:\n\nI didn't see an easy way to set Graphite's credentials easily.\nI set those to root/root with an email address going no where.\n\nShips with two default schemas, stats.* (for Etsy's statsd) and a\ncatchall that matches anything. The catchall retains minutely data for\n13 months, as in the default config. stats retains data every 10 seconds\nfor 6 hours, every minute for a week, and every 10 minutes for 5 years.\n",
+  "maintainer": "Heavy Water Software Inc.",
+  "maintainer_email": "darrin@heavywater.ca",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": [
+
+    ]
+  },
+  "dependencies": {
+    "python": [
+
+    ],
+    "apache2": [
+
+    ],
+    "ganglia": [
+
+    ]
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.5"
+}
