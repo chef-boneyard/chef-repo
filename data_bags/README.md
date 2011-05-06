@@ -1,5 +1,6 @@
 Data Bags
 ---------
+
 This directory contains directories of the various data bags you create for your infrastructure. Each subdirectory corresponds to a data bag on the Chef Server, and contains JSON files of the items that go in the bag.
 
 First, create a directory for the data bag.
@@ -27,6 +28,7 @@ Then upload the items in the data bag's directory to the Chef Server.
 
 Encrypted Data Bags
 -------------------
+
 Added in Chef 0.10, encrypted data bags allow you to encrypt the contents of your data bags. The content of attributes will no longer be searchable. To use encrypted data bags, first you must have or create a secret key.
 
     openssl rand -base64 512 > secret_key
