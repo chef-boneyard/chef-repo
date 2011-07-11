@@ -6,21 +6,11 @@
   "maintainer_email": "cookbooks@opscode.com",
   "license": "Apache 2.0",
   "platforms": {
-    "redhat": [
-
-    ],
-    "centos": [
-
-    ],
-    "debian": [
-
-    ],
-    "ubuntu": [
-
-    ],
-    "arch": [
-
-    ]
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "arch": ">= 0.0.0"
   },
   "dependencies": {
   },
@@ -496,5 +486,5 @@
     "apache2::mod_ssl": "Apache module 'ssl' with config file, adds port 443 to listen_ports",
     "apache2::mod_status": "Apache module 'status' with config file"
   },
-  "version": "0.99.3"
+  "version": "0.99.4"
 }
