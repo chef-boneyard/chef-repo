@@ -17,7 +17,7 @@ Configure knife to use your preferred copyright holder, email contact and licens
     cookbook_email     "cookbooks@example.com"
     cookbook_license   "apachev2"
 
-Supported values for `cookbook_license` are "apachev2" or "none". These settings are used to prefill comments in the default recipe, and the corresponding values in the metadata.rb. You are free to change these in those files.
+Supported values for `cookbook_license` are "apachev2", "mit","gplv2","gplv3",  or "none". These settings are used to prefill comments in the default recipe, and the corresponding values in the metadata.rb. You are free to change the the comments in those files.
 
 Create new cookbooks in this directory with Knife.
 
@@ -29,7 +29,7 @@ You can also download cookbooks directly from the Opscode Cookbook Site. There a
 
 The first and recommended method is to use a vendor branch if you're using Git. This is automatically handled with Knife.
 
-    knife cookbook site vendor COOKBOOK
+    knife cookbook site install COOKBOOK
 
 This will:
 
@@ -43,6 +43,7 @@ This will:
 * Creates a tag for the version downloaded.
 * Checks out the master branch again.
 * Merges the cookbook into master.
+* Repeats the above for all the cookbooks dependencies, downloading them from the community site
 
 The last step will ensure that any local changes or modifications you have made to the cookbook are preserved, so you can keep your changes through upstream updates.
 
