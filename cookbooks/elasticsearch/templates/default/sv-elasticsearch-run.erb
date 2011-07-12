@@ -1,0 +1,11 @@
+#!/bin/bash
+
+exec 2>&1
+
+<%= "ulimit -n #{@node[:elasticsearch][:fd_ulimit]}" if @node[:elasticsearch][:fd_ulimit] %>
+
+ES_HOME=<%= @node[:elasticsearch][:home] %>
+
+. /etc/elasticsearch/elasticsearch.in.sh
+
+exec chpst -u elasticsearch java $JAVA_OPTS $ES_JAVA_OPTS -Delasticsearch -Des.path.home=$ES_HOME -Des-foreground=yes -cp $CLASSPATH org.elasticsearch.bootstrap.Bootstrap
