@@ -12,14 +12,6 @@ path:
 cluster:
   name: <%= @node[:elasticsearch][:cluster_name] %>
 
-discovery:
-  zen:
-    ping:
-      multicast:
-        enabled: false
-      unicast:
-        hosts: <%= @node[:elasticsearch][:seeds].collect { |e| "#{e}[9300-9400]" }.join(",") %>
-
 gateway:
 <% if @aws && @node[:elasticsearch][:s3_gateway_bucket]-%>
   type: cloud
