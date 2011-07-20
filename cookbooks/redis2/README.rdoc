@@ -1,0 +1,24 @@
+= DESCRIPTION:
+This cookbooks installs Redis 2 key-value datastore server. Redis can be installed from packages (where available) or source.
+
+= REQUIREMENTS:
+For compiling from source: build-essential
+
+= ATTRIBUTES: 
+[:redis][:install_from] - _package_ to install from distro packages, any other value to install from source.
+
+= USAGE:
+This cookbook implements redis instances as a definition. If you plan to run only one instance, use the +redis::default_instance+ recipe which call a "redis_default" +redis_instance+.
+To spawn instances of redis, use the +redis_instance+ definition, usage is pretty straight forward:
+<tt>
+redis_instance "datastore" do
+  port 8866
+  data_dir "/mnt/redis/datastore"
+  master master_node
+end
+</tt>
+
+_port_, <em>data_dir</em> and _master_ are the only attributes directly configurable using the definition syntax. Other attributes can be configured using the normal attribute interface under the <tt>node[:redis][:instances][<em>instance_name</em>]</tt> scope. Missing attributes will be merged from <tt>node[:redis][:instances][:default]</tt>
+
+The _master_ attribute will set up redis as a slave of a the same redis instance on another server. It will not set node[:redis][:instances][<em>instance_name</em>][:replication][:role]</tt> (which can be _slave_ or _master_), because redis can be both at the same time (e.g. chained masters).
+
