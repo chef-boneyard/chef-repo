@@ -8,6 +8,7 @@ cloud:
 path:
   work: /var/lib/elasticsearch/work
   logs: /var/log/elasticsearch
+  data: <%= @node[:elasticsearch][:datadir] %>
 
 cluster:
   name: <%= @node[:elasticsearch][:cluster_name] %>
