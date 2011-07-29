@@ -1,22 +1,28 @@
 #
-# Author:: Joshua Timberman <joshua@opscode.com>
-# Cookbook Name:: couchdb
-# Attributes:: couchdb
+# Cookbook Name:: redis
+# Attributes:: default
 #
-# Copyright 2010, Opscode, Inc
+# Copyright 2010, Atari, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+# 
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-set['couch_db']['src_checksum'] = "6ef82a7ba0f132d55af7cc78b30658d5b3a4f7be3f449308c8d7fa2ad473677c"
-set['couch_db']['src_version'] = "1.1.0"
-set['couch_db']['src_mirror']  = "http://archive.apache.org/dist/couchdb/#{node['couch_db']['src_version']}/apache-couchdb-#{node['couch_db']['src_version']}.tar.gz"
+default[:redis][:listen_addr] = "127.0.0.1"
+default[:redis][:listen_port] = "6379"
+default[:redis][:appendonly] = "no"
+default[:redis][:appendfsync] = "everysec"
+default[:redis][:vm][:enabled] = "no"
+default[:redis][:vm][:max_memory] = "0"
+default[:redis][:vm][:page_size] = "32"
+default[:redis][:vm][:pages] = "134217728"
+default[:redis][:vm][:max_threads] = "4"

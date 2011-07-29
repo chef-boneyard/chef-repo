@@ -1,5 +1,6 @@
-set_unless[:elasticsearch][:version] = "0.8.0"
+set_unless[:elasticsearch][:version] = "0.17.1"
 set_unless[:elasticsearch][:checksum] = '67a5b6240c27db666b5d2b48cdc26b91d64e8f2e950c6383273e47a6f4020da4'
+set_unless[:elasticsearch][:datadir] = '/var/lib/elasticsearch/data'
 
 set_unless[:elasticsearch][:cluster_name] = "default"
 
