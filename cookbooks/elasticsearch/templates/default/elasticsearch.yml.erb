@@ -6,8 +6,8 @@ cloud:
 <% end -%>
 
 path:
-  work: /var/lib/elasticsearch/work
-  logs: /var/log/elasticsearch
+  work: <%= @node["elasticsearch"]["path_work"] %>
+  logs: <%= @node["elasticsearch"]["path_logs"] %>
   data: <%= @node[:elasticsearch][:datadir] %>
 
 cluster:
@@ -22,9 +22,17 @@ gateway:
 <% else -%>
   type: fs
   fs:
-    location: /var/lib/elasticsearch/gateway
+    location: <%= @node[:elasticsearch][:gateway_fs_location] %>
 <% end -%>
+  recover_after_nodes: <%= @node[:elasticserach][:recovery_after_nodes] %>
+  recover_after_time: 5m
+  expected_nodes: 2
 
 index:
   number_of_shards: <%= @node[:elasticsearch][:default_shards] %>
   number_of_replicas: <%= @node[:elasticsearch][:default_replicas] %>
+
+http:
+  enabled: <%= @node[:elasticsearch][:http_enabled] %>
+node:
+  data: <%= @node[:elasticsearch][:node_data] %>
