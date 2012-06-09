@@ -1,0 +1,44 @@
+{
+  "providing": {
+  },
+  "license": "Apache 2.0",
+  "maintainer": "Heavy Water Software Inc.",
+  "replacing": {
+  },
+  "maintainer_email": "darrin@heavywater.ca",
+  "groupings": {
+  },
+  "description": "Installs/Configures ganglia",
+  "version": "0.0.2",
+  "recommendations": {
+  },
+  "attributes": {
+  },
+  "recipes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "ubuntu": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "name": "ganglia",
+  "long_description": "= DESCRIPTION:\n\nInstalls and configures Ganglia.\n\nhttp://ganglia.sourceforge.net/\n\n= REQUIREMENTS:\n\n* SELinux must be disabled on CentOS\n* iptables must allow access to port 80\n\n= ATTRIBUTES:\n\n= USAGE:\n\nA run list with \"recipe[ganglia]\" enables monitoring.\nA run list with \"recipe[ganglia::web]\" enables the web interface.\n\n= CAVEATS: \n\nThis cookbook has been tested on Ubuntu 10.04 and Centos 5.5.\n\nSearch seems to takes a moment or two to index.\nYou may need to converge again to see recently added nodes.\n",
+  "conflicting": {
+  }
+}

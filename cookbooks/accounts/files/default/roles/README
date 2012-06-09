@@ -1,0 +1,7 @@
+This is where the files for a role account live.
+
+
+roles/<account> - where to store files for that particular role account
+  `-> ssh - directory for files you want copied into ~<account>/.ssh
+
+This can be extended to copy other user config files and/or account specific dependencies (vim, emacs, etc.)

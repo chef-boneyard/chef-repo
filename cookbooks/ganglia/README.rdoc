@@ -1,0 +1,24 @@
+= DESCRIPTION:
+
+Installs and configures Ganglia.
+
+http://ganglia.sourceforge.net/
+
+= REQUIREMENTS:
+
+* SELinux must be disabled on CentOS
+* iptables must allow access to port 80
+
+= ATTRIBUTES:
+
+= USAGE:
+
+A run list with "recipe[ganglia]" enables monitoring.
+A run list with "recipe[ganglia::web]" enables the web interface.
+
+= CAVEATS: 
+
+This cookbook has been tested on Ubuntu 10.04 and Centos 5.5.
+
+Search seems to takes a moment or two to index.
+You may need to converge again to see recently added nodes.
