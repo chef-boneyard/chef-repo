@@ -1,0 +1,30 @@
+<% if @aws -%>
+cloud: 
+  account: <%= @aws['aws_access_key_id'] %>
+  key: <%= @aws['aws_secret_access_key'] %>
+  type: amazon
+<% end -%>
+
+path:
+  work: /var/lib/elasticsearch/work
+  logs: /var/log/elasticsearch
+  data: <%= @node[:elasticsearch][:datadir] %>
+
+cluster:
+  name: <%= @node[:elasticsearch][:cluster_name] %>
+
+gateway:
+<% if @aws && @node[:elasticsearch][:s3_gateway_bucket]-%>
+  type: cloud
+  cloud:
+    container: <%= @node[:elasticsearch][:s3_gateway_bucket] %>
+    chunk_size: 1g # workaround for bug where chunk size is limited to 2g but default is 4g
+<% else -%>
+  type: fs
+  fs:
+    location: /var/lib/elasticsearch/gateway
+<% end -%>
+
+index:
+  number_of_shards: <%= @node[:elasticsearch][:default_shards] %>
+  number_of_replicas: <%= @node[:elasticsearch][:default_replicas] %>

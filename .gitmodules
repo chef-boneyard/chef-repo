@@ -1,0 +1,3 @@
+[submodule "site-cookbooks"]
+	path = site-cookbooks
+	url = git@ops.cybyl.com:chef-site
