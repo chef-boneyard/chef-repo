@@ -223,3 +223,12 @@
 [submodule "cookbooks/windows"]
 	path = cookbooks/windows
 	url = git://github.com/opscode-cookbooks/windows
+[submodule "cookbooks/sysfs"]
+	path = cookbooks/sysfs
+	url = git://github.com/Youscribe/sysfs-cookbook.git
+[submodule "cookbooks/cpu"]
+	path = cookbooks/cpu
+	url = git://github.com/Youscribe/cpu-cookbook.git
+[submodule "cookbooks/modules"]
+	path = cookbooks/modules
+	url = git://github.com/Youscribe/modules-cookbook.git
