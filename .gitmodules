@@ -220,3 +220,6 @@
 [submodule "cookbooks/ohai"]
 	path = cookbooks/ohai
 	url = git://github.com/maoy/cookbook-ohai-inception.git
+[submodule "cookbooks/windows"]
+	path = cookbooks/windows
+	url = git://github.com/opscode-cookbooks/windows
