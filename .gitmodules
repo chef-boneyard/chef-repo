@@ -1,0 +1,222 @@
+[submodule "cookbooks/curl"]
+	path = cookbooks/curl
+	url = git://github.com/retr0h/cookbook-curl.git
+[submodule "cookbooks/dstat"]
+	path = cookbooks/dstat
+	url = git://github.com/retr0h/cookbook-dstat.git
+[submodule "cookbooks/ethtool"]
+	path = cookbooks/ethtool
+	url = git://github.com/retr0h/cookbook-ethtool.git
+[submodule "cookbooks/iotop"]
+	path = cookbooks/iotop
+	url = git://github.com/retr0h/cookbook-iotop.git
+[submodule "cookbooks/iperf"]
+	path = cookbooks/iperf
+	url = git://github.com/retr0h/cookbook-iperf.git
+[submodule "cookbooks/lldpd"]
+	path = cookbooks/lldpd
+	url = git://github.com/retr0h/cookbook-lldpd.git
+[submodule "cookbooks/ltrace"]
+	path = cookbooks/ltrace
+	url = git://github.com/retr0h/cookbook-ltrace.git
+[submodule "cookbooks/mtr"]
+	path = cookbooks/mtr
+	url = git://github.com/retr0h/cookbook-mtr.git
+[submodule "cookbooks/netcat"]
+	path = cookbooks/netcat
+	url = git://github.com/retr0h/cookbook-netcat.git
+[submodule "cookbooks/smem"]
+	path = cookbooks/smem
+	url = git://github.com/retr0h/cookbook-smem.git
+[submodule "cookbooks/socat"]
+	path = cookbooks/socat
+	url = git://github.com/retr0h/cookbook-socat.git
+[submodule "cookbooks/sysstat"]
+	path = cookbooks/sysstat
+	url = git://github.com/retr0h/cookbook-sysstat.git
+[submodule "cookbooks/tree"]
+	path = cookbooks/tree
+	url = git://github.com/retr0h/cookbook-tree.git
+[submodule "cookbooks/git"]
+	path = cookbooks/git
+	url = git://github.com/opscode-cookbooks/git.git
+[submodule "cookbooks/screen"]
+	path = cookbooks/screen
+	url = git://github.com/opscode-cookbooks/screen.git
+[submodule "cookbooks/rsync"]
+	path = cookbooks/rsync
+	url = git://github.com/opscode-cookbooks/rsync.git
+[submodule "cookbooks/chef-client"]
+	path = cookbooks/chef-client
+	url = git://github.com/opscode-cookbooks/chef-client.git
+[submodule "cookbooks/chef_handler"]
+	path = cookbooks/chef_handler
+	url = git://github.com/opscode-cookbooks/chef_handler.git
+[submodule "cookbooks/users"]
+	path = cookbooks/users
+	url = git://github.com/opscode-cookbooks/users.git
+[submodule "cookbooks/sudo"]
+	path = cookbooks/sudo
+	url = git://github.com/opscode-cookbooks/sudo.git
+[submodule "cookbooks/apt"]
+	path = cookbooks/apt
+	url = git://github.com/opscode-cookbooks/apt.git
+[submodule "cookbooks/runit"]
+	path = cookbooks/runit
+	url = git://github.com/opscode-cookbooks/runit.git
+[submodule "cookbooks/yum"]
+	path = cookbooks/yum
+	url = git://github.com/opscode-cookbooks/yum.git
+[submodule "cookbooks/dmg"]
+	path = cookbooks/dmg
+	url = git://github.com/opscode-cookbooks/dmg.git
+[submodule "cookbooks/apache2"]
+	path = cookbooks/apache2
+	url = git://github.com/opscode-cookbooks/apache2.git
+[submodule "cookbooks/build-essential"]
+	path = cookbooks/build-essential
+	url = git://github.com/opscode-cookbooks/build-essential.git
+[submodule "cookbooks/php"]
+	path = cookbooks/php
+	url = git://github.com/opscode-cookbooks/php.git
+[submodule "cookbooks/nginx"]
+	path = cookbooks/nginx
+	url = git://github.com/opscode-cookbooks/nginx.git
+[submodule "cookbooks/perl"]
+	path = cookbooks/perl
+	url = git://github.com/opscode-cookbooks/perl.git
+[submodule "cookbooks/bluepill"]
+	path = cookbooks/bluepill
+	url = git://github.com/opscode-cookbooks/bluepill.git
+[submodule "cookbooks/xml"]
+	path = cookbooks/xml
+	url = git://github.com/opscode-cookbooks/xml.git
+[submodule "cookbooks/mysql"]
+	path = cookbooks/mysql
+	url = git://github.com/opscode-cookbooks/mysql.git
+[submodule "cookbooks/openssl"]
+	path = cookbooks/openssl
+	url = git://github.com/opscode-cookbooks/openssl.git
+[submodule "cookbooks/rsyslog"]
+	path = cookbooks/rsyslog
+	url = git://github.com/opscode-cookbooks/rsyslog.git
+[submodule "cookbooks/java"]
+	path = cookbooks/java
+	url = git://github.com/opscode-cookbooks/java.git
+[submodule "cookbooks/sysctl"]
+	path = cookbooks/sysctl
+	url = git://github.com/onehealth-cookbooks/sysctl.git
+[submodule "cookbooks/ntp"]
+	path = cookbooks/ntp
+	url = git://github.com/opscode-cookbooks/ntp.git
+[submodule "cookbooks/openssh"]
+	path = cookbooks/openssh
+	url = git://github.com/opscode-cookbooks/openssh.git
+[submodule "cookbooks/vim"]
+	path = cookbooks/vim
+	url = git://github.com/opscode-cookbooks/vim.git
+[submodule "cookbooks/ark"]
+	path = cookbooks/ark
+	url = git://github.com/opscode-cookbooks/ark.git
+[submodule "cookbooks/parted"]
+	path = cookbooks/parted
+	url = git://github.com/retr0h/cookbook-parted.git
+[submodule "cookbooks/maven"]
+	path = cookbooks/maven
+	url = git://github.com/opscode-cookbooks/maven.git
+[submodule "cookbooks/database"]
+	path = cookbooks/database
+	url = git://github.com/opscode-cookbooks/database.git
+[submodule "cookbooks/aws"]
+	path = cookbooks/aws
+	url = git://github.com/opscode-cookbooks/aws.git
+[submodule "cookbooks/postgresql"]
+	path = cookbooks/postgresql
+	url = git://github.com/opscode-cookbooks/postgresql.git
+[submodule "cookbooks/xfs"]
+	path = cookbooks/xfs
+	url = git://github.com/opscode-cookbooks/xfs.git
+[submodule "cookbooks/keystone"]
+	path = cookbooks/keystone
+	url = git://github.com/att-cloud/cookbook-keystone.git
+[submodule "cookbooks/glance"]
+	path = cookbooks/glance
+	url = git://github.com/att-cloud/cookbook-glance.git
+[submodule "cookbooks/horizon"]
+	path = cookbooks/horizon
+	url = git://github.com/att-cloud/cookbook-horizon.git
+[submodule "cookbooks/nova"]
+	path = cookbooks/nova
+	url = git://github.com/att-cloud/cookbook-nova.git
+[submodule "cookbooks/selinux"]
+	path = cookbooks/selinux
+	url = git://github.com/opscode-cookbooks/selinux.git
+[submodule "cookbooks/erlang"]
+	path = cookbooks/erlang
+	url = git://github.com/opscode-cookbooks/erlang.git
+[submodule "cookbooks/swap"]
+	path = cookbooks/swap
+	url = git://github.com/att-cloud/cookbook-swap.git
+[submodule "cookbooks/conserver"]
+	path = cookbooks/conserver
+	url = git://github.com/att-cloud/cookbook-conserver.git
+[submodule "cookbooks/openstack-common"]
+	path = cookbooks/openstack-common
+	url = git://github.com/maoy/cookbook-openstack-common.git
+[submodule "cookbooks/cinder"]
+	path = cookbooks/cinder
+	url = git://github.com/att-cloud/cookbook-cinder.git
+[submodule "cookbooks/python"]
+	path = cookbooks/python
+	url = git://github.com/opscode-cookbooks/python.git
+[submodule "cookbooks/graphite"]
+	path = cookbooks/graphite
+	url = git://github.com/att-cloud/cookbook-graphite.git
+[submodule "cookbooks/diamond"]
+	path = cookbooks/diamond
+	url = git://github.com/att-cloud/cookbook-diamond.git
+[submodule "cookbooks/block-device"]
+	path = cookbooks/block-device
+	url = git://github.com/att-cloud/cookbook-block-device.git
+[submodule "cookbooks/tmux"]
+	path = cookbooks/tmux
+	url = git://github.com/opscode-cookbooks/tmux.git
+[submodule "cookbooks/nagios"]
+	path = cookbooks/nagios
+	url = git://github.com/att-cloud/cookbook-nagios.git
+[submodule "cookbooks/failmail"]
+	path = cookbooks/failmail
+	url = git://github.com/att-cloud/cookbook-failmail.git
+[submodule "cookbooks/bash"]
+	path = cookbooks/bash
+	url = git://github.com/att-cloud/cookbook-bash.git
+[submodule "cookbooks/memcached"]
+	path = cookbooks/memcached
+	url = git://github.com/opscode-cookbooks/memcached.git
+[submodule "cookbooks/mongodb"]
+	path = cookbooks/mongodb
+	url = git://github.com/edelight/chef-mongodb.git
+[submodule "cookbooks/motd-tail"]
+	path = cookbooks/motd-tail
+	url = git://github.com/opscode-cookbooks/motd-tail.git
+[submodule "cookbooks/acct"]
+	path = cookbooks/acct
+	url = git://github.com/retr0h/cookbook-acct.git
+[submodule "cookbooks/tcpspy"]
+	path = cookbooks/tcpspy
+	url = git://github.com/retr0h/cookbook-tcpspy.git
+[submodule "cookbooks/rabbitmq"]
+	path = cookbooks/rabbitmq
+	url = git://github.com/att-cloud/cookbook-rabbitmq.git
+[submodule "cookbooks/cron"]
+	path = cookbooks/cron
+	url = git://github.com/opscode-cookbooks/cron.git
+[submodule "cookbooks/kvm"]
+	path = cookbooks/kvm
+	url = git://github.com/maoy/cookbook-kvm.git
+[submodule "cookbooks/devstack"]
+	path = cookbooks/devstack
+	url = git://github.com/att-cloud/cookbook-devstack.git
+[submodule "cookbooks/openvswitch"]
+	path = cookbooks/openvswitch
+	url = git://github.com/changbl/cookbook-openvswitch.git
