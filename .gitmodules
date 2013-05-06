@@ -220,3 +220,6 @@
 [submodule "cookbooks/openvswitch"]
 	path = cookbooks/openvswitch
 	url = git://github.com/changbl/cookbook-openvswitch.git
+[submodule "cookbooks/ohai"]
+	path = cookbooks/ohai
+	url = git://github.com/maoy/cookbook-ohai-inception.git
