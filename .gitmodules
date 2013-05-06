@@ -22,18 +22,12 @@
 [submodule "cookbooks/mtr"]
 	path = cookbooks/mtr
 	url = git://github.com/retr0h/cookbook-mtr.git
-[submodule "cookbooks/netcat"]
-	path = cookbooks/netcat
-	url = git://github.com/retr0h/cookbook-netcat.git
 [submodule "cookbooks/smem"]
 	path = cookbooks/smem
 	url = git://github.com/retr0h/cookbook-smem.git
 [submodule "cookbooks/socat"]
 	path = cookbooks/socat
 	url = git://github.com/retr0h/cookbook-socat.git
-[submodule "cookbooks/sysstat"]
-	path = cookbooks/sysstat
-	url = git://github.com/retr0h/cookbook-sysstat.git
 [submodule "cookbooks/tree"]
 	path = cookbooks/tree
 	url = git://github.com/retr0h/cookbook-tree.git
