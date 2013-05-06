@@ -232,3 +232,9 @@
 [submodule "cookbooks/modules"]
 	path = cookbooks/modules
 	url = git://github.com/Youscribe/modules-cookbook.git
+[submodule "cookbooks/nginx_simplecgi"]
+	path = cookbooks/nginx_simplecgi
+	url = git://github.com/heavywater/chef-nginx_simplecgi.git
+[submodule "cookbooks/iptables"]
+	path = cookbooks/iptables
+	url = git://github.com/opscode-cookbooks/iptables
