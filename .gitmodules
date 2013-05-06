@@ -157,9 +157,6 @@
 [submodule "cookbooks/swap"]
 	path = cookbooks/swap
 	url = git://github.com/att-cloud/cookbook-swap.git
-[submodule "cookbooks/conserver"]
-	path = cookbooks/conserver
-	url = git://github.com/att-cloud/cookbook-conserver.git
 [submodule "cookbooks/openstack-common"]
 	path = cookbooks/openstack-common
 	url = git://github.com/maoy/cookbook-openstack-common.git
