@@ -1,0 +1,18 @@
+{
+  "name": "openstack-volume-worker-lvm",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "recipe[block-device::lvm]",
+    "recipe[cinder::volume]"
+  ],
+  "description": "A role that exposes the OpenStack Volume service and configures a volume group using an LVM recipe.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

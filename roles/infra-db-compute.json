@@ -1,0 +1,23 @@
+{
+  "name": "infra-db-compute",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[mysql::server]",
+    "recipe[nova::db]"
+  ],
+  "description": "A collection of recipes that sets up Nova database used in an OpenStack availability zone.",
+  "chef_type": "role",
+  "override_attributes": {
+    "mysql": {
+      "tunable": {
+        "character-set-server": "latin1",  // nova db sync handles upgrade to utf8
+        "collation-server": "latin1_general_ci"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "openstack-base",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[openstack-common]"
+  ],
+  "description": "A base role applied to all openstack nodes.",
+  "chef_type": "role",
+  "override_attributes": {
+    "glance": {
+      "rabbit_server_chef_role": "infra-messaging",
+      "keystone_service_chef_role": "openstack-identity"
+    },
+    "cinder": {
+      "rabbit_server_chef_role": "infra-messaging",
+      "keystone_service_chef_role": "openstack-identity",
+      "glance_api_chef_role": "openstack-image-api"
+    },
+    "horizon": {
+      "keystone_service_chef_role": "openstack-identity",
+      "keystone_default_role": "member"
+    },
+    //"rsyslog": {
+    //  "server_search": "role:infra-logging"
+    //},
+    "nova": {
+      "rabbit_server_chef_role": "infra-messaging",
+      "keystone_service_chef_role": "openstack-identity"
+    }
+  }
+}

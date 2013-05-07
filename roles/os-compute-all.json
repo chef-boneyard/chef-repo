@@ -1,0 +1,23 @@
+{
+  "name": "os-compute-all",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[openstack-compute-api]",
+    "role[openstack-compute-api-metadata]",
+    "role[openstack-compute-scheduler]",
+    "recipe[nova::keystone_registration]",
+    //"role[openstack-compute-conductor]",
+    "role[openstack-compute-cert]",
+    "role[openstack-compute-vncproxy]",
+    "role[openstack-compute-network]",
+    "role[openstack-compute-worker]"
+  ],
+  "description": "A role that sets up all nova components.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

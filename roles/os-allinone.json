@@ -1,0 +1,16 @@
+{
+  "name": "os-allinone",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[os-all-but-compute]",
+    "role[os-compute-all]"
+  ],
+  "description": "A role that the single node in all-in-one setup will have.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "openstack-compute-api-native",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "role[infra-caching]",
+    "recipe[nova::nova-setup]", // Runs the initial Nova database and network setups
+    "recipe[nova::api-os-compute]"
+  ],
+  "description": "A role that exposes the OpenStack Compute Native REST API.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

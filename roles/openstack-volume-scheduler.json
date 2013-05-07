@@ -1,0 +1,17 @@
+{
+  "name": "openstack-volume-scheduler",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "recipe[cinder::scheduler]"
+  ],
+  "description": "A role that exposes the OpenStack Volume scheduler service.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

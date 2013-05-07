@@ -1,0 +1,24 @@
+{
+  "name": "os-controller-combined",
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[infra-logging]",
+    "role[infra-messaging]",
+    "role[infra-db-all]",
+    "role[openstack-identity]",
+    "role[openstack-image]",
+    "role[openstack-compute-api]",
+    "role[openstack-compute-scheduler]",
+    "role[openstack-compute-conductor]",
+    "role[openstack-compute-cert]",
+    "role[openstack-compute-vncproxy]",
+    "role[openstack-volume-api]",
+    "role[openstack-volume-scheduler]",
+    "role[openstack-dashboard]"
+  ],
+  "description": "A role for the identity/compute/image/volume controller node.",
+  "chef_type": "role"
+}

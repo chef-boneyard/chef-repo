@@ -1,0 +1,16 @@
+{
+  "name": "infra-db-all",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[infra-db-openstack]",
+    "role[infra-db-identity]"
+  ],
+  "description": "A collection of recipes that sets up all databases used in an OpenStack environment.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

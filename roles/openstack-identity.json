@@ -1,0 +1,16 @@
+{
+  "name": "openstack-identity",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[openstack-identity-api]",
+    "role[openstack-identity-admin-api]"
+  ],
+  "description": "A role that exposes both the OpenStack Identity (Keystone) Service and Admin API.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

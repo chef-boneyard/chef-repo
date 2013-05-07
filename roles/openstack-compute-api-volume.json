@@ -1,0 +1,24 @@
+{
+  "name": "openstack-compute-api-volume",
+  "default_attributes": {
+    "nova": {
+      "keystone_service_chef_role": "openstack-identity-api",
+      "libvirt": {
+        "type": "kvm"
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "role[infra-caching]",
+    "recipe[nova::api-os-volume]"
+  ],
+  "description": "A role that exposes the OpenStack Compute Volume API service. (Incompatible with the Cinder API service).",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

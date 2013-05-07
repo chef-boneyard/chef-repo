@@ -1,0 +1,72 @@
+{
+  "name": "base",
+  "default_attributes": {
+    "motd-tail": {
+      "additional_text": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nThis system is restricted solely to the authorized users for legitimate\nbusiness purposes only.  The actual or attempted unauthorized access,\nuse, or modification of this system is strictly prohibited. Unauthorized\nusers are subject to criminal and civil penalties under state, federal, \nor other applicable domestic and foreign laws.  The use of this system may be\nmonitored and recorded for administrative and security reasons.  Anyone\naccessing this system expressly consents to such monitoring and is\nadvised that if monitoring reveals possible evidence of criminal\nactivity, The provider may provide the evidence of such activity to law\nenforcement officials.\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    "authorization": {
+      "sudo": {
+        "groups": [
+          "sysadmin"
+        ],
+        "agent_forwarding": true,
+        "include_sudoers_d": true,
+        "passwordless": true
+      }
+    },
+    "openssh": {
+      "server": {
+        "password_authentication": "no",
+        "permit_root_login": "no",
+        "print_motd": "no"
+      },
+      "client": {
+        "forward_agent": "yes"
+      }
+    },
+    "chef_client": {
+      "init_style": "none",
+      "cron": {
+        "minute": "*/30",
+        "hour": "*",
+        "log_file": "/tmp/chef-client.out"
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[apt]",
+    "recipe[ohai]",
+    "recipe[bash]",
+    "recipe[chef-client::delete_validation]",
+    "recipe[chef-client::cron]",
+    //"recipe[users::sysadmins]",
+    "recipe[openssh]",
+    "recipe[sudo]",
+    "recipe[motd-tail]",
+    "role[system-tools]",
+    //"role[graphed]",
+    "role[logged]"
+    //"role[audited]",
+    //"role[monitored]"
+  ],
+  "description": "A collection of recipes that ALL nodes in the OpenStack cluster will have. Every non-base role includes this role in its run list.",
+  "chef_type": "role",
+  "override_attributes": {
+    "ntp": {
+      "servers": [
+        "12.129.64.150",
+        "63.240.192.73",
+        "63.240.129.148",
+        "12.130.97.150",
+        "63.241.193.69",
+        "206.19.225.150",
+        "12.129.192.149",
+        "206.19.185.150",
+        "63.240.1.42"
+      ]
+    }
+  }
+}

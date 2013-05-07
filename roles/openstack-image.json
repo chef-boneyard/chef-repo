@@ -1,0 +1,16 @@
+{
+  "name": "openstack-image",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[openstack-image-registry]",
+    "role[openstack-image-api]"
+  ],
+  "description": "A role that exposes both the OpenStack Image (Glance) Registry Service and API.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

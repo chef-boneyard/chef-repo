@@ -1,0 +1,15 @@
+{
+  "name": "logged",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[rsyslog::client]"
+  ],
+  "description": "A collection a recipes that any node that has services logged in some way will have.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}
