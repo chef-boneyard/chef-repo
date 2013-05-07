@@ -1,0 +1,110 @@
+{
+  "name": "${PREFIX}",
+  "description": "All-in-one OpenStack environment.",
+  "cookbook_versions": {
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "rsyslog": {
+        "server_ip": "${PREFIX}-allinone"
+    },
+    "openstack": {
+      "release": "folsom",
+      "endpoints": {
+        "compute-api": {
+          "uri": "http://${PREFIX}-allinone:8774/v2/%(tenant_id)s"
+        },
+        "compute-ec2-admin": {
+          "uri": "http://${PREFIX}-allinone:8773/services/Admin"
+        },
+        "compute-ec2-api": {
+          "uri": "http://${PREFIX}-allinone:8773/services/Cloud"
+        },
+        "compute-xvpvnc": {
+          "uri": "http://${PREFIX}-allinone:6081/console"
+        },
+        "compute-novnc": {
+          "uri": "http://${PREFIX}-allinone:6080/vnc_auto.html"
+        },
+        "image-api": {
+          "uri": "http://${PREFIX}-allinone:9292/v1"
+        },
+        "image-registry": {
+          "uri": "http://${PREFIX}-allinone:9191/v1/"
+        },
+        "identity-api": {
+          "uri": "http://${PREFIX}-allinone:5000/v2.0/"
+        },
+        "identity-admin": {
+          "uri": "http://${PREFIX}-allinone:35357/v2.0/"
+        },
+        "volume-api": {
+          "uri": "http://${PREFIX}-allinone:8776/v1/%(tenant_id)s"
+        }
+      },
+      "db": {
+        "compute": {
+          "host": "${PREFIX}-allinone"
+        },
+        "identity": {
+          "host": "${PREFIX}-allinone"
+        },
+        "image": {
+          "host": "${PREFIX}-allinone"
+        },
+        "volume": {
+          "host": "${PREFIX}-allinone"
+        },
+        "dashboard": {
+          "host": "${PREFIX}-allinone"
+        }
+      }
+    },
+    "queue": {
+      "host": "${PREFIX}-allinone",
+      "port": "5672"
+    },
+    "nova": {
+      "region": "${PREFIX}",
+      "dhcp_domain": "${PREFIX}",
+      "libvirt": {
+        "virt_type": "kvm",
+        "bind_interface": "eth0"
+      },
+      "novnc_proxy": {
+        "bind_interface": "eth0"
+      },
+      "config": {
+        "availability_zone": "zone0",
+        "default_schedule_zone": "zone0",
+        "storage_availability_zone": "zone0"
+      },
+      "networks": [
+        {
+          "label": "private",
+          "ipv4_cidr": "10.254.0.0/24",
+          "bridge": "br100"
+        }
+      ],
+      "network": {
+        "flat_interface": "eth0",
+        "network_manager": "nova.network.manager.FlatDHCPManager",
+        "fixed_range": "10.254.0.0/16",
+        "public_interface": "br100"
+      }
+    },
+    "glance": {
+      "region": "${PREFIX}"
+    },
+    "keystone": {
+      "region": "${PREFIX}",
+      "bind_interface": "eth0"
+    },
+    "cinder": {
+      "region": "${PREFIX}"
+    }
+  }
+}
