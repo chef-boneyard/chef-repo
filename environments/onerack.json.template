@@ -105,6 +105,10 @@
     },
     "cinder": {
       "region": "${PREFIX}"
+    },
+    "block-device": {
+      "volume_name": "cinder-volumes",
+      "devices": ["/dev/vdb"]
     }
   }
 }
