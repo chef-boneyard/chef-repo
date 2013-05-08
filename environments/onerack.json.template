@@ -85,7 +85,7 @@
       "networks": [
         {
           "label": "private",
-          "ipv4_cidr": "10.254.0.0/24",
+          "ipv4_cidr": "10.252.0.0/24",
           "bridge": "br100"
         }
       ],
