@@ -69,6 +69,7 @@
     },
     "nova": {
       "region": "${PREFIX}",
+      "apply_novnc_patch": false,
       "dhcp_domain": "${PREFIX}",
       "libvirt": {
         "virt_type": "kvm",
