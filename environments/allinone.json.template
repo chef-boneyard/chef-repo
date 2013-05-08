@@ -85,14 +85,14 @@
       "networks": [
         {
           "label": "private",
-          "ipv4_cidr": "10.254.0.0/24",
+          "ipv4_cidr": "10.252.0.0/24",
           "bridge": "br100"
         }
       ],
       "network": {
         "flat_interface": "eth0",
         "network_manager": "nova.network.manager.FlatDHCPManager",
-        "fixed_range": "10.254.0.0/16",
+        "fixed_range": "10.252.0.0/16",
         "public_interface": "br100"
       }
     },
