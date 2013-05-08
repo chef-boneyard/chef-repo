@@ -108,7 +108,7 @@
     },
     "block-device": {
       "volume_name": "cinder-volumes",
-      "devices": ["/dev/vdb"]
+      "devices": ["/dev/vdb1"]
     }
   }
 }
