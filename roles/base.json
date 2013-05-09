@@ -39,7 +39,7 @@
   "run_list": [
     "recipe[apt]",
     "recipe[ohai]",
-    "recipe[bash]",
+    //"recipe[bash]",
     "recipe[chef-client::delete_validation]",
     "recipe[chef-client::cron]",
     //"recipe[users::sysadmins]",
