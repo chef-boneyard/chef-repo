@@ -8,6 +8,10 @@
   "default_attributes": {
   },
   "override_attributes": {
+    "openvswitch": {
+      "hub_name": "${PREFIX}-gateway",
+      "vxlan_bridge_ids": [1, 2, 3]
+    },
     "rsyslog": {
         "server_ip": "${PREFIX}-allinone"
     },
@@ -93,7 +97,7 @@
       "network": {
         "flat_interface": "eth0",
         "network_manager": "nova.network.manager.FlatDHCPManager",
-        "fixed_range": "10.252.0.0/16",
+        "fixed_range": "10.252.0.0/24",
         "public_interface": "br100"
       }
     },
