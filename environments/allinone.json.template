@@ -10,7 +10,18 @@
   "override_attributes": {
     "openvswitch": {
       "hub_name": "${PREFIX}-gateway",
-      "vxlan_bridge_ids": [1, 2, 3]
+      "vxlan_bridge_ids": [1, 2, 3],
+      "netmask" : "255.255.255.0",
+      "addresses" : {
+        "${PREFIX}-gateway" : ["10.251.0.1", "10.252.0.1", "172.31.0.1"],
+        "${PREFIX}-chefserver" : ["10.251.0.2", "10.252.0.2", "172.31.0.2"],
+        "${PREFIX}-controller" : ["10.251.0.3", "10.252.0.3", "172.31.0.3"],
+        "${PREFIX}-worker1" : ["10.251.0.4", "10.252.0.4", "172.31.0.4"],
+        "${PREFIX}-worker2" : ["10.251.0.5", "10.252.0.5", "172.31.0.5"]
+        "${PREFIX}-worker3" : ["10.251.0.6", "10.252.0.6", "172.31.0.6"]
+        "${PREFIX}-worker4" : ["10.251.0.7", "10.252.0.7", "172.31.0.7"]
+        "${PREFIX}-worker5" : ["10.251.0.8", "10.252.0.8", "172.31.0.8"]
+      }
     },
     "rsyslog": {
         "server_ip": "${PREFIX}-allinone"
