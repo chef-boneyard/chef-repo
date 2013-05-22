@@ -1,0 +1,17 @@
+{
+  "name": "infra-db-volume",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[mysql::server]",
+    "recipe[cinder::db]"
+  ],
+  "description": "A collection of recipes that sets an OpenStack Volume database cluster.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

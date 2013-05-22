@@ -1,0 +1,133 @@
+{
+  "name": "${PREFIX}",
+  "description": "Single controller OpenStack environment.",
+  "cookbook_versions": {
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "openvswitch": {
+      "hub_name": "${PREFIX}-gateway",
+      "vxlan_bridge_ids": [1, 2, 3],
+      "netmask" : "255.255.255.0",
+      "addresses" : {
+        "${PREFIX}-gateway" : ["10.251.0.1", "10.252.0.1", "172.31.0.1"],
+        "${PREFIX}-chefserver" : ["10.251.0.2", "10.252.0.2", "172.31.0.2"],
+        "${PREFIX}-controller" : ["10.251.0.3", "10.252.0.3", "172.31.0.3"],
+        "${PREFIX}-worker1" : ["10.251.0.4", "10.252.0.4", "172.31.0.4"],
+        "${PREFIX}-worker2" : ["10.251.0.5", "10.252.0.5", "172.31.0.5"],
+        "${PREFIX}-worker3" : ["10.251.0.6", "10.252.0.6", "172.31.0.6"],
+        "${PREFIX}-worker4" : ["10.251.0.7", "10.252.0.7", "172.31.0.7"],
+        "${PREFIX}-worker5" : ["10.251.0.8", "10.252.0.8", "172.31.0.8"]
+      }
+    },
+    "rsyslog": {
+        "server_ip": "${PREFIX}-controller"
+    },
+    "mysql": {
+      "bind_address": "0.0.0.0"
+    },
+    "openstack": {
+      "release": "folsom",
+      "endpoints": {
+        "compute-api": {
+          "uri": "http://${PREFIX}-controller:8774/v2/%(tenant_id)s"
+        },
+        "compute-ec2-admin": {
+          "uri": "http://${PREFIX}-controller:8773/services/Admin"
+        },
+        "compute-ec2-api": {
+          "uri": "http://${PREFIX}-controller:8773/services/Cloud"
+        },
+        "compute-xvpvnc": {
+          "uri": "http://${PREFIX}-controller:6081/console"
+        },
+        "compute-novnc": {
+          "uri": "http://${PREFIX}-controller:6080/vnc_auto.html"
+        },
+        "image-api": {
+          "uri": "http://${PREFIX}-controller:9292/v1"
+        },
+        "image-registry": {
+          "uri": "http://${PREFIX}-controller:9191/v1/"
+        },
+        "identity-api": {
+          "uri": "http://${PREFIX}-controller:5000/v2.0/"
+        },
+        "identity-admin": {
+          "uri": "http://${PREFIX}-controller:35357/v2.0/"
+        },
+        "volume-api": {
+          "uri": "http://${PREFIX}-controller:8776/v1/%(tenant_id)s"
+        }
+      },
+      "db": {
+        "compute": {
+          "host": "${PREFIX}-controller"
+        },
+        "identity": {
+          "host": "${PREFIX}-controller"
+        },
+        "image": {
+          "host": "${PREFIX}-controller"
+        },
+        "volume": {
+          "host": "${PREFIX}-controller"
+        },
+        "dashboard": {
+          "host": "${PREFIX}-controller"
+        }
+      }
+    },
+    "queue": {
+      "host": "${PREFIX}-controller",
+      "port": "5672"
+    },
+    "nova": {
+      "region": "${PREFIX}",
+      "apply_novnc_patch": false,
+      "dhcp_domain": "${PREFIX}",
+      "libvirt": {
+        "virt_type": "kvm",
+        "bind_interface": "eth2"
+      },
+      "novnc_proxy": {
+        "bind_interface": "eth2"
+      },
+      "config": {
+        "availability_zone": "zone0",
+        "default_schedule_zone": "zone0",
+        "storage_availability_zone": "zone0"
+      },
+      "networks": [
+        {
+          "label": "private",
+          "ipv4_cidr": "10.252.0.0/24",
+          "bridge": "br100"
+        }
+      ],
+      "network": {
+        "flat_interface": "eth2",
+        "network_manager": "nova.network.manager.FlatDHCPManager",
+        "fixed_range": "10.252.0.0/24",
+        "public_interface": "br100"
+      }
+    },
+    "glance": {
+      "region": "${PREFIX}"
+    },
+    "keystone": {
+      "region": "${PREFIX}",
+      "bind_interface": "eth1"
+    },
+    "cinder": {
+      "region": "${PREFIX}"
+    },
+    "block-device": {
+      "volume_name": "cinder-volumes",
+      "devices": ["/dev/vdb1"]
+    }
+  }
+}

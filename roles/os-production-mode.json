@@ -1,0 +1,39 @@
+{
+  "name": "os-production-mode",
+  "description": "A role for Production OpenStack environment (the opposite of developer mode)",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "glance": {
+      "debug": false,
+      "verbose": false
+    },
+    "cinder": {
+      "debug": false,
+      "verbose": false
+    },
+    "horizon": {
+      "debug": false
+    },
+    "nova": {
+      "debug": false,
+      "verbose": false
+    },
+    "openstack": {
+      "auth": {
+        "strategy": "token"
+      },
+      "secret": {
+        "key_path": "/etc/chef/encrypted_data_bag_secret"
+      },
+      "developer_mode": false
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+
+  ],
+  "env_run_lists": {
+  }
+}

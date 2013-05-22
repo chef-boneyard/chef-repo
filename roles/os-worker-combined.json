@@ -1,0 +1,13 @@
+{
+  "name": "os-worker-combined",
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-compute-worker-multihost]",
+    "role[openstack-volume-worker-lvm]"
+  ],
+  "description": "A role for the (compute+volume) worker node in onerack.",
+  "chef_type": "role"
+}

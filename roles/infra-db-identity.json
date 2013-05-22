@@ -1,0 +1,17 @@
+{
+  "name": "infra-db-identity",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[mysql::server]",
+    "recipe[keystone::db]"
+  ],
+  "description": "A collection of recipes that sets an OpenStack Identity database cluster.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "booted",
+  "default_attributes": {
+    "chef_client": {
+      "init_style": "none",
+      "cron": {
+        "minute": "*/10",
+        "hour": "*"
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[ohai]",
+    "recipe[apt]",
+    "recipe[chef-client::cron]"
+  ],
+  "description": "An interim state that ALL nodes are initially checked into, before they are assigned their proper role.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "system-tools",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[curl]",
+    "recipe[dstat]",
+    "recipe[ethtool]",
+    "recipe[iotop]",
+    "recipe[iperf]",
+    "recipe[git]",
+    "recipe[ltrace]",
+    "recipe[mtr]",
+    "recipe[rsync]",
+    "recipe[screen]",
+    "recipe[smem]",
+    "recipe[socat]",
+    "recipe[tree]",
+    "recipe[sysctl]",
+    "recipe[vim]",
+    "recipe[tmux]"
+  ],
+  "description": "A collection of recipes that installs system administration tools.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

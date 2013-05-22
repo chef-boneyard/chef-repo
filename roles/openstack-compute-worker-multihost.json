@@ -1,0 +1,22 @@
+{
+  "name": "openstack-compute-worker-multihost",
+  "default_attributes": {
+    "nova": {
+      "network": {
+        "multi_host": true
+      }
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[openstack-compute-api-metadata]",
+    "role[openstack-compute-worker]",
+    "role[openstack-compute-network]"
+  ],
+  "description": "A role that spins up a KVM Compute worker that works in multi_host mode.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

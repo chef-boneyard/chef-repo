@@ -1,0 +1,16 @@
+{
+  "name": "infra-messaging",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[infra-messaging]"
+  ],
+  "description": "A role that exposes a RabbitMQ message queue server.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

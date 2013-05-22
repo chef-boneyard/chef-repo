@@ -1,0 +1,20 @@
+{
+  "name": "openstack-compute-network",
+  "default_attributes": {
+    "nova": {
+      "keystone_service_chef_role": "openstack-identity-api"
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "recipe[nova::network]"
+  ],
+  "description": "A role that exposes the OpenStack Compute Network service. (Incompatible with the Quantum Service).",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

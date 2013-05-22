@@ -1,0 +1,17 @@
+{
+  "name": "openstack-dashboard",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "recipe[horizon::server]"
+  ],
+  "description": "A role that exposes the OpenStack Dashboard.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

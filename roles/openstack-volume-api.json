@@ -1,0 +1,17 @@
+{
+  "name": "openstack-volume-api",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[openstack-base]",
+    "recipe[cinder::api]"
+  ],
+  "description": "A role that exposes the OpenStack Volume API service.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

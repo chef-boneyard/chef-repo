@@ -1,0 +1,23 @@
+{
+  "name": "os-all-but-compute",
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "role[infra-logging]",
+    "role[infra-messaging]",
+    "role[infra-db-all]",
+    "role[openstack-identity]",
+    "recipe[keystone::registration]",
+    "recipe[glance::keystone_registration]",
+    "role[openstack-image]",
+    "recipe[cinder::keystone_registration]",
+    "role[openstack-volume-api]",
+    "role[openstack-volume-scheduler]",
+    "role[openstack-volume-worker]",
+    "role[openstack-dashboard]"
+  ],
+  "description": "A role for the node in novatrunk with everything but nova.",
+  "chef_type": "role"
+}

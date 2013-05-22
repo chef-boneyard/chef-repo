@@ -1,0 +1,22 @@
+{
+  "name": "infra-logging",
+  "default_attributes": {
+    "rsyslog": {
+      "log_dir": "/var/log/remote",
+      "priv_seperation": false,
+      "user": "root"
+    }
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[rsyslog::server]", //this has to be before base because role[base] requires role[logged],
+                               //which requires rsyslog::client, which requires rsyslog::server.
+    "role[base]"
+  ],
+  "description": "A collection of recipes that collects syslog events from nodes in an environment.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}

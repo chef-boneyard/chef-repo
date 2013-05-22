@@ -1,0 +1,110 @@
+{
+  "name": "os-dev-mode",
+  "description": "A role for developer friendly OpenStack environment",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "glance": {
+      "image_upload": true,
+      "images": [
+        "cirros",
+        "precise",
+        "centos"
+      ],
+      "debug": true,
+      "verbose": true
+    },
+    "cinder": {
+      "api": {
+        "ratelimit": "False"
+      },
+      "debug": true,
+      "verbose": true
+    },
+    "horizon": {
+      "debug": true
+    },
+    "nova": {
+      "ratelimit": {  // Disable ratelimiting so Tempest doesn't have issues.
+        "api": {
+          "enabled": false
+        },
+        "volume": {
+          "enabled": false
+        }
+      },
+      "debug": true,
+      "verbose": true
+    },
+    "keystone": {
+      "bind_interface": "", //listen on 0.0.0.0
+      "debug": true,
+      "verbose": true,
+      "roles": [
+        "admin",
+        "keystone_admin",
+        "keystone_service_admin",
+        "member",
+        "netadmin",
+        "sysadmin"
+      ],
+      "tenants": [
+        "admin",
+        "service",
+        "demo"
+      ],
+      "admin_user": "admin",
+      "users": {
+        "admin": {
+          "password": "admin",
+          "default_tenant": "admin",
+          "roles": { // Each key is the role name, each value is a list of tenants
+            "admin": [
+              "admin"
+            ],
+            "keystone_admin": [
+              "admin"
+            ],
+            "keystone_service_admin": [
+              "admin"
+            ]
+          }
+        },
+        "demo": {
+          "password": "demo",
+          "default_tenant": "demo",
+          "roles": { // Each key is the role name, each value is a list of tenants
+            "sysadmin": [
+              "demo"
+            ],
+            "netadmin": [
+              "demo"
+            ],
+            "member": [
+              "demo"
+            ]
+          }
+        }
+      }
+    },
+    "rabbitmq": {
+      "cluster": false
+    },
+    "openstack": {
+      "auth": {
+        "strategy": "token"
+      },
+      "secret": {
+        "key_path": "/etc/chef/encrypted_data_bag_secret"
+      },
+      "developer_mode": true
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+
+  ],
+  "env_run_lists": {
+  }
+}

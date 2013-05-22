@@ -1,0 +1,19 @@
+{
+  "name": "infra-db-image",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[mysql::server]",
+    "recipe[glance::db]"
+  ],
+  "description": "A collection of recipes that sets up glance database used in an OpenStack availability zone.",
+  "chef_type": "role",
+  "override_attributes": {
+    "mysql": {
+    }
+  }
+}

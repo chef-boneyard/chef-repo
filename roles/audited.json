@@ -1,0 +1,16 @@
+{
+  "name": "audited",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[acct]",
+    "recipe[tcpspy]"
+  ],
+  "description": "A collection a recipes that any node that is audited in some way will have.",
+  "chef_type": "role",
+  "override_attributes": {
+  }
+}
