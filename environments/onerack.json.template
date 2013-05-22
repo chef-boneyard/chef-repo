@@ -26,6 +26,9 @@
     "rsyslog": {
         "server_ip": "${PREFIX}-controller"
     },
+    "mysql": {
+      "bind_address": "0.0.0.0"
+    },
     "openstack": {
       "release": "folsom",
       "endpoints": {
@@ -88,10 +91,10 @@
       "dhcp_domain": "${PREFIX}",
       "libvirt": {
         "virt_type": "kvm",
-        "bind_interface": "eth0"
+        "bind_interface": "eth2"
       },
       "novnc_proxy": {
-        "bind_interface": "eth0"
+        "bind_interface": "eth2"
       },
       "config": {
         "availability_zone": "zone0",
@@ -106,7 +109,7 @@
         }
       ],
       "network": {
-        "flat_interface": "eth0",
+        "flat_interface": "eth2",
         "network_manager": "nova.network.manager.FlatDHCPManager",
         "fixed_range": "10.252.0.0/24",
         "public_interface": "br100"
@@ -117,7 +120,7 @@
     },
     "keystone": {
       "region": "${PREFIX}",
-      "bind_interface": "eth0"
+      "bind_interface": "eth1"
     },
     "cinder": {
       "region": "${PREFIX}"
