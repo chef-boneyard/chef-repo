@@ -1,0 +1,4 @@
+export RUBYOPT="rubygems"
+export RUBYLIB="."
+rvm ruby-1.9.3-p392@wistia_chef --create
+
