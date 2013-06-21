@@ -13,7 +13,14 @@ cache_type               'BasicFile'
 cache_options(path: '~/.chef/checksums')
 cookbook_path            ["#{current_dir}/../cookbooks"]
 
+RACKSPACE_DFW_ENDPOINT = 'https://dfw.servers.api.rackspacecloud.com/v2'
+RACKSPACE_ORD_ENDPOINT = 'https://ord.servers.api.rackspacecloud.com/v2'
+RACKSPACE_LON_ENDPOINT = 'https://lon.servers.api.rackspacecloud.com/v2'
+
+knife[:rackspace_auth_url] = 'https://identity.api.rackspacecloud.com/v2.0'
+knife[:rackspace_endpoint] = RACKSPACE_ORD_ENDPOINT
 knife[:rackspace_api_username] = ENV['WISTIA_RACKSPACE_USERNAME']
 knife[:rackspace_api_key] = ENV['WISTIA_RACKSPACE_API_KEY']
-knife[:aws_access_key_id] = nil
-knife[:aws_secret_access_key] = nil
+
+knife[:aws_access_key_id] = ENV['WISTIA_AWS_ACCESS_KEY_ID']
+knife[:aws_secret_access_key] = ENV['WISTIA_AWS_SECRET_ACCESS_KEY']

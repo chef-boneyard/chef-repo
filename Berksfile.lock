@@ -1,9 +1,14 @@
 {
-  "sha": "9dceadd1bdfe1b5f13a45768fec64067e1aa40e1",
+  "sha": "4f1fc2964d3e63bfc109ff5c44548e52136776d4",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
       "constraint": "~> 0.4"
+    },
+    "ssh-keys": {
+      "locked_version": "1.0.0",
+      "git": "git://github.com/nickola/chef-ssh-keys.git",
+      "ref": "7e1249ba0f5aab6f56ece8d9ba7b83906f473a77"
     }
   }
 }

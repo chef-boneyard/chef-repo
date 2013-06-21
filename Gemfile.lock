@@ -84,6 +84,9 @@ GEM
     i18n (0.6.1)
     ipaddress (0.8.0)
     json (1.7.7)
+    knife-ec2 (0.6.4)
+      chef (>= 0.10.10)
+      fog (~> 1.6)
     knife-rackspace (0.7.0)
       chef (>= 0.10.10)
       fog (~> 1.6)
@@ -181,4 +184,5 @@ PLATFORMS
 DEPENDENCIES
   berkshelf (~> 2.0)
   chef (~> 11.4)
-  knife-rackspace (~> 0.7)
+  knife-ec2
+  knife-rackspace
