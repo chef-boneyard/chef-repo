@@ -1,0 +1,9 @@
+{
+  "sha": "9dceadd1bdfe1b5f13a45768fec64067e1aa40e1",
+  "sources": {
+    "getting-started": {
+      "locked_version": "0.4.0",
+      "constraint": "~> 0.4"
+    }
+  }
+}
