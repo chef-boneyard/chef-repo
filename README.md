@@ -36,6 +36,35 @@ The easiest way to do this is to add lines to your ~/.bashrc or ~/.zshrc like `e
 
 After modifying your `~/.[ba|z]shrc` you will need to start a new shell session or reload it by running `source ~/.[ba|z]shrc`.
 
+## Getting Access to Old Servers & New Ones
+
+A good first exercise in getting acquainted with Chef is to get your SSH key on all of the Wistia servers.
+
+To do this, first create a data bag item in the `users` data bag with your name. You can do this at the command line with:
+
+    knife data bag create users robby-grossman
+
+The final contents would be:
+
+    {
+      "id": "robby-grossman",
+      "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwwMlNoPlvA34uaHPoiCiq64zGgPNtsOX7sLW2fLzmd86e9aIPy9p5nZQ6YfcSpZ7TW01v88s24WmDzepp/Fiz7xGpUT5zuUFfSVry4OEPYmy59HFZ+bFUYGP1gP7hZH2eWL/uS+e5KoTXQMB8rSXfWc3TYeOgQOdmykH/UsUh5BaBamLnY9jRZtJYud4+TQ2muEoAPs/jRPdwDqHAIDjIeuF/hmlnTdC2S1pS1o7Amf/L8UfuqYkQWljbGReDifdMk7l5ql/nQ2mKYH7Knd7w703kStXQ/IsT6VKPrzAdhnMZ7QmMsn5Iu6c6GsBmE7m7sKT4HBS6uqew3S1OwaXFw== robby@Starks.local"
+    }
+
+When you create a data bag, it gets uploaded to and retained by the Chef server. These data bags can be queried by various Chef recipes.
+
+Next, open `roles/wistia-base.rb`. Every Wistia server receives this role. You'll see a set of attributes for it like:
+
+    default_attributes(
+      'ssh_keys' => {
+        'ubuntu' => ['max-schnur', 'robby-grossman']
+      }
+    )
+
+Add your user id to the array of "ubuntu" users, commit your changes to git, and run `rake roles`.'
+
+Now get someone on the team (whose key is already in the .authorized_users) to deploy all the boxes. Your public key will be added to them and you will be able to perform subsequent deploys.
+
 # Deploying
 
 ## Options
@@ -54,21 +83,42 @@ To view available flavors, run:
 
 It's advisable to use Ubuntu 12.04 whenever possible, as it is the most widely supported OS among Chef cookbooks.
 
+## Listing Boxes
+
+To list all EC2 boxes in a given zone, use:
+
+    knife ec2 server list --region <region>
+    
+e.g. for us-west-2, run:
+
+    knife ec2 server list --region us-west-2
+    
+## Deleting Boxes
+
+List the boxes to get the ID of the box you want to delete, then run
+
+    knife ec2 server delete <EC2 ID> --region <region>
+    
+After deleting the server, be sure to delete its node and client via:
+
+    knife node delete <nodename>
+    knife client delete <nodename>
+
 ## Creating New Boxes
 
 ### Blank Box
 
 To deploy a blank box to Rackspace, run:
 
-    knife rackspace server create -f <flavor> -I <image> -N <name of node> -r "role[blank_box]" -E [production|staging]
+    knife rackspace server create -f <flavor> -I <image> -N <name of node> -r "role[blank-box]" -E [production|staging]
 
 To deploy a blank box to EC2, run:
 
-    knife ec2 server create -r "role[blank_box]" --region <region> -I <ubuntu-64 AMI> -G all-open -Z <availability zone> -N blank-box-<n> -f m1.small -x ubuntu -S <AWS keypair name> -E production -i <path to your AWS private key>
+    knife ec2 server create -r "role[blank-box]" --region <region> -I <ubuntu-64 AMI> -G all-open -Z <availability zone> -N blank-box-<n> -f m1.small -x ubuntu -S <AWS keypair name> -E production -i <path to your AWS private key>
 
 For example:
 
-    knife ec2 server create -r "role[blank_box]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N blank-box-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem 
+    knife ec2 server create -r "role[blank-box]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N blank-box-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem 
 
 ## Deploying Boxes
 
