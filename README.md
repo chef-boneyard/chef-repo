@@ -32,9 +32,9 @@ Finally, you need to configure some environment variables so that knife.rb can r
 * `WISTIA_AWS_ACCESS_KEY_ID` is your Wistia AWS access key.
 * `WISTIA_AWS_SECRET_ACCESS_KEY` is your Wistia AWS secret access key.
 
-The easiest way to do this is to add lines to your ~/.bashrc or ~/.zshrc like `export WISTIA_CHEF_USERNAME="robby"`. __If you do this, make sure you have [OS X FileVault](http://support.apple.com/kb/ht4790) turned on. Otherwise, losing your laptop will compromise several production security credentials.__
+The easiest way to do this is to add lines to your `~/.bash_profile` or `~/.zsh_profile` like `export WISTIA_CHEF_USERNAME="robby"`. __If you do this, make sure you have [OS X FileVault](http://support.apple.com/kb/ht4790) turned on. Otherwise, losing your laptop will compromise several production security credentials.__
 
-After modifying your `~/.[ba|z]shrc` you will need to start a new shell session or reload it by running `source ~/.[ba|z]shrc`.
+After modifying your `~/.[ba|z]sh_profile` you will need to start a new shell session or reload it by running `source ~/.[ba|z]sh_profile`.
 
 ## Getting Access to Old Servers & New Ones
 
