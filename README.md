@@ -36,6 +36,16 @@ The easiest way to do this is to add lines to your `~/.bash_profile` or `~/.zsh_
 
 After modifying your `~/.[ba|z]sh_profile` you will need to start a new shell session or reload it by running `source ~/.[ba|z]sh_profile`.
 
+Finally, create a `~/.berkshelf/config.json` as follows:
+
+    {
+      "ssl": {
+        "verify": false
+      }
+    }
+
+This bypasses SSL errors caused by the fact that our Chef SSL certificate is not signed by a CA.
+
 ## Getting Access to Old Servers & New Ones
 
 A good first exercise in getting acquainted with Chef is to get your SSH key on all of the Wistia servers.
@@ -118,7 +128,15 @@ To deploy a blank box to EC2, run:
 
 For example:
 
-    knife ec2 server create -r "role[blank-box]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N blank-box-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem 
+    knife ec2 server create -r "role[tickr]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N blank-box-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem
+
+If you want a hard drive to be saved when a box is lost, you can also apply the `--ebs-no-delete-on-term` flag.
+
+### Tickr Box
+
+Use:
+
+    knife ec2 server create -r "role[tickr]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N tickr-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem --ebs-no-delete-on-term
 
 ## Deploying Boxes
 
@@ -164,3 +182,13 @@ Test your setup with:
 Finally, re-associate the 54.214.50.177 elastic IP address with the new box or update the `chef.wistia.com` DNS entry so that it points to the new box. After propagation, you should be able to get to your new chef-server at [https://chef.wistia.com](https://chef.wistia.com). If you use the elastic IP address method, your box will be available at that location immediately.
 
 When you're done, be sure to put your public key on the box in `~.ssh/authorized_keys` so that if you lose the credentials you used to bring up the box, you can still get into it.
+
+# Provider-Specific Tips & Tricks
+
+## EC2
+
+### Disabling DeleteOnTermination
+
+If you forget to set DeleteOnTermination to false when creating a box, you can do it afterwords by running:
+
+    ec2-modify-instance-attribute --block-device-mapping /dev/sda1=:false <instance ID> -O <aws key> -W <aws secret> --region region
