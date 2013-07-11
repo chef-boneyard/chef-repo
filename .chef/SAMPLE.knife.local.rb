@@ -1,7 +1,7 @@
 # ** SAMPLE LOCAL Knife Configuration File - Copy to knife.local.rb and edit that file instead of this one!! **
 
 # Configure organization-wide knife options in '.chef/knife.rb'. The file '.chef/knife.rb' should be managed by a version control system.
-# Configure local knife options in '.chef/knife.local.rb'. The file '.chef/knife.local.rb' should NOT be managed by version control.
+# Configure local knife options in '.chef/knife.local.rb'. The file '.chef/knife.local.rb' should NOT be managed by version control. If you use git, '.chef/knife.local.rb' has already been ignored.
 
 # Local configuration options are the options that will only be specific to a single user or to a group of users.  For example, developers
 # may be given credentials for a private data center like Eucalyptus or OpenStack so that they may provision servers in a controlled
@@ -25,8 +25,8 @@ client_key               "#{current_dir}/USERNAME.pem"
 #  LOCAL Data Bag Encryption Configuration
 #-------------------------------------------------------------------------------
 
-# The path to the file that contains the encryption key.
-# encrypted_data_bag_secret "#{current_dir}/ENCRYPTED_DATA_BAG_SECRET"
+# The path to the file that contains the encryption key. IMPORTANT: Make sure that you tell your VCS to ignore this file. If you use git, it has already been ignored.
+# encrypted_data_bag_secret "#{current_dir}/encrypted_data_bag_secret"
 
 #-------------------------------------------------------------------------------
 #  Cloud Credentials
