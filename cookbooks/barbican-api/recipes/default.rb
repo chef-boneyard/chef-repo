@@ -6,7 +6,7 @@
 #   http://docs.opscode.com/resource_cookbook_file.html
 #
 
-execute "create-yum-cache" do
+execute "install-epel" do
  command "rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm"
  action :run
  not_if "rpm -qa | grep -qx 'epel-release-6-8.noarch'"
