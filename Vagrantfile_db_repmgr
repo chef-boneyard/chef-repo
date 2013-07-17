@@ -18,8 +18,7 @@ Vagrant.configure("2") do |config|
       chef.run_list = [
         "role[base]",
         "recipe[postgresql::server]",
-        "recipe[barbican-db]"
-#        "recipe[repmgr]"
+        "recipe[repmgr]"
       ]
       chef.json = {
         'postgresql' => {
@@ -45,7 +44,7 @@ Vagrant.configure("2") do |config|
       chef.run_list = [
         "role[base]",
         "recipe[postgresql::server]",
-        "recipe[barbican-db]"
+        "recipe[repmgr]"
       ]
       chef.json = {
         'postgresql' => {
