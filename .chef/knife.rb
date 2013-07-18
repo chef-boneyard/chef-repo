@@ -19,13 +19,13 @@ log_location             STDOUT
 #-------------------------------------------------------------------------------
 
 # The URL for the Chef Server. For example: "http://localhost:4000"
-chef_server_url          "https://api.opscode.com/organizations/ORGNAME"
+chef_server_url          "https://api.opscode.com/organizations/ORGNAME"   # **CHANGE REQUIRED**
 
 # The location of the file which contains the key used when a chef-client is registered with a Chef Server. A validation key is signed using the validation_client_name for authentication.
-validation_key           "#{current_dir}/ORGNAME-validator.pem", __FILE__)
+validation_key           "#{current_dir}/ORGNAME-validator.pem", __FILE__) # **CHANGE REQUIRED**
 
 # The name of the server that–along with the validation_key–is used to determine whether a chef-client may register with a Chef Server. The validation_client_name located in the server and client configuration files must match.
-validation_client_name   "ORGNAME-validator"
+validation_client_name   "ORGNAME-validator"                               # **CHANGE REQUIRED**
 
 
 #-------------------------------------------------------------------------------
@@ -47,13 +47,13 @@ cookbook_path [
 ]
 
 # The name of the copyright holder. This option will place a copyright notice that contains the name of the copyright holder in each of the pre-created files. If this option is not specified, a copyright name of “your_company_name” will be used instead; it can be easily modified later.
-cookbook_copyright "your_company_name"
+cookbook_copyright "your_company_name"                                     # **CHANGE RECOMMENDED**
 
 # The type of license under which a cookbook is distributed: apachev2, gplv2, gplv3, mit, or none (default). This option will place the appropriate license notice in the pre-created files. Be aware of the licenses for files inside of a cookbook and be sure to follow any restrictions they describe.
 cookbook_license "none"
 
 # The email address for the individual who maintains the cookbook. This option will place an email address in each of the pre-created files. If this option is not specified, an email name of “your_email” will be used instead; it can be easily modified later.
-cookbook_email "your_email"
+cookbook_email "your_email"                                                # **CHANGE RECOMMENDED**
 
 # Format of the README file, supported formats are 'md' (markdown) and 'rdoc' (rdoc)
 # readme_format "md"

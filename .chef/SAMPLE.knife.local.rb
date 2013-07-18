@@ -3,6 +3,8 @@
 # Configure organization-wide knife options in '.chef/knife.rb'. The file '.chef/knife.rb' should be managed by a version control system.
 # Configure local knife options in '.chef/knife.local.rb'. The file '.chef/knife.local.rb' should NOT be managed by version control. If you use git, '.chef/knife.local.rb' has already been ignored.
 
+# NOTE: Settings configured here will override settings in '.chef/knife.rb'.
+
 # Local configuration options are the options that will only be specific to a single user or to a group of users.  For example, developers
 # may be given credentials for a private data center like Eucalyptus or OpenStack so that they may provision servers in a controlled
 # environment; systems administrators may be given credentials to a public cloud like Amazon or Rackspace so that they may provision production
@@ -16,10 +18,10 @@
 #-------------------------------------------------------------------------------
 
 # The name of the node. This is typically also the same name as the computer from which Knife is run.
-node_name                "USERNAME"
+node_name                "USERNAME"                                        # **CHANGE REQUIRED**
 
 # The location of the file which contains the client key.
-client_key               "#{current_dir}/USERNAME.pem"
+client_key               "#{current_dir}/USERNAME.pem"                     # **CHANGE REQUIRED**
 
 #-------------------------------------------------------------------------------
 #  LOCAL Data Bag Encryption Configuration
