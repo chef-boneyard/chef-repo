@@ -13,6 +13,9 @@
 
 # See http://docs.opscode.com/config_rb_knife.html for more information on knife configuration options
 
+# Variable that starts the path of the current directory
+current_dir = File.dirname(__FILE__)
+
 #-------------------------------------------------------------------------------
 #  LOCAL Connection/Validation Configuration
 #-------------------------------------------------------------------------------
