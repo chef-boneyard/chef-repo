@@ -53,7 +53,7 @@ cookbook_copyright "your_company_name"                                     # **C
 cookbook_license "none"
 
 # The email address for the individual who maintains the cookbook. This option will place an email address in each of the pre-created files. If this option is not specified, an email name of “your_email” will be used instead; it can be easily modified later.
-cookbook_email "your_email"                                                # **CHANGE RECOMMENDED**
+cookbook_email "your_email"                                                # **CHANGE RECOMMENDED**; For example: cookbooks@yourcompany.com
 
 # Format of the README file, supported formats are 'md' (markdown) and 'rdoc' (rdoc)
 # readme_format "md"
