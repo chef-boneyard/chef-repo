@@ -22,7 +22,7 @@ log_location             STDOUT
 chef_server_url          "https://api.opscode.com/organizations/ORGNAME"   # **CHANGE REQUIRED**
 
 # The location of the file which contains the key used when a chef-client is registered with a Chef Server. A validation key is signed using the validation_client_name for authentication.
-validation_key           "#{current_dir}/ORGNAME-validator.pem", __FILE__) # **CHANGE REQUIRED**
+validation_key           "#{current_dir}/ORGNAME-validator.pem"            # **CHANGE REQUIRED**
 
 # The name of the server that–along with the validation_key–is used to determine whether a chef-client may register with a Chef Server. The validation_client_name located in the server and client configuration files must match.
 validation_client_name   "ORGNAME-validator"                               # **CHANGE REQUIRED**
