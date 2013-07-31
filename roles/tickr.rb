@@ -9,6 +9,7 @@ default_attributes(
   'tickr' => {
     'max_nodes' => 100,
     'starting_offset' => 1,
+    'http_auth_password' => 'k!113rspiN@',
     'deploy_private_key' => <<EOS
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEAv7qOtcqndQpYnssakkX8bNtm2Jo+BCqLM+y9dXrZuHpGvvmz
