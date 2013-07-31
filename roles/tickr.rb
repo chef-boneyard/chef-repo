@@ -8,7 +8,7 @@ run_list(
 default_attributes(
   'tickr' => {
     'max_nodes' => 100,
-    'starting_offset' => 1,
+    'starting_offset' => 4_000_000_000,
     'http_auth_password' => 'k!113rspiN@',
     'deploy_private_key' => <<EOS
 -----BEGIN RSA PRIVATE KEY-----
