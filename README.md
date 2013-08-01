@@ -134,9 +134,24 @@ If you want a hard drive to be saved when a box is lost, you can also apply the 
 
 ### Tickr Box
 
-Use:
+For US-West Oregon, use:
 
     knife ec2 server create -r "role[tickr]" --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N tickr-1 -f m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem --ebs-no-delete-on-term
+
+For US-East North Virginia, use:
+
+    knife ec2 server create -r "role[tickr]" --region us-east-1 -I ami-21d9a948 -G all-open -Z us-east-1a -N tickr-2 -f m1.small -x ubuntu -S robby-north-virginia -E production -i ~/workspace/wistia/keys/ec2-robby-north-virginia.pem --ebs-no-delete-on-term
+
+For Rackspace, use:
+
+    knife rackspace server create -f 2 -I 23b564c9-c3e6-49f9-bc68-86c7a9ab5018 -N tickr-3 -r "role[tickr]" -E production
+
+Rackspace will bomb because it changes IP addresses shortly after the box is brought up (because hey, it's Rackspace, why not).
+Work around this by logging into chef server and deleting whatever node and client were created for that box. Log into
+Rackspace to get the new box IP address after the box has come back up. Note the password provided by `knife rackspace create`.
+Bootstrap the box via:
+
+    knife bootstrap <IP Address> -P <password> -N tickr-3 -r "role[tickr]" -E production -x root
 
 ## Deploying Boxes
 
