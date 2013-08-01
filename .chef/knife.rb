@@ -13,6 +13,8 @@ cache_type               'BasicFile'
 cache_options(path: '~/.chef/checksums')
 cookbook_path            ["#{current_dir}/../cookbooks"]
 
+knife[:server_create_timeout] = 1800 # half hour
+
 RACKSPACE_DFW_ENDPOINT = 'https://dfw.servers.api.rackspacecloud.com/v2'
 RACKSPACE_ORD_ENDPOINT = 'https://ord.servers.api.rackspacecloud.com/v2'
 RACKSPACE_LON_ENDPOINT = 'https://lon.servers.api.rackspacecloud.com/v2'
