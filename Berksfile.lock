@@ -1,5 +1,5 @@
 {
-  "sha": "9d64786fdeb895ff9088a8c178496f03feffcee4",
+  "sha": "c4b6ab875b637bf93caaaca9cff1596bfff75fd7",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
@@ -10,8 +10,16 @@
       "git": "git://github.com/nickola/chef-ssh-keys.git",
       "ref": "7e1249ba0f5aab6f56ece8d9ba7b83906f473a77"
     },
+    "sudo": {
+      "locked_version": "2.1.5",
+      "git": "git@github.com:opscode-cookbooks/sudo.git",
+      "ref": "a503303c8df8e832de5252169f4c02540b46667c"
+    },
     "tickr": {
       "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/tickr"
+    },
+    "wistia-base": {
+      "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/wistia-base"
     },
     "application": {
       "locked_version": "2.0.4"

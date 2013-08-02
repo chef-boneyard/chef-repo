@@ -15,10 +15,17 @@ SSH_USERS = %w(
 
 run_list(
   'recipe[wistia-base]',
+  'recipe[sudo]',
   'recipe[ssh-keys]'
 )
 
 default_attributes(
+  'authorization' => {
+    'sudo' => {
+      'users' => ['ubuntu'],
+      'passwordless' => true
+    }
+  },
   'ssh_keys' => {
     # Please keep users sorted by last name
     'ubuntu' => SSH_USERS,
