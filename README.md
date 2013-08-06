@@ -157,9 +157,19 @@ Bootstrap the box via:
 
 To redeploy a box, log into it and run `sudo chef-client`, or use the `knife` tool to do it via:
 
-    knife ssh "role:<role>" "sudo chef-client" -x ubuntu -a ec2.public_hostname -C 1 -i <path to a valid SSH key>
+    knife ssh "role:<role>" "sudo chef-client" -x ubuntu -a public_ip -C 1
+    
+where `role` is the role you want to deploy and `C` is the server concurrency of the deploy.
 
-where `role` is the role you want to deploy and `C` is the concurrency of the deploy.
+## Running Commands on All Boxes
+
+knife-ssh also provides a way to run a single command on every box. This is useful for replicating small changes across all application servers before automating those changes with chef. Use:
+
+    knife ssh "role:<role>" interactive -x ubuntu -a public_ip -C 1
+    
+where `role` is the role you want to deploy.
+
+This provides an interactive console on which you can run shell commands.
 
 # Bootstrapping a Chef Server
 
