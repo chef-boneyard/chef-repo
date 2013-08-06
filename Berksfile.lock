@@ -1,5 +1,5 @@
 {
-  "sha": "ab4c6f8cfb07e2c81652f42561dfd399af11c9ac",
+  "sha": "0e7247e04ea89fa94a7ab5ad9e1d4d5c9b4ad555",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
@@ -23,6 +23,13 @@
     },
     "wistia-base": {
       "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/wistia-base"
+    },
+    "chef-client": {
+      "locked_version": "3.0.4"
+    },
+    "cron": {
+      "locked_version": "1.2.4",
+      "constraint": ">= 1.2.0"
     },
     "ohai": {
       "locked_version": "1.1.10"
