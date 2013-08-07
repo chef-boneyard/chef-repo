@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
       chef.roles_path = "roles"
       chef.run_list = [
         "role[base]",
+        "role[api]",
         "recipe[barbican-api]",
       ]
     end
