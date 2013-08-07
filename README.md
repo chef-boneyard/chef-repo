@@ -208,6 +208,20 @@ Finally, re-associate the 54.214.50.177 elastic IP address with the new box or u
 
 When you're done, be sure to put your public key on the box in `~.ssh/authorized_keys` so that if you lose the credentials you used to bring up the box, you can still get into it.
 
+# General Tips & Tricks
+
+## Transforming Nodes
+
+The `knife exec` tool, combined with the `transform` operation, gives us a way to dynamically change node attributes based on other node attributes. For example, let's say when we launched our threshers, we forgot to add rackconnect support for them. We could run:
+
+    knife exec -E 'nodes.transform("role:distillery-thresher") {|n| n.run_list << "role[rackspace-cloud-base]"; n.save }'
+
+to fix this.
+
+Of course, we should be safe by running this command, first:
+
+    knife exec -E 'nodes.transform("role:distillery-thresher") {|n| puts n.run_list << "role[rackspace-cloud-base]" }'
+
 # Provider-Specific Tips & Tricks
 
 ## EC2
