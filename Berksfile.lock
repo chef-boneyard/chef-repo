@@ -1,9 +1,17 @@
 {
-  "sha": "0e7247e04ea89fa94a7ab5ad9e1d4d5c9b4ad555",
+  "sha": "eb314fc378cdc0b9c87a0c872e707cbb606507b6",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
       "constraint": "~> 0.4"
+    },
+    "ohai-public_ip": {
+      "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/ohai-public_ip"
+    },
+    "rackconnect": {
+      "locked_version": "0.1.0",
+      "git": "git@github.com:dwradcliffe/cookbook-rackconnect.git",
+      "ref": "34904c5bed1f3b51df8ee066032915aecd9a446d"
     },
     "ssh-keys": {
       "locked_version": "1.0.0",
@@ -14,9 +22,6 @@
       "locked_version": "2.1.5",
       "git": "git@github.com:opscode-cookbooks/sudo.git",
       "ref": "a503303c8df8e832de5252169f4c02540b46667c"
-    },
-    "ohai-public_ip": {
-      "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/ohai-public_ip"
     },
     "tickr": {
       "path": "../../../../../users/robby/workspace/wistia/chef-repo/cookbooks/tickr"

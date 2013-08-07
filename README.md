@@ -120,7 +120,7 @@ After deleting the server, be sure to delete its node and client via:
 
 To deploy a blank box to Rackspace, run:
 
-    knife rackspace server create -f <flavor> -I <image> -N <name of node> -r "role[blank-box]" -E [production|staging]
+    knife rackspace server create -f <flavor> -I <image> -N <name of node> -r "role[blank-box], role[rackspace-cloud-base]" -E [production|staging]
 
 To deploy a blank box to EC2, run:
 
@@ -144,14 +144,14 @@ For US-East North Virginia, use:
 
 For Rackspace, use:
 
-    knife rackspace server create -f 2 -I 23b564c9-c3e6-49f9-bc68-86c7a9ab5018 -N tickr-3 -r "role[tickr]" -E production
+    knife rackspace server create -f 2 -I 23b564c9-c3e6-49f9-bc68-86c7a9ab5018 -N tickr-3 -r "role[tickr], role[rackspace-cloud-base]" -E production
 
 Rackspace will bomb because it changes IP addresses shortly after the box is brought up (because hey, it's Rackspace, why not).
 Work around this by logging into chef server and deleting whatever node and client were created for that box. Log into
 Rackspace to get the new box IP address after the box has come back up. Note the password provided by `knife rackspace create`.
 Bootstrap the box via:
 
-    knife bootstrap <IP Address> -P <password> -N tickr-3 -r "role[tickr]" -E production -x root
+    knife bootstrap <IP Address> -P <password> -N tickr-3 -r "role[tickr], role[rackspace-cloud-base]" -E production -x root
 
 ## Deploying Boxes
 
@@ -217,3 +217,9 @@ When you're done, be sure to put your public key on the box in `~.ssh/authorized
 If you forget to set DeleteOnTermination to false when creating a box, you can do it afterwords by running:
 
     ec2-modify-instance-attribute --block-device-mapping /dev/sda1=:false <instance ID> -O <aws key> -W <aws secret> --region region
+  
+## Rackspace
+
+### Support for RackConnect
+
+Any box in the rackspace cloud must include the rackspace-cloud-base role to ensure that rackconnect is fully functional.
