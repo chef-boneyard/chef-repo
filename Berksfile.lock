@@ -1,5 +1,5 @@
 {
-  "sha": "eb314fc378cdc0b9c87a0c872e707cbb606507b6",
+  "sha": "ab21e88742d06842b95db76f105e32cacf9a144c",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
@@ -17,6 +17,11 @@
       "locked_version": "1.0.0",
       "git": "git://github.com/nickola/chef-ssh-keys.git",
       "ref": "7e1249ba0f5aab6f56ece8d9ba7b83906f473a77"
+    },
+    "ssl": {
+      "locked_version": "1.0.7",
+      "git": "git@github.com:cap10morgan/ssl-cookbook.git",
+      "ref": "40a18622ab904f992c0acba8c66c8fc4ed84b97a"
     },
     "sudo": {
       "locked_version": "2.1.5",

@@ -12,7 +12,7 @@ Each cookbook has one or more __recipes__, which tell Chef how to do something. 
 
 __roles__ are groups of recipes that work together to serve some purpose. For example, you might have a role called "web_server" that consists of "ruby", "nginx", and "unicorn" recipes.
 
-__nodes__ are individual servers that you configure, each containing one or more roles.
+__nodes__ are individual servers that you configure, each containing or more roles.
 
 __Chef Server__ is a queryable open source server that keeps track of how every node is configured. When you "deploy" a node, it queries Chef Server to figure out what it needs to do.
 
@@ -22,7 +22,7 @@ __users__ are humans, or in some cases machines, who have access to the Chef Ser
 
 First, youll need a Chef Server account. [Login](https://chef.wistia.com) and generate a new key via the web site. Save your private key as `.chef/<your-username>.pem`.
 
-Next, get `chef-validator.pem` from a team member who has it, and place it in your `.chef` directory.
+Next, get `chef-validator.pem` and `encrypted_data_bag_secret` from a team member who has them, and place it in your `.chef` directory.
 
 Finally, you need to configure some environment variables so that knife.rb can retrieve the settings it needs without those settings being saved in our git repository.
 
@@ -152,6 +152,18 @@ Rackspace to get the new box IP address after the box has come back up. Note the
 Bootstrap the box via:
 
     knife bootstrap <IP Address> -P <password> -N tickr-3 -r "role[tickr], role[rackspace-cloud-base]" -E production -x root
+
+### Boxes that Require SSL Keys
+
+Due to a bug ([fixed](https://github.com/opscode/knife-ec2/pull/139) but not yet merged) in knife-ec2, it is not possible to fully bootstrap nodes that require encrypted data bags with a single command.
+
+To deploy a box that uses the wistia-ssl role, use something like the following two commands:
+
+    knife ec2 server create --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N wistia-ssl-8 m1.small -x ubuntu -S robby-oregon -E production -i ~/workspace/wistia/keys/ec2-robby-oregon.pem
+
+    knife bootstrap <public fqdn of new box> -r "role[wistia-ssl]" -N wistia-ssl-8 -E production -x ubuntu --sudo -i ~/workspace/wistia/keys/ec2-robby-oregon.pem --secret-file ./.chef/encrypted_data_bag_secret
+
+where `wistia-ssl-8` is the name of your box and `wistia-ssl` is the role of the box that you want to deploy. The `knife ec2` command will create the box, and the `knife bootsrap command` will bootstrap it using the data bag secret key.
 
 ## Deploying Boxes
 
