@@ -8,4 +8,7 @@ run_list(
   'recipe[mongodb]'
 )
 default_attributes(
+  'mongodb' => {
+    'port' => 40000
+  }
 )
