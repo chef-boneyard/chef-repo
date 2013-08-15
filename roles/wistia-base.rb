@@ -14,6 +14,7 @@ SSH_USERS = %w(
 )
 
 run_list(
+  'recipe[apt]',
   'recipe[wistia-base]',
   'recipe[ohai-public_ip]',
   'recipe[sudo]',

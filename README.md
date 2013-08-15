@@ -161,11 +161,9 @@ Bootstrap the box via:
     
     knife bootstrap <public fqdn of new box> -r "role[rackspace-cloud-base], role[distillery-collector]" -N distillery-collector-new -E production -x ubuntu --sudo -i ~/workspace/wistia/keys/ec2-robby-oregon.pem --secret-file ./.chef/encrypted_data_bag_secret
 
-
 ### Adding Chef to an App Server
 
     knife bootstrap <public fqdn> -r "role[wistia-app]" -N app-<num> -E production -x wistia --sudo --secret-file ./.chef/encrypted_data_bag_secret
-
 
 ### Boxes that Require SSL Keys
 
