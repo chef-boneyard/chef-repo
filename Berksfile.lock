@@ -1,5 +1,5 @@
 {
-  "sha": "ab21e88742d06842b95db76f105e32cacf9a144c",
+  "sha": "fc1109dc49cba2e9383aa850ab07577b6dda794b",
   "sources": {
     "getting-started": {
       "locked_version": "0.4.0",
@@ -48,7 +48,7 @@
       "locked_version": "2.0.4"
     },
     "apt": {
-      "locked_version": "2.0.0"
+      "locked_version": "2.1.0"
     },
     "build-essential": {
       "locked_version": "1.4.0"
