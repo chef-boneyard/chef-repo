@@ -25,6 +25,10 @@ DAEMON_OPTS="$DAEMON_OPTS --bind_ip <%= @bind_ip %>"
 pidfilepath=<%= node[:mongodb][:pidfilepath] %>
 <% end %>
 
+<% if node[:mongodb][:logappend] %>
+logappend true
+<% end %>
+
 <% if @replicaset_name %>
 DAEMON_OPTS="$DAEMON_OPTS --replSet <%= @replicaset_name %>"
 <% end %>
