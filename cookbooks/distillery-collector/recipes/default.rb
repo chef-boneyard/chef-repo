@@ -7,13 +7,30 @@
 # All rights reserved - Do Not Redistribute
 #
 
+RUBY_BUILD_VERSION = '1.9.2-p290'
+
 include_recipe 'ruby_build'
 include_recipe 'haproxy::app_lb'
 include_recipe 'logrotate'
 include_recipe 'mongodb::10gen_repo'
 include_recipe 'mongodb'
 
-ruby_build_ruby '1.9.2-p290'
+ruby_build_ruby RUBY_BUILD_VERSION do
+  action :install
+end
+
+RUBY_BIN_PATH = "#{node['ruby_build']['default_ruby_base_path']}/#{RUBY_BUILD_VERSION}/bin"
+
+COMBINE_DEPLOY_DIR = '/opt/apps/combine'
+
+application 'combine' do
+  path COMBINE_DEPLOY_DIR
+  repository 'git@github.com:wistia/combine.git'
+  revision 'master'
+  deploy_key node['combine']['deploy_private_key']
+
+  action :deploy
+end
 
 begin
   r = resources(template: "#{node['haproxy']['conf_dir']}/haproxy.cfg")
