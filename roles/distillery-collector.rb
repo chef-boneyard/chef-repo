@@ -55,12 +55,14 @@ default_attributes(
       'collection' => 'monque'
     }
   },
+
   'mongodb' => {
     'client_role' => 'distillery-thresher',
     'logappend' => true,
     'pidfilepath' => '/var/lib/mongodb/collector.pid',
     'port' => 40000
   },
+
   'haproxy' => {
     'app_server_role' => 'distillery-collector',
     'balance_algorithm' => 'roundrobin',
