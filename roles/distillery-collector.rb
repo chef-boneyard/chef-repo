@@ -39,7 +39,18 @@ aewy3ycwhp3Ah5WaM0hR2/fA44qUwi/Z/fCuNk58CmKXqDwLHqeKQspvVvyW6n+B
 KWpCZSISqzmIJasrhzK3bYpJpgGD/G7vxUWBw1oOfC49o5VRTCXBPg==
 -----END RSA PRIVATE KEY-----
 EOS
- 
+    'stats_db' => {
+      'host' => 'localhost',
+      'port' => 40000,
+      'name' => 'stats',
+      'collection' => 'counters'
+    },
+    'queue_db' => {
+      'host' => 'localhost',
+      'port' => 40000,
+      'name' => 'monque',
+      'collection' => 'monque'
+    }
   },
   'mongodb' => {
     'client_role' => 'distillery-thresher',

@@ -19,7 +19,7 @@ ruby_build_ruby RUBY_BUILD_VERSION do
   action :install
 end
 
-RUBY_BIN_PATH = "#{node['ruby_build']['default_ruby_base_path']}/#{RUBY_BUILD_VERSION}/bin"
+RUBY_BIN_PATH = ::File.join(node['ruby_build']['default_ruby_base_path'], RUBY_BUILD_VERSION, 'bin')
 
 COMBINE_DEPLOY_DIR = '/opt/apps/combine'
 
@@ -30,6 +30,11 @@ application 'combine' do
   deploy_key node['combine']['deploy_private_key']
 
   action :deploy
+end
+
+template 'combine-db-config' do
+  path ::File.join(COMBINE_DEPLOY_DIR, 'current', 'database_config.rb')
+  source 'combine-db-config.rb.erb'
 end
 
 begin
