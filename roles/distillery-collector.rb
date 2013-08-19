@@ -9,6 +9,38 @@ run_list(
   'recipe[mongodb]'
 )
 default_attributes(
+  'combine' => {
+    'deploy_private_key' => <<EOS
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAt0BjHR0BxS5mcuh/qi95qTfR3M467pgrD/V14rBrlmq24Pc3
+XPjoBA18zphmrLdW0lq3PT/moPDVqUrSVs/Z0e5/k8W1m+edirTj8bHhPDRoVYI4
+1Flwpp6StuQP/xvElEVvUOee/6zs8/62sAvKRYQJTB+pqxSoWuE1viIyr9Xuz/8p
+ieZszCOwvKEVO6xgb2Hgn0bDnpSFbcfE3/RpanajYwd5gtSmaojrlKV6uAvsPKsT
+2Ljm2Gjw4o0GTM4uo2euOLwJolKlGumFwDF+HJlOFEJP5wohfEopV0PSc2QO/O39
+yJyT8PY0Bg2tw7F9uYjgV0Be4XCZd8IDFlFNSQIDAQABAoIBAQCxX75P8MLE5Fu/
+v7HKvfdJxsD4tBmw1lNgOBwqFs+coaBwcnoBIOAbBB8ZLcS8Sx3bsHkK7S5D+7kk
+C0s7Qia5H9wW4dkelfsUxnCYgq/cAXI3yjtNt2DltjmWk3u0V2FYjzjnG7r4CZ61
+sYeNMWxRCzOgnkkxUmZ+yNynNBzRumMIO6vioGa2yh+/JpQcSn/ohGa7LR9RLusu
+p5sH45Dh3OcvAdwMC/BuXd0iktiwl32j54AzSX1xBsXx1pX80uvjqiEhdH+8j1mb
+ubKTqOFr00zIAUNWaHip6oa9wuoySVYUdSrrgiGQs+qeagiUjqD7HxKiljq6r2JB
+qWeY3titAoGBANj0z3ond0dMRpTBhBiZqiw1kVgrR4F8tCe020md0q6yILz3e1lV
+kh5/MRMhZTCvUtDIP0xLUXmSwe+7OfMGi2u9doxKrDB6J6prH0kLRi9aD8UwgEny
+Kus47G1aAyzllygUA8skf3SZ+raKq8aD8IvFkju0BS1KelD5fcBkAryTAoGBANg6
+y6ZFVxWu3ggC8viLl59OnfMQYNRpFIA6i3+hhgQAU/Vw6iGhR7oVv5I6gJFONjkM
+6zEgDlAva1JdNckQ0T2Dq5hxG7hmRIxdS+eXAViMKIYcp/GT8/yxgG4UkE5dBg6e
+ACA6UdC35moxwgMFFDCbauPs+pP4dluqkz2hdNQzAoGAGRb+o3bK8YDdrLhQaXPj
+3Sb4vwSKSWw9fVYKAhJxWeiZpqDMMAGYW1SEPV0gUagE4MY3o8AWFQQmz22MfxFj
+sDsB6al9DkIiMjAfNxhJrpIwvrIkM+kAk6FKnj7JnTiT6XufELAQ2VAxUUjqIpQB
+jnhzt9nSu3EgghrIMyadtmcCgYEAs4p2aJQw0BdH0x0nxEqcVjIAIsAZtqWd2S9D
+f3GOBqqDDEx6i/wPw6qlS/T5pi1sBoj8jOjSGbCWC2jL7SzioJJBHC3m14FLL8WT
+7jNLccvHJjyLEqNINyznt/+pJvhEvERjVF84afcZAlpYfwtrjUSvR5wRIGZxWIHV
+CpqSmFMCgYB+4/MfmdXm6XmfubZFg7p9q7hsWExEjS2Kz51njnzuNSKIh8L3XeWx
+aewy3ycwhp3Ah5WaM0hR2/fA44qUwi/Z/fCuNk58CmKXqDwLHqeKQspvVvyW6n+B
+KWpCZSISqzmIJasrhzK3bYpJpgGD/G7vxUWBw1oOfC49o5VRTCXBPg==
+-----END RSA PRIVATE KEY-----
+EOS
+ 
+  },
   'mongodb' => {
     'client_role' => 'distillery-thresher',
     'logappend' => true,
