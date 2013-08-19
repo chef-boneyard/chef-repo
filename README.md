@@ -152,6 +152,18 @@ Rackspace to get the new box IP address after the box has come back up. Note the
 Bootstrap the box via:
 
     knife bootstrap <IP Address> -P <password> -N tickr-3 -r "role[tickr], role[rackspace-cloud-base]" -E production -x root
+    
+### Collector Box
+
+    knife ec2 server create --region us-west-2 -I ami-1b6ffe2b -G all-open -Z us-west-2a -N distillery-collector-new -f m1.small -x ubuntu -S robby-oregon -i ~/workspace/wistia/keys/ec2-robby-oregon.pem
+    
+    knife bootstrap <public fqdn of new box> -r "role[rackspace-cloud-base], role[distillery-collector]" -N distillery-collector-new -E production -x ubuntu --sudo -i ~/workspace/wistia/keys/ec2-robby-oregon.pem --secret-file ./.chef/encrypted_data_bag_secret
+
+
+### Adding Chef to an App Server
+
+    knife bootstrap <public fqdn> -r "role[wistia-app]" -N app-<num> -E production -x wistia --sudo --secret-file ./.chef/encrypted_data_bag_secret
+
 
 ### Boxes that Require SSL Keys
 
