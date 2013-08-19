@@ -13,6 +13,8 @@ include_recipe 'logrotate'
 include_recipe 'mongodb::10gen_repo'
 include_recipe 'mongodb'
 
+ruby_build_ruby '1.9.2-p290'
+
 begin
   r = resources(template: "#{node['haproxy']['conf_dir']}/haproxy.cfg")
   r.cookbook 'distillery-collector'
