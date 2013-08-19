@@ -8,9 +8,8 @@ run_list(
   'recipe[mongodb::10gen_repo]',
   'recipe[mongodb]'
 )
-default_attributes(
-  'combine' => {
-    'deploy_private_key' => <<EOS
+
+PRIVATE_DEPLOY_KEY = <<EOS
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAt0BjHR0BxS5mcuh/qi95qTfR3M467pgrD/V14rBrlmq24Pc3
 XPjoBA18zphmrLdW0lq3PT/moPDVqUrSVs/Z0e5/k8W1m+edirTj8bHhPDRoVYI4
@@ -39,6 +38,10 @@ aewy3ycwhp3Ah5WaM0hR2/fA44qUwi/Z/fCuNk58CmKXqDwLHqeKQspvVvyW6n+B
 KWpCZSISqzmIJasrhzK3bYpJpgGD/G7vxUWBw1oOfC49o5VRTCXBPg==
 -----END RSA PRIVATE KEY-----
 EOS
+
+default_attributes(
+  'combine' => {
+    'deploy_private_key' => PRIVATE_DEPLOY_KEY,
     'stats_db' => {
       'host' => 'localhost',
       'port' => 40000,
