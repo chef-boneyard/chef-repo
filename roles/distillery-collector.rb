@@ -2,11 +2,7 @@ name 'distillery-collector'
 description 'configures a distillery-collector box (in progress)'
 run_list(
   'role[distillery-base]',
-  'recipe[distillery-collector]',
-  'recipe[haproxy::app_lb]',
-  'recipe[logrotate]',
-  'recipe[mongodb::10gen_repo]',
-  'recipe[mongodb]'
+  'recipe[distillery-collector]'
 )
 
 PRIVATE_DEPLOY_KEY = <<EOS
