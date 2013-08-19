@@ -1,17 +1,17 @@
 class Combine::Database
   CONFIG = {
-    host: <%= node['combine']['queue_db']['host'] %>,
+    host: '<%= node['combine']['queue_db']['host'] %>',
     port: <%= node['combine']['queue_db']['port'] %>,
-    database: <%= node['combine']['queue_db']['name'] %>,
-    collection: <%= node['combine']['queue_db']['collection'] %>
+    database: '<%= node['combine']['queue_db']['name'] %>',
+    collection: '<%= node['combine']['queue_db']['collection'] %>'
   }
 end
 
 class Combine::Stats
   CONFIG = {
-    host: <%= node['combine']['stats_db']['host'] %>,
+    host: '<%= node['combine']['stats_db']['host'] %>',
     port: <%= node['combine']['stats_db']['port'] %>,
-    database: <%= node['combine']['stats_db']['name'] %>,
-    collection: <%= node['combine']['stats_db']['collection'] %>
+    database: '<%= node['combine']['stats_db']['name'] %>',
+    collection: '<%= node['combine']['stats_db']['collection'] %>'
   }
 end
