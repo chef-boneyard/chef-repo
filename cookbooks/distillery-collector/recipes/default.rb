@@ -33,6 +33,19 @@ rescue Chef::Exceptions::ResourceNotFound
   Chef::Log.warn 'could not find mongo template to override!'
 end
 
+MONQUE_URL = "#{node['combine']['queue_db']['host']}:#{node['combine']['queue_db']['port']}/#{node['combine']['queue_db']['name']}"
+MONQUE_INIT_SCRIPT = [
+  "db.createCollection('monque')",
+  "db.createCollection('workers')",
+  "db.createCollection('failures')",
+  "db.monque.ensureIndex({ queue: 1 })",
+  "db.workers.ensureIndex({ worker: 1 })"
+].join(';')
+
+execute 'init-monque-collections' do
+  command %Q(mongo #{MONQUE_URL} --eval "#{MONQUE_INIT_SCRIPT}")
+end
+
 #########
 # COMBINE
 #########
