@@ -12,13 +12,16 @@
 ######
 RUBY_BUILD_VERSION = '1.9.2-p290'
 
-include_recipe 'ruby_build'
+include_recipe 'rbenv::default'
+include_recipe 'rbenv::ruby_build'
 
-ruby_build_ruby RUBY_BUILD_VERSION do
-  action :install
+rbenv_ruby RUBY_BUILD_VERSION
+
+rbenv_gem 'bundler' do
+  ruby_version RUBY_BUILD_VERSION
 end
 
-RUBY_BIN_PATH = ::File.join(node['ruby_build']['default_ruby_base_path'], RUBY_BUILD_VERSION, 'bin')
+#RUBY_BIN_PATH = ::File.join(node['ruby_build']['default_ruby_base_path'], RUBY_BUILD_VERSION, 'bin')
 
 #########
 # MONGODB
@@ -33,6 +36,7 @@ rescue Chef::Exceptions::ResourceNotFound
   Chef::Log.warn 'could not find mongo template to override!'
 end
 
+# configure monque collections and indices
 MONQUE_URL = "#{node['combine']['queue_db']['host']}:#{node['combine']['queue_db']['port']}/#{node['combine']['queue_db']['name']}"
 MONQUE_INIT_SCRIPT = [
   "db.createCollection('monque')",
