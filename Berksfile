@@ -4,7 +4,7 @@ site :opscode
 
 cookbook 'apt', git: 'git@github.com:opscode-cookbooks/apt.git'
 cookbook 'getting-started', '~> 0.4'
-cookbook 'god', git: 'git@github.com:wistia/chef-god.git', ref: '28eb1fc122808e0399b77b96ffbce1508b021ce7'
+cookbook 'god', git: 'git@github.com:wistia/chef-god.git', branch: 'less_hardcoding'
 cookbook 'haproxy', git: 'git@github.com:wistia/chef-haproxy.git'
 cookbook 'logrotate', git: 'git@github.com:opscode-cookbooks/logrotate.git'
 cookbook 'mongodb', git: 'git@github.com:edelight/chef-mongodb.git', ref: '1624d731556aa1394b8102a11f1cdcd07dc59f37'

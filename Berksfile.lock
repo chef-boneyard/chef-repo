@@ -1,17 +1,19 @@
 {
-  "sha": "25c9de963ace4a3560987b5b807269abf37d8a19",
+  "sha": "d2c14015759d5a4919863d3be29645ae2e94903e",
   "sources": {
     "apt": {
       "locked_version": "2.1.0",
       "git": "git@github.com:opscode-cookbooks/apt.git",
-      "ref": "3d047bd4f5a42a5521d20bcc16daaa5b94730d9e"
+      "ref": "159f5dc0e9fc7ce5728bbf707241d0c05c5b44c7"
     },
     "getting-started": {
       "locked_version": "0.4.0",
       "constraint": "~> 0.4"
     },
     "god": {
-      "locked_version": "1.0.2"
+      "locked_version": "1.0.3",
+      "git": "git@github.com:wistia/chef-god.git",
+      "ref": "d6f2842761fb59272dd333817051872dddd9ea18"
     },
     "haproxy": {
       "locked_version": "1.3.3",
@@ -69,18 +71,17 @@
       "ref": "913474885c2c35d4d2d20abfe7d2b6ef82aa3a18"
     },
     "runit": {
-      "locked_version": "0.16.2",
-      "constraint": "<= 0.16.2"
-    },
-    "cpu": {
-      "locked_version": "0.2.0",
-      "constraint": ">= 0.2.0"
+      "locked_version": "1.1.6"
     },
     "build-essential": {
       "locked_version": "1.4.0"
     },
     "yum": {
       "locked_version": "2.3.0"
+    },
+    "cpu": {
+      "locked_version": "0.2.0",
+      "constraint": ">= 0.2.0"
     },
     "chef-client": {
       "locked_version": "3.0.4"
