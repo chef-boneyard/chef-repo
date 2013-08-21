@@ -17,9 +17,12 @@ RUBY_BUILD_VERSION = '1.9.2-p290'
 
 include_recipe 'rbenv::default'
 include_recipe 'rbenv::ruby_build'
+include_recipe 'rbenv::rbenv_vars'
 include_recipe 'rbenv::ohai_plugin'
 
-rbenv_ruby RUBY_BUILD_VERSION
+rbenv_ruby RUBY_BUILD_VERSION do
+  global true
+end
 
 rbenv_gem 'bundler' do
   ruby_version RUBY_BUILD_VERSION

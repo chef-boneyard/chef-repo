@@ -114,6 +114,8 @@ default_attributes(
   },
 
   'rbenv' => {
-    'group_users' => ['root', 'ubuntu']
+    'group_users' => ['root', 'ubuntu'],
+    'install_prefix' => '/opt',
+    'root' => '/opt/rbenv'
   }
 )
