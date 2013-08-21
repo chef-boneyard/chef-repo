@@ -13,19 +13,19 @@ include_recipe 'apt'
 ######
 # RUBY
 ######
-RUBY_BUILD_VERSION = '1.9.2-p290'
+node.set['rbenv']['ruby_build_version'] = '1.9.2-p290'
 
 include_recipe 'rbenv::default'
 include_recipe 'rbenv::ruby_build'
 include_recipe 'rbenv::rbenv_vars'
 include_recipe 'rbenv::ohai_plugin'
 
-rbenv_ruby RUBY_BUILD_VERSION do
+rbenv_ruby node['rbenv']['ruby_build_version'] do
   global true
 end
 
 rbenv_gem 'bundler' do
-  ruby_version RUBY_BUILD_VERSION
+  ruby_version node['rbenv']['ruby_build_version']
 end
 
 #########
@@ -82,14 +82,18 @@ COMBINE_PORTS = [3000, 3001, 3002]
 # RUNIT
 #######
 
-#include_recipe 'runit'
+include_recipe 'runit'
 
-=begin
 COMBINE_PORTS.each do |port|
   runit_service "combine-#{port}" do
+    log false
+    run_template_name 'sv-combine-run.erb'
+
+    options({
+      :port => port
+    })
   end
 end
-=end
 
 
 #####

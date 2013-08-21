@@ -8,7 +8,7 @@ version          '0.1.0'
 
 depends          'application'
 depends          'apt'
-#depends          'god'
+depends          'god'
 depends          'haproxy'
 depends          'mongodb'
 depends          'logrotate'
