@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Ensure our apt cache is no more than one day old
+include_recipe 'apt'
+
 ######
 # RUBY
 ######
@@ -14,6 +17,7 @@ RUBY_BUILD_VERSION = '1.9.2-p290'
 
 include_recipe 'rbenv::default'
 include_recipe 'rbenv::ruby_build'
+include_recipe 'rbenv::ohai_plugin'
 
 rbenv_ruby RUBY_BUILD_VERSION
 
@@ -21,7 +25,8 @@ rbenv_gem 'bundler' do
   ruby_version RUBY_BUILD_VERSION
 end
 
-#RUBY_BIN_PATH = ::File.join(node['ruby_build']['default_ruby_base_path'], RUBY_BUILD_VERSION, 'bin')
+RUBY_BIN_PATH = ::File.join('/usr/local/ruby', RUBY_BUILD_VERSION, 'bin')
+node.set['combine']['ruby_bin'] = ::File.join(RUBY_BIN_PATH, 'ruby')
 
 #########
 # MONGODB
@@ -54,6 +59,7 @@ end
 # COMBINE
 #########
 COMBINE_DEPLOY_DIR = '/opt/apps/combine'
+node.set['combine']['deploy_dir'] = COMBINE_DEPLOY_DIR
 
 application 'combine' do
   path COMBINE_DEPLOY_DIR
@@ -68,6 +74,36 @@ template 'combine-db-config' do
   path ::File.join(COMBINE_DEPLOY_DIR, 'current', 'database_config.rb')
   source 'combine-db-config.rb.erb'
 end
+
+COMBINE_PORTS = [3000, 3001, 3002]
+
+
+#######
+# RUNIT
+#######
+
+#include_recipe 'runit'
+
+=begin
+COMBINE_PORTS.each do |port|
+  runit_service "combine-#{port}" do
+  end
+end
+=end
+
+
+#####
+# GOD
+#####
+
+=begin
+COMBINE_PORTS.each do |port|
+  god_monitor "combine-#{port}" do
+    config "combine-#{port}.god.erb"
+  end
+end
+=end
+
 
 #########
 # HAPROXY

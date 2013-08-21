@@ -111,5 +111,9 @@ default_attributes(
     'ulimit-n' => 65536,
     'use_listeners' => true,
     'x_forwarded_for' => true
+  },
+
+  'rbenv' => {
+    'group_users' => ['root', 'ubuntu']
   }
 )

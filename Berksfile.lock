@@ -1,5 +1,5 @@
 {
-  "sha": "6ff9b42401bed944b2a06bc067f561dc5099f43f",
+  "sha": "3ce2ed080dc6a4a1a57807043df69e2125fc3d6d",
   "sources": {
     "apt": {
       "locked_version": "2.1.0",
@@ -9,6 +9,10 @@
     "getting-started": {
       "locked_version": "0.4.0",
       "constraint": "~> 0.4"
+    },
+    "god": {
+      "locked_version": "1.0.2",
+      "constraint": "~> 1.0.2"
     },
     "haproxy": {
       "locked_version": "1.3.3",
@@ -64,6 +68,10 @@
       "git": "git@github.com:wistia/chef-wistia-base.git",
       "ref": "913474885c2c35d4d2d20abfe7d2b6ef82aa3a18"
     },
+    "runit": {
+      "locked_version": "0.16.2",
+      "constraint": "<= 0.16.2"
+    },
     "cpu": {
       "locked_version": "0.2.0",
       "constraint": ">= 0.2.0"
@@ -104,10 +112,6 @@
     },
     "chef_handler": {
       "locked_version": "1.1.4"
-    },
-    "runit": {
-      "locked_version": "1.1.6",
-      "constraint": ">= 1.0.0"
     },
     "application": {
       "locked_version": "3.0.0"
