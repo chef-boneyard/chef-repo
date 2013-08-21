@@ -25,9 +25,6 @@ rbenv_gem 'bundler' do
   ruby_version RUBY_BUILD_VERSION
 end
 
-RUBY_BIN_PATH = ::File.join('/usr/local/ruby', RUBY_BUILD_VERSION, 'bin')
-node.set['combine']['ruby_bin'] = ::File.join(RUBY_BIN_PATH, 'ruby')
-
 #########
 # MONGODB
 #########
