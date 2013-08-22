@@ -38,17 +38,18 @@ EOS
 default_attributes(
   'combine' => {
     'deploy_private_key' => PRIVATE_DEPLOY_KEY,
-    'stats_db' => {
-      'host' => 'localhost',
-      'port' => 40000,
-      'name' => 'stats',
-      'collection' => 'counters'
-    },
+    'ports' => [3000, 3001, 3002],
     'queue_db' => {
       'host' => 'localhost',
       'port' => 40000,
       'name' => 'monque',
       'collection' => 'monque'
+    },
+    'stats_db' => {
+      'host' => 'localhost',
+      'port' => 40000,
+      'name' => 'stats',
+      'collection' => 'counters'
     }
   },
 
@@ -57,6 +58,11 @@ default_attributes(
     'logappend' => true,
     'pidfilepath' => '/var/lib/mongodb/collector.pid',
     'port' => 40000
+  },
+
+  'god' => {
+    'init_style' => 'runit',
+    'use_rbenv' => true
   },
 
   'haproxy' => {
@@ -115,7 +121,18 @@ default_attributes(
 
   'rbenv' => {
     'group_users' => ['root', 'ubuntu'],
-    'install_prefix' => '/opt',
     'root' => '/opt/rbenv'
   }
 )
+
+override_attributes({
+  'rbenv' => {
+    'install_prefix' => '/opt',
+    'root' => '/opt/rbenv'
+  },
+
+  'ruby_build' => {
+    'prefix' => '/opt/rbenv/plugins/ruby_build',
+    'bin_path' => '/opt/rbenv/plugins/ruby_build/bin'
+  }
+})

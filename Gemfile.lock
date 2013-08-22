@@ -46,6 +46,7 @@ GEM
       ohai (>= 0.6.0)
       rest-client (>= 1.0.4, < 1.7.0)
       yajl-ruby (~> 1.1)
+    chef-rewind (0.0.5)
     chozo (0.6.1)
       activesupport (>= 3.2.0)
       hashie (>= 2.0.2)
@@ -184,6 +185,7 @@ PLATFORMS
 DEPENDENCIES
   berkshelf (~> 2.0)
   chef (~> 11.6)
+  chef-rewind
   json (~> 1.7.7)
   knife-ec2
   knife-rackspace

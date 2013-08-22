@@ -1,3 +1,2 @@
 #!/bin/sh
-exec 2>&1
-exec <%= ::File.join(node['combine']['deploy_dir'], 'combine') %> -p <%= @options[:port] %> start
+exec /opt/rbenv/shims/ruby <%= ::File.join(node['combine']['deploy_dir'], 'current', 'combine') %> -p <%= @options[:port] %>
