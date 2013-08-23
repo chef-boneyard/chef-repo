@@ -41,13 +41,13 @@ default_attributes(
     'ports' => [3000, 3001, 3002],
     'queue_db' => {
       'host' => 'localhost',
-      'port' => 40000,
+      'port' => 27017,
       'name' => 'monque',
       'collection' => 'monque'
     },
     'stats_db' => {
       'host' => 'localhost',
-      'port' => 40000,
+      'port' => 27017,
       'name' => 'stats',
       'collection' => 'counters'
     }
@@ -57,7 +57,7 @@ default_attributes(
     'client_role' => 'distillery-thresher',
     'logappend' => true,
     'pidfilepath' => '/var/lib/mongodb/collector.pid',
-    'port' => 40000
+    'port' => 27017
   },
 
   'god' => {
