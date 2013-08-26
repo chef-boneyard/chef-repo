@@ -21,7 +21,7 @@ end
 # Creates a user called 'barbican' and sets their password
 database_user 'barbican' do
   connection postgresql_connection_info
-  password ']OSF8wkgrPWcB=Jqk8QM'
+  password '<password>'
   provider Chef::Provider::Database::PostgresqlUser
   action :create
 end
