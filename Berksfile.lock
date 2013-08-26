@@ -1,5 +1,5 @@
 {
-  "sha": "d2c14015759d5a4919863d3be29645ae2e94903e",
+  "sha": "9303c901020c56ab4b57cfe8113c07ab53277f76",
   "sources": {
     "apt": {
       "locked_version": "2.1.0",
@@ -41,9 +41,9 @@
       "ref": "34904c5bed1f3b51df8ee066032915aecd9a446d"
     },
     "rbenv": {
-      "locked_version": "1.5.0",
+      "locked_version": "1.5.1",
       "git": "git@github.com:RiotGames/rbenv-cookbook.git",
-      "ref": "a60b19e5e5d40f3c6f9e547848f6cc4b1c60db92"
+      "ref": "db7825b6bfe4a4ff214a67177b90711d7f331a68"
     },
     "ssh-keys": {
       "locked_version": "1.0.0",
