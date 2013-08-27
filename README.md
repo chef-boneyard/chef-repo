@@ -24,7 +24,7 @@ First, youll need a Chef Server account. [Login](https://chef.wistia.com) and ge
 
 Next, get `chef-validator.pem` and `encrypted_data_bag_secret` from a team member who has them, and place it in your `.chef` directory.
 
-Finally, you need to configure some environment variables so that knife.rb can retrieve the settings it needs without those settings being saved in our git repository.
+Now you need to configure some environment variables so that knife.rb can retrieve the settings it needs without those settings being saved in our git repository.
 
 * `WISTIA_CHEF_USERNAME` is the username of your account on Chef Server.
 * `WISTIA_RACKSPACE_USERNAME` is the name of the Distillery's rackspace account.
@@ -36,7 +36,7 @@ The easiest way to do this is to add lines to your `~/.bash_profile` or `~/.zsh_
 
 After modifying your `~/.[ba|z]sh_profile` you will need to start a new shell session or reload it by running `source ~/.[ba|z]sh_profile`.
 
-Finally, create a `~/.berkshelf/config.json` as follows:
+In order to work around our chef server not having an SSL certificate, create a `~/.berkshelf/config.json` as follows:
 
     {
       "ssl": {
@@ -45,6 +45,8 @@ Finally, create a `~/.berkshelf/config.json` as follows:
     }
 
 This bypasses SSL errors caused by the fact that our Chef SSL certificate is not signed by a CA.
+
+Finally, run `bundle install`.
 
 ## Getting Access to Old Servers & New Ones
 
