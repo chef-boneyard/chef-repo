@@ -10,3 +10,4 @@ Berksfile.lock
 Gemfile.lock
 .vagrant
 
+.venv
