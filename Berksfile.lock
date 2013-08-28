@@ -2,9 +2,9 @@
   "sha": "9303c901020c56ab4b57cfe8113c07ab53277f76",
   "sources": {
     "apt": {
-      "locked_version": "2.1.0",
+      "locked_version": "2.1.1",
       "git": "git@github.com:opscode-cookbooks/apt.git",
-      "ref": "159f5dc0e9fc7ce5728bbf707241d0c05c5b44c7"
+      "ref": "b58c75536300794e5b5ffa8747fc9e6c48a4e5ce"
     },
     "getting-started": {
       "locked_version": "0.4.0",
@@ -21,9 +21,9 @@
       "ref": "f5cc661e1ad11d891c64b2d401bf988e8551ef6c"
     },
     "logrotate": {
-      "locked_version": "1.2.3",
+      "locked_version": "1.3.1",
       "git": "git@github.com:opscode-cookbooks/logrotate.git",
-      "ref": "f7618b723a3909e53d0fbf594f0de30a2b9384a4"
+      "ref": "0649966bdf56fefa1e29494aaa2a999913bbc768"
     },
     "mongodb": {
       "locked_version": "0.13.1",
@@ -58,7 +58,7 @@
     "sudo": {
       "locked_version": "2.1.5",
       "git": "git@github.com:opscode-cookbooks/sudo.git",
-      "ref": "a503303c8df8e832de5252169f4c02540b46667c"
+      "ref": "f3a595c63d7fc4eb19270074b56a4218cbb3cff8"
     },
     "tickr": {
       "locked_version": "0.1.67",
@@ -66,9 +66,9 @@
       "ref": "ef6bc60825dabccac596c821c6971326c036fa41"
     },
     "wistia-base": {
-      "locked_version": "0.1.2",
+      "locked_version": "0.1.3",
       "git": "git@github.com:wistia/chef-wistia-base.git",
-      "ref": "913474885c2c35d4d2d20abfe7d2b6ef82aa3a18"
+      "ref": "4beb90f975518a2009de9da35369580e4f0f9fd3"
     },
     "runit": {
       "locked_version": "1.1.6"
@@ -115,7 +115,7 @@
       "locked_version": "1.1.4"
     },
     "application": {
-      "locked_version": "3.0.0"
+      "locked_version": "2.0.4"
     },
     "mysql": {
       "locked_version": "3.0.2"
