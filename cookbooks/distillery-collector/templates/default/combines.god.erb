@@ -79,18 +79,5 @@ combine_list.each do |combine|
         c.retry_within = 2.hours
       end
     end
-
-=begin
-    w.restart_if do |restart|
-      restart.condition(:memory_usage) do |c|
-        c.above = <%= @max_memory %>.megabytes
-      end
-
-      restart.condition(:cpu_usage) do |c|
-        c.above = <%= @cpu %>.percent
-        c.times = 5
-      end
-    end
-=end
   end
 end
