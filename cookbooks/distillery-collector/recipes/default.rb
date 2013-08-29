@@ -50,6 +50,7 @@ execute 'init-monque-collections' do
   command %Q(mongo #{MONQUE_URL} --eval "#{MONQUE_INIT_SCRIPT}")
 end
 
+
 #########
 # COMBINE
 #########
@@ -111,13 +112,11 @@ end
 # GOD
 #####
 
-=begin
-COMBINE_PORTS.each do |port|
-  god_monitor "combine-#{port}" do
-    config "combine-#{port}.god.erb"
-  end
+include_recipe 'god'
+
+god_monitor 'combines' do
+  config 'combines.god.erb'
 end
-=end
 
 
 ###########

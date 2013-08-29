@@ -61,6 +61,7 @@ default_attributes(
   },
 
   'god' => {
+    'bin' => '/opt/rbenv/shims/god',
     'init_style' => 'runit',
     'use_rbenv' => true
   },
