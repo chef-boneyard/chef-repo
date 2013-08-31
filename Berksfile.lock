@@ -18,7 +18,7 @@
     "haproxy": {
       "locked_version": "1.3.3",
       "git": "git@github.com:wistia/chef-haproxy.git",
-      "ref": "f5cc661e1ad11d891c64b2d401bf988e8551ef6c"
+      "ref": "d87c26ee375dc58603c71593752c4eed6ff0b6ed"
     },
     "logrotate": {
       "locked_version": "1.3.1",

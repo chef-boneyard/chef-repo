@@ -77,6 +77,7 @@ default_attributes(
       'server' => 60000
     },
     'global_max_connections' => 10000,
+    'install_method' => 'source',
     'listeners' => [
       {
         'name' => 'http_balance',
@@ -106,10 +107,11 @@ default_attributes(
     ],
     'pid_file' => '/var/run/haproxy.pid',
     'source' => {
-      'target_arch' => 'x86_64',
+      'checksum' => '7140a43637233bcb9cc51f789c0d3e0f',
       'target_os' => 'linux26',
       'use_pcre' => true,
-      'version' => '1.4.24'
+      'url' => 'http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-1.5-dev19.tar.gz',
+      'version' => '1.5-dev19'
     },
     'stats' => {
       'uri' => '/haproxy?stats',
