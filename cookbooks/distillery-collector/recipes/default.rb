@@ -120,6 +120,10 @@ god_monitor 'combines' do
   config 'combines.god.erb'
 end
 
+god_monitor 'haproxy' do
+  config 'haproxy.god.erb'
+end
+
 
 ###########
 # LOGROTATE

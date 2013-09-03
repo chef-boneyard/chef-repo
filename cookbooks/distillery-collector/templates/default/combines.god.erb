@@ -22,8 +22,8 @@ combine_list.each do |combine|
     w.start = combine[:start] 
     w.stop = combine[:stop]
     w.restart = combine[:restart]
-    #w.start_grace = 10.seconds
-    #w.restart_grace = 10.seconds
+    w.start_grace = 10.seconds
+    w.restart_grace = 10.seconds
     w.pid_file = combine[:pidfile] 
     w.group = 'combines'
 
