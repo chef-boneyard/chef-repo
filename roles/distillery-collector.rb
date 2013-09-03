@@ -56,7 +56,7 @@ default_attributes(
   'mongodb' => {
     'client_role' => 'distillery-thresher',
     'logappend' => true,
-    'pidfilepath' => '/var/lib/mongodb/collector.pid',
+    'pidfilepath' => '/var/run/mongodb.pid',
     'port' => 27017
   },
 

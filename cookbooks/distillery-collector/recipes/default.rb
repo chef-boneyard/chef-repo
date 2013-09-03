@@ -124,6 +124,12 @@ god_monitor 'haproxy' do
   config 'haproxy.god.erb'
 end
 
+god_monitor 'mongo' do
+  config 'mongo.god.erb'
+  cpu 95
+  max_memory 2048
+end
+
 
 ###########
 # LOGROTATE
