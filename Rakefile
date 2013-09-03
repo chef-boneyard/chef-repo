@@ -63,3 +63,27 @@ task :bundle_cookbook, :cookbook do |t, args|
 
   FileUtils.rm_rf temp_dir
 end
+
+
+Rake::TaskManager.class_eval do
+  def remove_task(task_name)
+    @tasks.delete(task_name.to_s)
+  end
+end
+Rake.application.remove_task(:roles) 
+Rake.application.remove_task(:role) 
+
+desc "Update roles"
+task :roles do |t, args|
+  FileList[File.join(TOPDIR, 'roles', '**', '*.{json,rb}')].pathmap('%n').each do |role_name|
+    Rake::Task['role'].execute( { :role_name => role_name } )  
+  end
+end
+
+desc "Update a specific role"
+task :role, :role_name do |t, args|
+  role_name = args[ :role_name ]
+  files = Dir.glob( File.join(TOPDIR, 'roles', '**', "#{role_name}.{json,rb}") )
+  raise RuntimeError( "No role named #{role_name}" ) if files.length != 1
+  system("knife role from file #{files[0]}")
+end
