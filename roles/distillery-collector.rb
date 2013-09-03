@@ -122,6 +122,10 @@ default_attributes(
     'x_forwarded_for' => true
   },
 
+  'ntp' => {
+    'servers' => ['ntp.ubuntu.com']
+  },
+
   'rbenv' => {
     'group_users' => ['root', 'ubuntu'],
     'root' => '/opt/rbenv'

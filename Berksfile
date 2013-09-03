@@ -8,6 +8,7 @@ cookbook 'god', git: 'git@github.com:wistia/chef-god.git', branch: 'less_hardcod
 cookbook 'haproxy', git: 'git@github.com:wistia/chef-haproxy.git'
 cookbook 'logrotate', git: 'git@github.com:opscode-cookbooks/logrotate.git'
 cookbook 'mongodb', git: 'git@github.com:edelight/chef-mongodb.git', ref: '1624d731556aa1394b8102a11f1cdcd07dc59f37'
+cookbook 'ntp', '~> 1.4.0'
 cookbook 'ohai-public_ip', git: 'git@github.com:wistia/chef-ohai-public_ip.git'
 cookbook 'rackconnect', git: 'git@github.com:dwradcliffe/cookbook-rackconnect.git'
 cookbook 'rbenv', git: 'git@github.com:RiotGames/rbenv-cookbook.git', ref: 'db7825b6bfe4a4ff214a67177b90711d7f331a68'

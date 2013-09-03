@@ -14,6 +14,8 @@ require 'chef/rewind'
 # Ensure our apt cache is no more than one day old
 include_recipe 'apt'
 
+include_recipe 'ntp::ntpdate'
+
 ######
 # RUBY
 ######
@@ -122,4 +124,29 @@ end
 ###########
 # LOGROTATE
 ###########
-include_recipe 'logrotate'
+include_recipe 'logrotate::global'
+
+logrotate_app 'combines' do
+  cookbook 'logrotate'
+  path '/opt/apps/combine/current/log/combine.log'
+  frequency 'weekly'
+  rotate '52'
+  options ['missingok', 'compress', 'delaycompress', 'notifempty']
+  create '666 root root'
+end
+
+logrotate_app 'mongo' do
+  cookbook 'logrotate'
+  path '/var/log/mongodb/mongodb.log'
+  frequency 'daily'
+  rotate '52'
+  options ['missingok', 'compress', 'delaycompress', 'notifempty']
+  create '644 mongodb nogroup'
+  # USR1 causes mongod to rotate and reopen the log file on its own, which causes
+  # a 2nd (empty) copy to be made. The ugly find command removes this 2nd copy.
+  # See http://viktorpetersson.com/2011/12/22/mongodb-and-logrotate/
+  postrotate <<EOS
+  killall -SIGUSR1 mongod
+  find /var/log/mongodb/ -type f -regex ".*\.\(log.[0-9].*-[0-9].*\)" -exec rm {} \;
+EOS
+end

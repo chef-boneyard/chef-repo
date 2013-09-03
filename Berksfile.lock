@@ -1,5 +1,5 @@
 {
-  "sha": "9303c901020c56ab4b57cfe8113c07ab53277f76",
+  "sha": "6e7bc18b1b3a6bf379500a454acdd9326581a44d",
   "sources": {
     "apt": {
       "locked_version": "2.1.1",
@@ -29,6 +29,10 @@
       "locked_version": "0.13.1",
       "git": "git@github.com:edelight/chef-mongodb.git",
       "ref": "1624d731556aa1394b8102a11f1cdcd07dc59f37"
+    },
+    "ntp": {
+      "locked_version": "1.4.0",
+      "constraint": "~> 1.4.0"
     },
     "ohai-public_ip": {
       "locked_version": "0.1.16",
