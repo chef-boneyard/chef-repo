@@ -58,7 +58,7 @@ God.watch do |w|
   w.lifecycle do |on|
     # notify if disk usage gets above 45% so we can possibly compact the db
     # without having to drop/recreate it
-    on.conditions(:disk_usage) do |c|
+    on.condition(:disk_usage) do |c|
       c.above = 45
       c.mount_point = '/'
       c.notify = {:contacts => 'ops', :priority => 1, :category => 'resources'}
