@@ -2,6 +2,7 @@ name 'distillery-collector'
 description 'configures a distillery-collector box (in progress)'
 run_list(
   'role[distillery-base]',
+  'role[wistia-ssl]',
   'recipe[distillery-collector]'
 )
 
@@ -62,6 +63,22 @@ default_attributes(
 
   'god' => {
     'bin' => '/opt/rbenv/shims/god',
+    'email' => {
+      'from' => 'monit@wistia.com',
+      'contacts' => {
+        'developers' => 'dev@wistia.com',
+        'jim' => 'jim@wistia.com',
+        'ops' => 'ops.alerts@wistia.com'
+      },
+      'server' => {
+        'server_host' => 'smtp.sendgrid.net',
+        'server_port' => 587,
+        'server_auth' => true,
+        'server_domain' => 'wistia.com',
+        'server_user' => 'bschwartz@wistia.com',
+        'server_password' => 'superh4torade'
+      }
+    },
     'init_style' => 'runit',
     'use_rbenv' => true
   },
@@ -76,6 +93,7 @@ default_attributes(
       'connect' => 4000,
       'server' => 60000
     },
+    'enable_ssl' => true,
     'global_max_connections' => 10000,
     'install_method' => 'source',
     'listeners' => [
@@ -94,7 +112,8 @@ default_attributes(
 
       {
         'name' => 'https_balance',
-        'bind_location' => '127.0.0.1:8443',
+        'ssl_enabled' => true,
+        'bind_location' => ':443',
         'balance' => 'roundrobin',
         'options' => ['forwardfor except 127.0.0.1'],
         'additional_headers' => [{ 'key' => 'X-Forwarded-Proto', 'value' => 'https' }],

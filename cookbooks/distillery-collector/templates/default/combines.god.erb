@@ -44,12 +44,15 @@ combine_list.each do |combine|
       on.condition(:tries) do |c|
         c.times = 5
         c.transition = :start
+        c.notify = {:contacts => 'ops', :priority => 1, :category => 'combine'}
       end
     end
 
     # start if process is not running
     w.transition(:up, :start) do |on|
-      on.condition(:process_exits)
+      on.condition(:process_exits) do |c|
+        c.notify = {:contacts => 'ops', :priority => 10, :category => 'combine'}
+      end
     end
 
     # restart if memory or cpu is too high
@@ -58,12 +61,14 @@ combine_list.each do |combine|
         c.interval = 20
         c.above = <%= @max_memory %>.megabytes
         c.times = [3, 5]
+        c.notify = {:contacts => 'ops', :priority => 10, :category => 'resources'}
       end
 
       on.condition(:cpu_usage) do |c|
         c.interval = 10
         c.above = <%= @cpu %>.percent
         c.times = [3, 5]
+        c.notify = {:contacts => 'ops', :priority => 10, :category => 'resources'}
       end
     end
 
@@ -77,6 +82,7 @@ combine_list.each do |combine|
         c.retry_in = 10.minutes
         c.retry_times = 5
         c.retry_within = 2.hours
+        c.notify = {:contacts => 'ops', :priority => 1, :category => 'combine'}
       end
     end
   end

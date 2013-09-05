@@ -32,6 +32,9 @@ defaults
   <% listeners = node['haproxy']['listeners'] || [] %>
   <% listeners.each do |listener| %>
 listen <%= listener['name'] %> <%= listener['bind_location'] %>
+  <% if node['haproxy']['enable_ssl'] && listener['ssl_enabled'] %>
+    bind <%= listener['bind_location'] %> ssl crt <%= ::File.join(node['ssl']['certs_dir'], 'distillery.wistia.com.crt') %>
+  <% end %>
     balance <%= listener['balance'] %>
     <% listener_options = listener['options'] || [] %>
     <% listener_options.each do |o| %>

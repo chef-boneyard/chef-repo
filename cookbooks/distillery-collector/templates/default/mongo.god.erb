@@ -26,12 +26,15 @@ God.watch do |w|
     on.condition(:tries) do |c|
       c.times = 5
       c.transition = :start
+      c.notify = {:contacts => 'ops', :priority => 1, :category => 'mongo'}
     end
   end
 
   # start if process is not running
   w.transition(:up, :start) do |on|
-    on.condition(:process_exits)
+    on.condition(:process_exits) do |c|
+      c.notify = {:contacts => 'ops', :priority => 10, :category => 'mongo'}
+    end
   end
 
   # restart if memory or cpu is too high
@@ -40,17 +43,27 @@ God.watch do |w|
       c.interval = 20
       c.above = <%= @max_memory %>.megabytes
       c.times = [3, 5]
+      c.notify = {:contacts => 'ops', :priority => 10, :category => 'resources'}
     end
 
     on.condition(:cpu_usage) do |c|
       c.interval = 10
       c.above = <%= @cpu %>.percent
       c.times = [3, 5]
+      c.notify = {:contacts => 'ops', :priority => 10, :category => 'resources'}
     end
   end
 
   # lifecycle
   w.lifecycle do |on|
+    # notify if disk usage gets above 45% so we can possibly compact the db
+    # without having to drop/recreate it
+    on.conditions(:disk_usage) do |c|
+      c.above = 45
+      c.mount_point = '/'
+      c.notify = {:contacts => 'ops', :priority => 1, :category => 'resources'}
+    end
+
     on.condition(:flapping) do |c|
       c.to_state = [:start, :restart]
       c.times = 5
@@ -59,6 +72,7 @@ God.watch do |w|
       c.retry_in = 10.minutes
       c.retry_times = 5
       c.retry_within = 2.hours
+      c.notify = {:contacts => 'ops', :priority => 1, :category => 'mongo'}
     end
   end
 end
