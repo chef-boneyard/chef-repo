@@ -1,0 +1,10 @@
+# .. otherwise consider putting these two in /etc/rsyslog.conf instead:
+$ModLoad imudp
+$UDPServerAddress 127.0.0.1
+$UDPServerRun 514
+
+# ..and in any case, put these two in /etc/rsyslog.d/49-haproxy.conf:
+local0.* -/var/log/haproxy_0.log
+& ~
+# & ~ means not to put what matched in the above line anywhere else for the rest of the rules
+# http://serverfault.com/questions/214312/how-to-keep-haproxy-log-messages-out-of-var-log-syslog

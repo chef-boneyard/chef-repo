@@ -102,6 +102,16 @@ end
 #########
 # HAPROXY
 #########
+
+template 'haproxy-rsyslog-config' do
+  path '/etc/rsyslog.d/49-haproxy.conf'
+  source 'haproxy-rsyslog.conf.erb'
+end
+
+execute 'restart-rsyslog' do
+  command %Q(restart rsyslog)
+end
+
 include_recipe 'haproxy::app_lb'
 
 rewind "template[#{node['haproxy']['conf_dir']}/haproxy.cfg]" do

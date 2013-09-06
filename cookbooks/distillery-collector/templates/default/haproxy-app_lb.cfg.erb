@@ -1,6 +1,5 @@
 global
   log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
   #log loghost    local0 info
   maxconn <%= node['haproxy']['global_max_connections'] %>
   #debug
@@ -55,38 +54,16 @@ listen <%= listener['name'] %> <%= listener['bind_location'] %>
 frontend http
   maxconn <%= node['haproxy']['frontend_max_connections'] %>
   bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
+  <%= node['haproxy']['enable_ssl'] ? "bind #{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']} ssl crt #{::File.join(node['ssl']['certs_dir'], 'distillery.wistia.com.crt')} no-sslv3 ciphers RC4-SHA:AES128-SHA:AES256-SHA" : '' %>
   default_backend servers-http
 
-<% if node['haproxy']['enable_ssl'] -%>
-frontend https
-  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
-  mode tcp
-  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
-  default_backend servers-https
-<% end -%>
-
 backend servers-http
-  <% @pool_members.each do |member| -%>
-  server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
+  <% node['haproxy']['backends'].each do |member| -%>
+  server <%= member['hostname'] %> <%= member['ipaddress'] %>:<%= member['port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   <% end -%>
-  <% if node["haproxy"]["httpchk"] -%>
-  option httpchk <%= node["haproxy"]["httpchk"] %>
+  option forwardfor except 127.0.0.1
+  <% if node['haproxy']['httpchk'] -%>
+  option httpchk <%= node['haproxy']['httpchk'] %>
   <% end -%>
 
-<% if node['haproxy']['enable_ssl'] -%>
-backend servers-https
-  mode tcp
-  option ssl-hello-chk
-  <% @pool_members.each do |member| -%>
-  server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['ssl_member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  <% end -%>
-  <% if node["haproxy"]["ssl_httpchk"] -%>
-  option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
-  <% end -%>
-<% end -%>
-
-<% if node['haproxy']['enable_admin'] -%>
-listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
-  mode http
-<% end -%>
 <% end %>

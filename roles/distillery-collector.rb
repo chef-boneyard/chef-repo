@@ -85,6 +85,11 @@ default_attributes(
 
   'haproxy' => {
     'app_server_role' => 'distillery-collector',
+    'backends' => [
+      { 'hostname' => 'c1', 'ipaddress' => '127.0.0.1', 'port' => 3000 },
+      { 'hostname' => 'c2', 'ipaddress' => '127.0.0.1', 'port' => 3001 },
+      { 'hostname' => 'c3', 'ipaddress' => '127.0.0.1', 'port' => 3002 }
+    ],
     'balance_algorithm' => 'roundrobin',
     'daemon' => true,
     'defaults_options' => ['httplog', 'redispatch', 'httpclose', 'dontlognull'],
@@ -94,36 +99,13 @@ default_attributes(
       'server' => 60000
     },
     'enable_ssl' => true,
+    'frontend_max_connections' => 10000,
     'global_max_connections' => 10000,
+    'httpchk' => 'GET /health',
+    'incoming_address' => '0.0.0.0',
+    'incoming_port' => 80,
     'install_method' => 'source',
-    'listeners' => [
-      {
-        'name' => 'http_balance',
-        'bind_location' => ':80',
-        'balance' => 'roundrobin',
-        'options' => ['forwardfor except 127.0.0.1 except 10.182.172.213'],
-        'additional_headers' => [{ 'key' => 'X-Forwarded-Proto', 'value' => 'http' }],
-        'servers' => [
-          { 'name' => 'c1', 'ip' => '127.0.0.1', 'port' => 3000, 'weight' => 1, 'maxconn' => 5000 },
-          { 'name' => 'c2', 'ip' => '127.0.0.1', 'port' => 3001, 'weight' => 1, 'maxconn' => 5000 },
-          { 'name' => 'c3', 'ip' => '127.0.0.1', 'port' => 3002, 'weight' => 1, 'maxconn' => 5000 },
-        ]
-      },
-
-      {
-        'name' => 'https_balance',
-        'ssl_enabled' => true,
-        'bind_location' => ':443',
-        'balance' => 'roundrobin',
-        'options' => ['forwardfor except 127.0.0.1'],
-        'additional_headers' => [{ 'key' => 'X-Forwarded-Proto', 'value' => 'https' }],
-        'servers' => [
-          { 'name' => 'c1', 'ip' => '127.0.0.1', 'port' => 3000, 'weight' => 1, 'maxconn' => 5000 },
-          { 'name' => 'c2', 'ip' => '127.0.0.1', 'port' => 3001, 'weight' => 1, 'maxconn' => 5000 },
-          { 'name' => 'c3', 'ip' => '127.0.0.1', 'port' => 3002, 'weight' => 1, 'maxconn' => 5000 },
-        ]
-      }
-    ],
+    'member_max_connections' => 5000,
     'pid_file' => '/var/run/haproxy.pid',
     'source' => {
       'checksum' => '7140a43637233bcb9cc51f789c0d3e0f',
@@ -132,12 +114,14 @@ default_attributes(
       'url' => 'http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-1.5-dev19.tar.gz',
       'version' => '1.5-dev19'
     },
+    'ssl_incoming_address' => '0.0.0.0',
+    'ssl_incoming_port' => 443,
     'stats' => {
       'uri' => '/haproxy?stats',
       'auth' => 'admin:m4dmin'
     },
     'ulimit-n' => 65536,
-    'use_listeners' => true,
+    'use_listeners' => false,
     'x_forwarded_for' => true
   },
 
