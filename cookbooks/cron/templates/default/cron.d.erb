@@ -1,0 +1,15 @@
+# Crontab for <%= @name %> managed by Chef. Changes will be overwritten.
+<% if @mailto -%>
+MAILTO=<%= @mailto %>
+<% end -%>
+<% if @path -%>
+PATH=<%= @path %>
+<% end -%>
+<% if @shell -%>
+SHELL=<%= @shell %>
+<% end -%>
+<% if @home -%>
+HOME=<%= @home %>
+<% end -%>
+
+<%= @minute %> <%= @hour %> <%= @day %> <%= @month %> <%= @weekday %> <%= @user %> <%= @command %>
