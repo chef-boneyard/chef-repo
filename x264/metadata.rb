@@ -9,3 +9,4 @@ supports "ubuntu", "10.04"
 
 depends "build-essential"
 depends "git"
+depends "yasm"
