@@ -22,7 +22,6 @@
 include_recipe "build-essential"
 include_recipe "git"
 
-include_recipe "x264::source"
 include_recipe "libvpx::source"
 
 yasm_package = value_for_platform(
