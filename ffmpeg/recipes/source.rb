@@ -22,12 +22,6 @@
 include_recipe "build-essential"
 include_recipe "git"
 
-ffmpeg_packages.each do |pkg|
-  package pkg do
-    action :purge
-  end
-end
-
 include_recipe "x264::source"
 include_recipe "libvpx::source"
 
