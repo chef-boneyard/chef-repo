@@ -6,6 +6,8 @@
 #include_recipe 'postgresql::server'
 #include_recipe 'repmgr'
 
+include_recipe "barbican-base"
+
 # This connection info is used later in the recipe by the resources to connect to the DB
 postgresql_connection_info = {:host => "localhost",
                               :port => "5432",
@@ -21,7 +23,7 @@ end
 # Creates a user called 'barbican' and sets their password
 database_user 'barbican' do
   connection postgresql_connection_info
-  password '<password>'
+  password 'barbpass'
   provider Chef::Provider::Database::PostgresqlUser
   action :create
 end

@@ -1,7 +1,7 @@
 name 'base'
 description 'Base role for all servers'
 run_list(
-    'recipe[cloudpassage]',
+#    'recipe[cloudpassage]'
     'recipe[newrelic::repository]',
     'recipe[newrelic::server-monitor]',
     'recipe[yum::epel]'
