@@ -102,13 +102,6 @@ Vagrant.configure("2") do |config|
                         'config' => {
                             'listen_addresses' => '*'
                         },
-                        'max_wal_senders' => 0, 
-                        'wal_sender_delay' => '1s',
-                        'wal_keep_segments' => 0,   
-                        'vacuum_defer_cleanup_age' => 0,
-                        'replication_timeout' => '60s',
-                        'synchronous_standby_names' => '',
-
                         'pg_hba' => [
                           {
                             'comment' => '# "local" is for Unix domain socket connections only',
