@@ -7,8 +7,7 @@
 Vagrant.configure("2") do |config|
 
   config.vm.box = "opscode-centos-6.4"
-  #config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
-  config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box"
+  config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
 
   config.vm.define :barbican_api do |barbican_api|
     barbican_api.vm.hostname = "barbican-api-test"
