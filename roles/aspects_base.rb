@@ -5,9 +5,9 @@
 name 'aspects_base'
 description 'Aspect configuration for all servers'
 run_list(
-    'recipe[cloudpassage]',
-    'recipe[newrelic::repository]',
-    'recipe[newrelic::server-monitor]'
+    'recipe[cloudpassage]'
+#    'recipe[newrelic::repository]',
+#    'recipe[newrelic::server-monitor]'
 )
 override_attributes(
     'cloudpassage' => {
