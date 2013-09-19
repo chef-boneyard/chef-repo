@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: barbican-api
+# Cookbook Name:: barbican-worker
 # Recipe:: default
 #
 # Note that the yum repository configuration used here was found at this site:
@@ -10,6 +10,6 @@ include_recipe "barbican-base"
 
 package 'barbican-common'
 
-package 'barbican-api'
+package 'barbican-worker'
 
 

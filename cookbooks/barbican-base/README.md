@@ -1,18 +1,17 @@
-barbican-api Cookbook
+barbican-base Cookbook
 =====================
-Create a Barbican API node.
+Create a Barbican Base node.
 
 Requirements
 ------------
 'yum::epel'
-'barbican-base'
 
 Attributes
 ----------
 TODO: List you cookbook attributes here.
 
 e.g.
-#### barbican-api::default
+#### barbican-base::default
 <table>
   <tr>
     <th>Key</th>
@@ -21,7 +20,7 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['barbican-api']['bacon']</tt></td>
+    <td><tt>['barbican-base']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
     <td><tt>true</tt></td>
@@ -40,7 +39,7 @@ Just include `barbican-api` in your node's `run_list`:
 {
   "name":"my_node",
   "run_list": [
-    "recipe[barbican-api]"
+    "recipe[barbican-base]"
   ]
 }
 ```
