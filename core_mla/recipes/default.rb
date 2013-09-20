@@ -4,8 +4,8 @@ git "#{Chef::Config[:file_cache_path]}/core_mla" do
   action :sync
 end
 
-dpkg_package "core_mla" do
-  source "#{Chef::Config[:file_cache_path]}/core_mla/coremla_1.0.0-2_amd64.deb"
+rpm_package "core_mla" do
+  source "#{Chef::Config[:file_cache_path]}/core_mla/CoreMLA-1.0.0-1.x86_64.rpm"
   action :install
 end
 
