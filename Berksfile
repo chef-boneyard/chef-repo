@@ -14,7 +14,7 @@ cookbook 'barbican-api', path: './cookbooks/barbican-api'
 cookbook 'barbican-worker', path: './cookbooks/barbican-worker'
 cookbook 'barbican-queue', path: './cookbooks/barbican-queue'
 cookbook 'barbican-db', path: './cookbooks/barbican-db'
-cookbook 'cloudpassage', path: './cookbooks/chef-cloudpassage'
+cookbook 'chef-cloudpassage', path: './cookbooks/chef-cloudpassage'
 cookbook 'chef-statsd', github: 'hectcastro/chef-statsd'
 cookbook 'newrelic', github: 'escapestudios/chef-newrelic'
 
