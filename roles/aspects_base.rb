@@ -11,8 +11,10 @@ run_list(
 )
 override_attributes(
     'cloudpassage' => {
-        'license_key' => 'get from a data bag or provide key here',
-        'tag' => 'get from a data bag or provide tag here'
+        'license_key' => 'fbce1e35339345f48556c7a9a0d23205',
+        'tag' => 'test-api-tag'
+#        'license_key' => 'get from a data bag or provide key here',
+#        'tag' => 'get from a data bag or provide tag here'
     },
     'newrelic' => {
         'server_monitoring' => {

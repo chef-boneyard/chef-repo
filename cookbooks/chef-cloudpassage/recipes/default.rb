@@ -8,6 +8,18 @@
 # Copyright 2013, CloudPassage
 #
 
+# Form the group tag to associate this new node to in CloudPassage.
+group_tag = "#{node[:node_group][:tag]}-#{node.chef_environment}"
+
+bash "echo something" do
+   code <<-EOF
+     echo 'I am a chef! Env        #{node.chef_environment}'
+     echo 'I am a chef! group desc #{node[:node_group][:description]}'
+     echo 'I am a chef! group tag  #{node[:node_group][:tag]}'
+     echo 'I am a chef! final group tag #{group_tag}'
+   EOF
+end
+
 case node[:platform]
   when "debian", "ubuntu"
     base_url = "http://packages.cloudpassage.com/debian debian main"
@@ -53,10 +65,10 @@ end
 
 #start the daemon
 service "cphalod" do
-    start_command "sudo /etc/init.d/cphalod start --daemon-key=#{node[:cloudpassage][:license_key]} --tag=#{node[:cloudpassage][:tag]}"
+    start_command "sudo /etc/init.d/cphalod start --daemon-key=#{node[:cloudpassage][:license_key]} --tag=#{group_tag}"
     stop_command "service cphalod stop"
     status_command "service cphalod status"
-    restart_command "service cphalod restart --daemon-key=#{node[:cloudpassage][:license_key]} --tag=#{node[:cloudpassage][:tag]}"
+    restart_command "service cphalod restart --daemon-key=#{node[:cloudpassage][:license_key]} --tag=#{group_tag}"
     supports [:start, :stop, :status, :restart]
     #starts the service if it's not running and enables it to start at system boot time
     action [:enable, :start]

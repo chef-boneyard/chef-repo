@@ -4,4 +4,8 @@ run_list(
     'recipe[rabbitmq::default]'
 )
 override_attributes(
+    'node_group' => {
+        'description' => 'Barbican Queue Node',
+        'tag' => 'queue'
+    }
 )

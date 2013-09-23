@@ -9,11 +9,16 @@ Vagrant.configure("2") do |config|
   config.vm.box = "opscode-centos-6.4"
   config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
 
+  ip_api = "192.168.50.4"
+  ip_worker = "192.168.50.6"
+  ip_queue = "192.168.50.8"
+  ip_db = "192.168.50.17"
+
   config.vm.define :barbican_api do |barbican_api|
     barbican_api.vm.hostname = "barbican-api-test"
 
     # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    barbican_api.vm.network :private_network, ip: "192.168.50.4", :netmask => "255.255.0.0"
+    barbican_api.vm.network :private_network, ip: "#{ip_api}", :netmask => "255.255.0.0"
     barbican_api.vm.network :forwarded_port, guest: 9311, host: 9311
     barbican_api.vm.network :forwarded_port, guest: 9312, host: 9312
     barbican_api.vm.network :forwarded_port, guest: 22, host: 2204, auto_correct: true
@@ -27,13 +32,19 @@ Vagrant.configure("2") do |config|
         "role[api]",
         "recipe[barbican-api]",
       ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue" => "#{ip_queue}"
+          }
+      }
     end
   end
 
   config.vm.define :barbican_worker do |barbican_worker|
     barbican_worker.vm.hostname = "barbican-worker-test"
 
-    barbican_worker.vm.network :private_network, ip: "192.168.50.6", :netmask => "255.255.0.0"
+    barbican_worker.vm.network :private_network, ip: "#{ip_worker}", :netmask => "255.255.0.0"
     barbican_worker.vm.network :forwarded_port, guest: 22, host: 2206, auto_correct: true
     barbican_worker.vm.network :forwarded_port, guest: 80, host: 8006
 
@@ -48,13 +59,19 @@ Vagrant.configure("2") do |config|
         "role[worker]",
         "recipe[barbican-worker]",
       ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue" => "#{ip_queue}"
+          }
+      }
     end
   end
 
   config.vm.define :barbican_queue do |barbican_queue|
     barbican_queue.vm.hostname = "barbican-queue-test"
 
-    barbican_queue.vm.network :private_network, ip: "192.168.50.8", :netmask => "255.255.0.0"
+    barbican_queue.vm.network :private_network, ip: "#{ip_queue}", :netmask => "255.255.0.0"
     barbican_queue.vm.network :forwarded_port, guest: 22, host: 2208, auto_correct: true
     barbican_queue.vm.network :forwarded_port, guest: 80, host: 8008
 
@@ -75,7 +92,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :dbsimple do |dbsimple|
     dbsimple.vm.hostname = "db-simple"
-    dbsimple.vm.network :private_network, ip: "192.168.50.17", :netmask => "255.255.0.0"
+    dbsimple.vm.network :private_network, ip: "#{ip_db}", :netmask => "255.255.0.0"
     dbsimple.vm.network :forwarded_port, guest: 22, host: 2217, auto_correct: true
     dbsimple.vm.network :forwarded_port, guest: 5432, host: 5432
     dbsimple.vm.network :forwarded_port, guest: 80, host: 8017
@@ -128,6 +145,14 @@ Vagrant.configure("2") do |config|
                             'type' => 'host', 
                             'db' => 'all',
                             'user' => 'all', 
+                            'addr' => '192.168.50.0/24',
+                            'method' => 'trust'
+                          },
+                          {
+                            'comment' => '# Open comms with the api node',
+                            'type' => 'host', 
+                            'db' => 'all',
+                            'user' => 'all', 
                             'addr' => '192.168.50.4/32',
                             'method' => 'trust'
                           },
@@ -159,7 +184,8 @@ Vagrant.configure("2") do |config|
                     }
                   }
       chef.run_list = [
-        #"role[base]",
+        "role[base]",
+        "role[db]",
         "recipe[postgresql]",
         "recipe[postgresql::server]",
         "recipe[database::postgresql]",

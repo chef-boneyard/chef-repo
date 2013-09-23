@@ -1,0 +1,134 @@
+[DEFAULT]
+# Show more verbose log output (sets INFO log level output)
+verbose = True
+
+# Show debugging output in logs (sets DEBUG log level output)
+debug = True
+
+# Address to bind the API server
+bind_host = 0.0.0.0
+
+# Port to bind the API server to
+bind_port = 9311
+
+# Host name, for use in HATEOS-style references
+#  Note: Typically this would be the load balanced endpoint that clients would use
+#  communicate back with this service.
+host_href = <%= @host_name %>:9311
+
+# Log to this file. Make sure you do not set the same log
+# file for both the API and registry servers!
+#log_file = /var/log/barbican/api.log
+
+# Backlog requests when creating socket
+backlog = 4096
+
+# TCP_KEEPIDLE value in seconds when creating socket.
+# Not supported on OS X.
+#tcp_keepidle = 600
+
+# SQLAlchemy connection string for the reference implementation
+# registry server. Any valid SQLAlchemy connection string is fine.
+# See: http://www.sqlalchemy.org/docs/05/reference/sqlalchemy/connections.html#sqlalchemy.create_engine
+# Uncomment this for local dev, putting db in project directory: 
+#sql_connection = sqlite:///barbican.sqlite
+# Note: For absolute addresses, use '////' slashes after 'sqlite:'
+# Uncomment for a more global development environment
+#sql_connection = sqlite:////var/lib/barbican/barbican.sqlite
+sql_connection = postgresql+psycopg2://<%= @db_user %>:<%= @db_pw %>@<%= @db_ip %>:5432/<%= @db_name %>
+#sql_connection = postgresql+psycopg2://barbican:barbpass@localhost:5432/barbican_api
+
+
+
+
+# Period in seconds after which SQLAlchemy should reestablish its connection
+# to the database.
+#
+# MySQL uses a default `wait_timeout` of 8 hours, after which it will drop
+# idle connections. This can result in 'MySQL Gone Away' exceptions. If you
+# notice this, you can lower this value to ensure that SQLAlchemy reconnects
+# before MySQL can drop the connection.
+sql_idle_timeout = 3600
+
+# Default page size for the 'limit' paging URL parameter.
+default_limit_paging = 10
+
+# Maximum page size for the 'limit' paging URL parameter.
+max_limit_paging = 100
+
+# Number of Barbican API worker processes to start.
+# On machines with more than one CPU increasing this value
+# may improve performance (especially if using SSL with
+# compression turned on). It is typically recommended to set
+# this value to the number of CPUs present on your machine.
+workers = 1
+
+# Role used to identify an authenticated user as administrator
+#admin_role = admin
+
+# Allow unauthenticated users to access the API with read-only
+# privileges. This only applies when using ContextMiddleware.
+#allow_anonymous_access = False
+
+# Allow access to version 1 of barbican api
+#enable_v1_api = True
+
+# Allow access to version 2 of barbican api
+#enable_v2_api = True
+
+# ================= SSL Options ===============================
+
+# Certificate file to use when starting API server securely
+#cert_file = /path/to/certfile
+
+# Private key file to use when starting API server securely
+#key_file = /path/to/keyfile
+
+# CA certificate file to use to verify connecting clients
+#ca_file = /path/to/cafile
+
+# ================= Security Options ==========================
+
+# AES key for encrypting store 'location' metadata, including
+# -- if used -- Swift or S3 credentials
+# Should be set to a random string of length 16, 24 or 32 bytes
+#metadata_encryption_key = <16, 24 or 32 char registry metadata key>
+
+# ================= Queue API Options ==========================
+
+# Module to use for queue API.
+# If celery is used, see '[celery]' group of options below.
+# For local standalone dev, use barbican.queue.simple.resources
+queue_api = barbican.queue.celery.resources
+
+# ============ Delayed Delete Options =============================
+
+# Turn on/off delayed delete
+delayed_delete = False
+
+# Delayed delete time in seconds
+scrub_time = 43200
+
+# Directory that the scrubber will use to remind itself of what to delete
+# Make sure this is also set in glance-scrubber.conf
+scrubber_datadir = /var/lib/barbican/scrubber
+
+[celery]
+# Location of the main celery resource/tasks location
+project = barbican.queue.celery.resources
+
+# Broker URL
+broker = amqp://guest@<%= @queue_ip %>/
+
+# Module includes
+include = barbican.queue.celery.resources
+
+
+# ======== OpenStack policy integration
+# JSON file representing policy (string value)                                          
+policy_file=/etc/barbican/policy.json
+
+# Rule checked when requested rule is not found (string value)                          
+policy_default_rule=default                                                            
+ 
+

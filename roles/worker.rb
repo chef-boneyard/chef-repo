@@ -4,5 +4,8 @@ run_list(
     'recipe[python::pip]'
 )
 override_attributes(
+    'node_group' => {
+        'description' => 'Barbican Worker Node',
+        'tag' => 'worker'
+    }
 )
-
