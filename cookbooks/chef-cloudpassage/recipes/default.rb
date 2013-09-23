@@ -11,14 +11,6 @@
 # Form the group tag to associate this new node to in CloudPassage.
 group_tag = "#{node[:node_group][:tag]}-#{node.chef_environment}"
 
-bash "echo something" do
-   code <<-EOF
-     echo 'I am a chef! Env        #{node.chef_environment}'
-     echo 'I am a chef! group desc #{node[:node_group][:description]}'
-     echo 'I am a chef! group tag  #{node[:node_group][:tag]}'
-     echo 'I am a chef! final group tag #{group_tag}'
-   EOF
-end
 
 case node[:platform]
   when "debian", "ubuntu"

@@ -12,12 +12,13 @@ package 'barbican-common'
 
 package 'barbican-api'
 
-host_name = 'localhost'
-db_name = 'barbican_api'
-db_user = 'barbican'
-db_pw = 'barbpass'
-db_ip = '???'
-queue_ip = '???'
+#TODO(jwood) Eventually get these values from a data bag.
+host_name = "#{node[:barbican_api][:host_name]}"
+db_name = "#{node[:barbican_api][:db_name]}"
+db_user = "#{node[:barbican_api][:db_user]}"
+db_pw = '"#{node[:barbican_api][:db_pw]}"
+db_ip = ''
+queue_ip = ''
 
 # Determine external dependencies.
 unless Chef::Config[:solo]
