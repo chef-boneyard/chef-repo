@@ -4,6 +4,10 @@ git "#{Chef::Config[:file_cache_path]}/swf" do
   action :sync
 end
 
+gem_package "bundle" do
+  action :install
+end
+
 execute "bundle_install" do
   command "cd #{Chef::Config[:file_cache_path]}/swf;/usr/local/bin/bundle install"
 end
