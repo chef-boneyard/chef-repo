@@ -19,7 +19,7 @@ when 'debian','ubuntu'
     end
   end
 
-  ['ruby-enterprise','ruby1.9','ruby2.0'].each do |pkg|
+  ['ruby-enterprise','ruby1.9','ruby2.0','ruby1.8'].each do |pkg|
     package pkg do
       action :remove
       ignore_failure true
