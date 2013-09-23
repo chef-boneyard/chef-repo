@@ -1,21 +1,17 @@
-# remove installed version if it's no the one we want to install
-# enables updating stack from ruby 1.9 to ruby 2.0
-# currently we only support one user sapce ruby installation
-
-local_ruby_up_to_date = ::File.exists?(node[:ruby][:executable]) && system("#{node[:ruby][:executable]} -v | grep -q '#{node['ruby']['version']}'")
+local_ruby_up_to_date = ::File.exists?('/usr/local/bin/ruby') && system("#{'/usr/local/bin/ruby'} -v | grep -q '2.0.0'")
 
 if local_ruby_up_to_date
-  Chef::Log.info("Userspace Ruby version is #{node['ruby']['version']} - up-to-date")
-elsif !::File.exists?(node[:ruby][:executable])
-  Chef::Log.info("Userspace Ruby version is not #{node['ruby']['version']} - #{node[:ruby][:executable]} does not exist")
+  Chef::Log.info("Userspace Ruby version is 2.0.0 - up-to-date")
+elsif !::File.exists?('/usr/local/bin/ruby')
+  Chef::Log.info("Userspace Ruby version is not 2.0.0 - /usr/local/bin/ruby does not exist")
 else
-  Chef::Log.info("Userspace Ruby version is not #{node['ruby']['version']} - found #{`#{node[:ruby][:executable]} -v`}")
+  Chef::Log.info("Userspace Ruby version is not 2.0.0 - found #{`#{'/usr/local/bin/ruby'} -v`}")
 end
 
 case node['platform']
 when 'debian','ubuntu'
-  remote_file "/tmp/#{node[:ruby][:deb]}" do
-    source node[:ruby][:deb_url]
+  remote_file "/tmp/ruby2.0_2.0.0-p247.1_amd64.deb" do
+    source 'https://s3.amazonaws.com/share-yesvideo/static/ruby2.0_2.0.0-p247.1_amd64.deb'
     action :create_if_missing
 
     not_if do
@@ -29,55 +25,26 @@ when 'debian','ubuntu'
       ignore_failure true
 
       only_if do
-       ::File.exists?("/tmp/#{node['ruby']['deb']}")
-      end
-    end
-  end
-
-when 'centos','redhat','fedora','amazon'
-  remote_file "/tmp/#{node[:ruby][:rpm]}" do
-    source node[:ruby][:rpm_url]
-    action :create_if_missing
-
-    not_if do
-      local_ruby_up_to_date
-    end
-  end
-
-  ['ruby-enterprise','ruby19','ruby20'].each do |pkg|
-    package pkg do
-      action :remove
-      ignore_failure true
-
-      only_if do
-        ::File.exists?("/tmp/#{node['ruby']['rpm']}")
+       ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
       end
     end
   end
 end
 
-execute "Install Ruby #{node[:ruby][:full_version]}" do
+execute "Install Ruby 2.0.0" do
   cwd "/tmp"
-  case node[:platform]
-  when 'centos','redhat','fedora','amazon'
-    command "rpm -Uvh /tmp/#{node['ruby']['rpm']}"
-    only_if do
-      ::File.exists?("/tmp/#{node['ruby']['rpm']}")
-    end
 
-  when 'debian','ubuntu'
-    command "dpkg -i /tmp/#{node['ruby']['deb']}"
-    only_if do
-      ::File.exists?("/tmp/#{node['ruby']['deb']}")
-    end
+  command "dpkg -i /tmp/ruby2.0_2.0.0-p247.1_amd64.deb"
+  only_if do
+    ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
   end
+
 end
 
 execute 'Delete downloaded ruby packages' do
-  command "rm -vf /tmp/#{node[:ruby][:deb]} /tmp/#{node[:ruby][:rpm]}"
+  command "rm -vf /tmp/ruby2.0_2.0.0-p247.1_amd64.deb"
   only_if do
-     ::File.exists?("/tmp/#{node[:ruby][:deb]}") ||
-     ::File.exists?("/tmp/#{node[:ruby][:rpm]}")
+     ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
    end
 end
 
