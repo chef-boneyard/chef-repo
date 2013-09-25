@@ -16,7 +16,7 @@ package 'barbican-worker'
 host_name = "#{node[:barbican_api][:host_name]}"
 db_name = "#{node[:barbican_api][:db_name]}"
 db_user = "#{node[:barbican_api][:db_user]}"
-db_pw = '"#{node[:barbican_api][:db_pw]}"
+db_pw = "#{node[:barbican_api][:db_pw]}"
 db_ip = ''
 queue_ip = ''
 

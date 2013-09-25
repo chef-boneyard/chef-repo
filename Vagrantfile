@@ -27,8 +27,10 @@ Vagrant.configure("2") do |config|
     # Provision the node.
     barbican_api.vm.provision :chef_solo do |chef|
       chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
       chef.run_list = [
         "role[base]",
+        "role[ntpd]",
         "role[api]",
         "recipe[barbican-api]",
       ]
