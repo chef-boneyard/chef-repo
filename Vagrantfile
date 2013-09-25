@@ -14,62 +14,6 @@ Vagrant.configure("2") do |config|
   ip_queue = "192.168.50.8"
   ip_db = "192.168.50.17"
 
-  config.vm.define :barbican_api do |barbican_api|
-    barbican_api.vm.hostname = "barbican-api-test"
-
-    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    barbican_api.vm.network :private_network, ip: "#{ip_api}", :netmask => "255.255.0.0"
-    barbican_api.vm.network :forwarded_port, guest: 9311, host: 9311
-    barbican_api.vm.network :forwarded_port, guest: 9312, host: 9312
-    barbican_api.vm.network :forwarded_port, guest: 22, host: 2204, auto_correct: true
-    barbican_api.vm.network :forwarded_port, guest: 80, host: 8004
-
-    # Provision the node.
-    barbican_api.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
-      chef.data_bags_path = "data_bags"
-      chef.run_list = [
-        "role[base]",
-        "role[ntpd]",
-        "role[api]",
-        "recipe[barbican-api]",
-      ]
-      chef.json = {
-          "solo_ips" => {
-              "db" => "#{ip_db}",
-              "queue" => "#{ip_queue}"
-          }
-      }
-    end
-  end
-
-  config.vm.define :barbican_worker do |barbican_worker|
-    barbican_worker.vm.hostname = "barbican-worker-test"
-
-    barbican_worker.vm.network :private_network, ip: "#{ip_worker}", :netmask => "255.255.0.0"
-    barbican_worker.vm.network :forwarded_port, guest: 22, host: 2206, auto_correct: true
-    barbican_worker.vm.network :forwarded_port, guest: 80, host: 8006
-
-    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    # barbican_worker.vm.network :forwarded_port, guest: 9311, host: 9311
-
-    # Provision the node.
-    barbican_worker.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
-      chef.run_list = [
-        "role[base]",
-        "role[worker]",
-        "recipe[barbican-worker]",
-      ]
-      chef.json = {
-          "solo_ips" => {
-              "db" => "#{ip_db}",
-              "queue" => "#{ip_queue}"
-          }
-      }
-    end
-  end
-
   config.vm.define :barbican_queue do |barbican_queue|
     barbican_queue.vm.hostname = "barbican-queue-test"
 
@@ -195,6 +139,62 @@ Vagrant.configure("2") do |config|
         "recipe[barbican-db]"
         #"recipe[chef-cloudpassage]"
       ]
+    end
+  end
+
+  config.vm.define :barbican_api do |barbican_api|
+    barbican_api.vm.hostname = "barbican-api-test"
+
+    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
+    barbican_api.vm.network :private_network, ip: "#{ip_api}", :netmask => "255.255.0.0"
+    barbican_api.vm.network :forwarded_port, guest: 9311, host: 9311
+    barbican_api.vm.network :forwarded_port, guest: 9312, host: 9312
+    barbican_api.vm.network :forwarded_port, guest: 22, host: 2204, auto_correct: true
+    barbican_api.vm.network :forwarded_port, guest: 80, host: 8004
+
+    # Provision the node.
+    barbican_api.vm.provision :chef_solo do |chef|
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+      chef.run_list = [
+        "role[base]",
+        "role[ntpd]",
+        "role[api]",
+        "recipe[barbican-api]",
+      ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue" => "#{ip_queue}"
+          }
+      }
+    end
+  end
+
+  config.vm.define :barbican_worker do |barbican_worker|
+    barbican_worker.vm.hostname = "barbican-worker-test"
+
+    barbican_worker.vm.network :private_network, ip: "#{ip_worker}", :netmask => "255.255.0.0"
+    barbican_worker.vm.network :forwarded_port, guest: 22, host: 2206, auto_correct: true
+    barbican_worker.vm.network :forwarded_port, guest: 80, host: 8006
+
+    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
+    # barbican_worker.vm.network :forwarded_port, guest: 9311, host: 9311
+
+    # Provision the node.
+    barbican_worker.vm.provision :chef_solo do |chef|
+      chef.roles_path = "roles"
+      chef.run_list = [
+        "role[base]",
+        "role[worker]",
+        "recipe[barbican-worker]",
+      ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue" => "#{ip_queue}"
+          }
+      }
     end
   end
 
