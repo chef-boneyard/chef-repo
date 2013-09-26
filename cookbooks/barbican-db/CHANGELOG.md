@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of barbican-db.
 
+## 0.2.1:
+
+Include postgres password in node attributes.
+
 ## 0.1.0:
 
 * Initial release of barbican-db
