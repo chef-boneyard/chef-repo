@@ -3,11 +3,13 @@ site :opscode
 
 cookbook 'yum', '= 2.2.4'
 cookbook 'ntp'
-cookbook 'rabbitmq'
+#cookbook 'rabbitmq'
 cookbook 'graphite'
 cookbook 'postgresql', github: 'opscode-cookbooks/postgresql'
 cookbook 'database', github: 'opscode-cookbooks/database'
 cookbook 'python'
+
+cookbook 'rabbitmq', github: 'rackspace-cookbooks/rabbitmq'
 
 cookbook 'authorized_keys', path: './cookbooks/authorized_keys'
 cookbook 'repmgr', github: 'hw-cookbooks/repmgr'
