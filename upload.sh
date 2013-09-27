@@ -15,5 +15,7 @@ knife cookbook upload barbican-base
 knife cookbook upload barbican-api
 knife cookbook upload barbican-db
 knife cookbook upload barbican-queue
+knife cookbook upload barbican-worker
 knife cookbook upload chef-cloudpassage
+knife cookbook upload authorized_keys
                                                                         

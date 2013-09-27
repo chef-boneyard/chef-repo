@@ -16,16 +16,20 @@ package 'barbican-worker'
 host_name = "#{node[:barbican_api][:host_name]}"
 db_name = "#{node[:barbican_api][:db_name]}"
 db_user = "#{node[:barbican_api][:db_user]}"
-db_pw = '"#{node[:barbican_api][:db_pw]}"
+db_pw = "#{node[:barbican_api][:db_pw]}"
 db_ip = ''
-queue_ip = ''
+q_ips = []
 
 # Determine external dependencies.
 unless Chef::Config[:solo]
   # Add Chef Server queries here.
 else
   db_ip = "#{node[:solo_ips][:db]}"
-  queue_ip = "#{node[:solo_ips][:queue]}"
+  for host_entry in node[:solo_ips][:queue_ips]
+    q_ips.push(host_entry[:ip])    
+  end
+  queue_ips = q_ips.map{|n| "amqp://guest@#{n}/"}.join(',')
+  Chef::Log.debug "queue_ips: #{queue_ips}"
 end
 
 # Configure based on external dependencies.
@@ -39,7 +43,7 @@ template "/etc/barbican/barbican-api.conf" do
     :db_pw => "#{db_pw}",
     :db_ip => "#{db_ip}",
     :db_name => "#{db_name}",
-    :queue_ip => "#{queue_ip}"
+    :queue_ips => "#{queue_ips}"
   })
 end
 
