@@ -15,18 +15,12 @@ include_recipe "barbican-base"
 host_ips = Hash.new()
 hosts = []
 ips = []
-my_host = ''
-my_ip = ''
 unless Chef::Config[:solo]
   #TODO(jwood) Add Chef Server queries here.
 else
-  my_host = node[:solo_ips][:my_host]
-  my_ip = node[:solo_ips][:my_ip]
-  for host in node[:solo_ips][:cluster_hosts]
-    hosts.push(host)
-  end
-  for ip in node[:solo_ips][:cluster_ips]
-    ips.push(ip)
+  for host_entry in node[:solo_ips]
+    hosts.push(host_entry[:hostname])
+    ips.push(host_entry[:ip])    
   end
   host_ips = Hash[hosts.zip(ips)] 
   Chef::Log.debug "host-ip hash: #{host_ips}"
@@ -45,8 +39,6 @@ Chef::Log.debug "rabbitmq clusters: #{node['rabbitmq']['cluster_disk_nodes']}"
 #end
 
 # Configure host table as needed by RabbitMQ clustering:
-#   - Get the ip and hostname for this node
-host_entry = "#{my_ip}\t#{my_host}\n"
 es_hosts_entries = []
 
 #   - Build my cluster host entries.
@@ -58,7 +50,6 @@ end
 template "/etc/hosts" do
   source "hosts.erb"
   variables(
-    :host_entry => host_entry,
     :es_ips_hostnames => es_hosts_entries
   )
 end
