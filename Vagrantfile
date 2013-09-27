@@ -9,84 +9,46 @@ Vagrant.configure("2") do |config|
   config.vm.box = "opscode-centos-6.4"
   config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
 
+  # Define individual nodes:
   ip_api = "192.168.50.4"
   ip_worker = "192.168.50.6"
-  ip_queue = "192.168.50.8"
   ip_db = "192.168.50.17"
 
-  config.vm.define :barbican_api do |barbican_api|
-    barbican_api.vm.hostname = "barbican-api-test"
+  # Define the queue cluster:
+  cluster_queue_name = "queue_cluster_1_2_3"
+  nodes_queue = [
+    { :vmname => 'barbican_queue_1', :hostname => 'barbican-queue-test-1', :ip => '192.168.50.8'},
+    { :vmname => 'barbican_queue_2', :hostname => 'barbican-queue-test-2', :ip => '192.168.50.9'},
+    { :vmname => 'barbican_queue_3', :hostname => 'barbican-queue-test-3', :ip => '192.168.50.10'}
+  ]
 
-    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    barbican_api.vm.network :private_network, ip: "#{ip_api}", :netmask => "255.255.0.0"
-    barbican_api.vm.network :forwarded_port, guest: 9311, host: 9311
-    barbican_api.vm.network :forwarded_port, guest: 9312, host: 9312
-    barbican_api.vm.network :forwarded_port, guest: 22, host: 2204, auto_correct: true
-    barbican_api.vm.network :forwarded_port, guest: 80, host: 8004
+  nodes_queue.each do |node|
+    config.vm.define node[:vmname] do |barbican_queue|
+      barbican_queue.vm.hostname = node[:hostname]
 
-    # Provision the node.
-    barbican_api.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
-      chef.run_list = [
-        "role[base]",
-        "role[api]",
-        "recipe[barbican-api]",
-      ]
-      chef.json = {
-          "solo_ips" => {
-              "db" => "#{ip_db}",
-              "queue" => "#{ip_queue}"
+      barbican_queue.vm.network :private_network, ip: node[:ip], :netmask => "255.255.0.0"
+      #barbican_queue.vm.network :forwarded_port, guest: 22, host: 2208, auto_correct: true
+      #barbican_queue.vm.network :forwarded_port, guest: 80, host: 8008, auto_correct: true
+      barbican_queue.vm.network :forwarded_port, guest: 15672, host: 15672, auto_correct: true
+
+      # Provision the node.
+      barbican_queue.vm.provision :chef_solo do |chef|
+        chef.arguments = '-l debug'
+        chef.roles_path = "roles"
+        chef.run_list = [
+          "role[base]",
+          "role[ntpd]",
+          "role[queue]",
+          "recipe[barbican-queue]",
+        ]
+        chef.json = {
+          "solo_ips" => nodes_queue,
+          "rabbitmq" => {
+              "cluster" => true,
+              "erlang_cookie" => "#{cluster_queue_name}"
           }
-      }
-    end
-  end
-
-  config.vm.define :barbican_worker do |barbican_worker|
-    barbican_worker.vm.hostname = "barbican-worker-test"
-
-    barbican_worker.vm.network :private_network, ip: "#{ip_worker}", :netmask => "255.255.0.0"
-    barbican_worker.vm.network :forwarded_port, guest: 22, host: 2206, auto_correct: true
-    barbican_worker.vm.network :forwarded_port, guest: 80, host: 8006
-
-    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    # barbican_worker.vm.network :forwarded_port, guest: 9311, host: 9311
-
-    # Provision the node.
-    barbican_worker.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
-      chef.run_list = [
-        "role[base]",
-        "role[worker]",
-        "recipe[barbican-worker]",
-      ]
-      chef.json = {
-          "solo_ips" => {
-              "db" => "#{ip_db}",
-              "queue" => "#{ip_queue}"
-          }
-      }
-    end
-  end
-
-  config.vm.define :barbican_queue do |barbican_queue|
-    barbican_queue.vm.hostname = "barbican-queue-test"
-
-    barbican_queue.vm.network :private_network, ip: "#{ip_queue}", :netmask => "255.255.0.0"
-    barbican_queue.vm.network :forwarded_port, guest: 22, host: 2208, auto_correct: true
-    barbican_queue.vm.network :forwarded_port, guest: 80, host: 8008
-
-    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
-    #barbican_queue.vm.network :forwarded_port, guest: 9311, host: 9311
-    #barbican_queue.vm.network :forwarded_port, guest: 9312, host: 9312
-
-    # Provision the node.
-    barbican_queue.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
-      chef.run_list = [
-        "role[base]",
-        "role[queue]",
-        "recipe[barbican-queue]",
-      ]
+        }
+      end
     end
   end
 
@@ -185,6 +147,7 @@ Vagrant.configure("2") do |config|
                   }
       chef.run_list = [
         "role[base]",
+        "role[ntpd]",
         "role[db]",
         "recipe[postgresql]",
         "recipe[postgresql::server]",
@@ -193,6 +156,65 @@ Vagrant.configure("2") do |config|
         "recipe[barbican-db]"
         #"recipe[chef-cloudpassage]"
       ]
+    end
+  end
+
+  config.vm.define :barbican_api do |barbican_api|
+    barbican_api.vm.hostname = "barbican-api-test"
+
+    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
+    barbican_api.vm.network :private_network, ip: "#{ip_api}", :netmask => "255.255.0.0"
+    barbican_api.vm.network :forwarded_port, guest: 9311, host: 9311
+    barbican_api.vm.network :forwarded_port, guest: 9312, host: 9312
+    barbican_api.vm.network :forwarded_port, guest: 22, host: 2204, auto_correct: true
+    barbican_api.vm.network :forwarded_port, guest: 80, host: 8004
+
+    # Provision the node.
+    barbican_api.vm.provision :chef_solo do |chef|
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+      chef.arguments = '-l debug'
+      chef.run_list = [
+        "role[base]",
+        "role[ntpd]",
+        "role[api]",
+        "recipe[barbican-api]",
+      ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue_ips" => nodes_queue
+          }
+      }
+    end
+  end
+
+  config.vm.define :barbican_worker do |barbican_worker|
+    barbican_worker.vm.hostname = "barbican-worker-test"
+
+    barbican_worker.vm.network :private_network, ip: "#{ip_worker}", :netmask => "255.255.0.0"
+    barbican_worker.vm.network :forwarded_port, guest: 22, host: 2206, auto_correct: true
+    barbican_worker.vm.network :forwarded_port, guest: 80, host: 8006
+
+    # Forward guest port 9311 to host port 9311. If changed, run 'vagrant reload'.
+    # barbican_worker.vm.network :forwarded_port, guest: 9311, host: 9311
+
+    # Provision the node.
+    barbican_worker.vm.provision :chef_solo do |chef|
+      chef.roles_path = "roles"
+      chef.arguments = '-l debug'
+      chef.run_list = [
+        "role[base]",
+        "role[ntpd]",
+        "role[worker]",
+        "recipe[barbican-worker]",
+      ]
+      chef.json = {
+          "solo_ips" => {
+              "db" => "#{ip_db}",
+              "queue_ips" => nodes_queue
+          }
+      }
     end
   end
 
