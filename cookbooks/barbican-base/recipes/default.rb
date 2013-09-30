@@ -23,11 +23,7 @@
 #  command "service iptables restart"
 #end
 
-execute "install-epel" do
- command "rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm"
- action :run
- not_if "rpm -qa | grep -qx 'epel-release-6-8.noarch'"
-end
+include_recipe 'yum::epel'
 
 execute "create-yum-cache" do
  command "yum -q makecache"
@@ -41,6 +37,7 @@ ruby_block "reload-internal-yum-cache" do
   action :nothing
 end
 
+#TODO(dmend): Use yum_repository resource instead of cookbook_file
 cookbook_file "/etc/yum.repos.d/barbican.repo" do
   source "barbican.repo"
   mode 00644

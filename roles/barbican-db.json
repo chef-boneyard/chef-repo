@@ -1,0 +1,24 @@
+{
+  "name": "barbican-db",
+  "description": "Role for the Barbican Databases",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "node_group": {
+      "tag": "db",
+      "description": "Barbican Database Node"
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[authorized_keys]",
+    "recipe[postgresql]",
+    "recipe[postgresql::server]",
+    "recipe[database::postgresql]",
+    "recipe[barbican-db]",
+    "recipe[chef-cloudpassage]"
+  ],
+  "env_run_lists": {
+  }
+}
