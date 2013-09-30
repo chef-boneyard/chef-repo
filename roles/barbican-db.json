@@ -12,7 +12,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[yum::epel]",
+    "recipe[authorized_keys]",
     "recipe[postgresql]",
     "recipe[postgresql::server]",
     "recipe[database::postgresql]",

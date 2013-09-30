@@ -23,7 +23,7 @@ end
 # Creates a user called 'barbican' and sets their password
 database_user 'barbican' do
   connection postgresql_connection_info
-  password 'barbpass'
+  password node['postgresql']['password']['postgres']
   provider Chef::Provider::Database::PostgresqlUser
   action :create
 end

@@ -10,6 +10,11 @@
   "override_attributes": {
     "cloudpassage": {
       "license_key": "CHANGE_ME"
+    },
+    "postgresql": {
+      "password": {
+        "postgres": "CHANGE_ME"
+      }
     }
   }
 }

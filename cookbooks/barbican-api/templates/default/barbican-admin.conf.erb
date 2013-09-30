@@ -39,7 +39,7 @@ backlog = 4096
 # Note: For absolute addresses, use '////' slashes after 'sqlite:'
 # Uncomment for a more global development environment
 #sql_connection = sqlite:////var/lib/barbican/barbican.sqlite
-sql_connection = postgresql+psycopg2://<%= @db_user %>:<%= @db_pw %>@<%= @db_ip %>:5432/<%= @db_name %>
+sql_connection = <%= @connection %>
 #sql_connection = postgresql+psycopg2://barbican:barbpass@localhost:5432/barbican_api
 
 

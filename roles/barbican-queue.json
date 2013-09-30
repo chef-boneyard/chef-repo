@@ -1,19 +1,19 @@
 {
-  "name": "barbican-api",
-  "description": "Role for nodes running the Barbican api server.",
+  "name": "barbican-queue",
+  "description": "Barbican Queue service",
   "json_class": "Chef::Role",
   "default_attributes": {
   },
   "override_attributes": {
     "node_group": {
-      "tag": "api",
-      "description": "Barbican API node"
+      "tag": "queue",
+      "description": "Barbican Queue Node"
     }
   },
   "chef_type": "role",
   "run_list": [
     "recipe[authorized_keys]",
-    "recipe[barbican-api]",
+    "recipe[rabbitmq::default]",
     "recipe[chef-cloudpassage]"
   ],
   "env_run_lists": {
