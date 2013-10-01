@@ -1,6 +1,6 @@
 {
-  "name": "barbican-queue",
-  "description": "Barbican Queue service",
+  "name": "barbican-queue-solo",
+  "description": "Barbican Queue service for Chef Solo",
   "json_class": "Chef::Role",
   "default_attributes": {
   },
@@ -12,10 +12,8 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[authorized_keys]",
     "recipe[ntp]",
-    "recipe[barbican-queue]",
-    "recipe[chef-cloudpassage]"
+    "recipe[barbican-queue]"
   ],
   "env_run_lists": {
   }

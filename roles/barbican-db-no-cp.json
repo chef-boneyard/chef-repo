@@ -1,5 +1,5 @@
 {
-  "name": "barbican-db",
+  "name": "barbican-db-no-cp",
   "description": "Role for the Barbican Databases",
   "json_class": "Chef::Role",
   "default_attributes": {
@@ -13,12 +13,11 @@
   "chef_type": "role",
   "run_list": [
     "recipe[authorized_keys]",
-    "recipe[ntp]",
     "recipe[postgresql]",
     "recipe[postgresql::server]",
     "recipe[database::postgresql]",
-    "recipe[barbican-db]",
-    "recipe[chef-cloudpassage]"
+    "recipe[database]",
+    "recipe[barbican-db]"
   ],
   "env_run_lists": {
   }

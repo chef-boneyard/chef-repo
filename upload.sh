@@ -7,6 +7,9 @@ berks install
 # Upload roles files.
 knife role from file roles/*.rb
 
+# Upload environment files.
+knife environment from file environments/*.json
+
 # Upload Berkshelf-derived cookbooks.
 berks upload
 

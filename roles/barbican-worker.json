@@ -1,20 +1,20 @@
 {
-  "name": "barbican-api",
-  "description": "Role for nodes running the Barbican api server.",
+  "name": "barbican-worker",
+  "description": "Role for nodes running the Barbican worker server.",
   "json_class": "Chef::Role",
   "default_attributes": {
   },
   "override_attributes": {
     "node_group": {
-      "tag": "api",
-      "description": "Barbican API node"
+      "tag": "worker",
+      "description": "Barbican Worker node"
     }
   },
   "chef_type": "role",
   "run_list": [
     "recipe[authorized_keys]",
     "recipe[ntp]",
-    "recipe[barbican-api]",
+    "recipe[barbican-worker]",
     "recipe[chef-cloudpassage]"
   ],
   "env_run_lists": {
