@@ -36,16 +36,16 @@ Vagrant.configure("2") do |config|
         chef.arguments = '-l debug'
         chef.roles_path = "roles"
         chef.run_list = [
-          "role[base]",
-          "role[ntpd]",
-          "role[queue]",
-          "recipe[barbican-queue]",
+          "role[barbican-queue-solo]",
         ]
         chef.json = {
           "solo_ips" => nodes_queue,
           "rabbitmq" => {
               "cluster" => true,
               "erlang_cookie" => "#{cluster_queue_name}"
+          },
+          "ntp" => {
+              "servers" => ["time.rackspace.com"]
           }
         }
       end

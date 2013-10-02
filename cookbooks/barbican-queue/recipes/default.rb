@@ -9,34 +9,33 @@
 # Do anything needed beyond the standard rabbit mq install here
 
 include_recipe "barbican-base"
-#include_recipe "hostsfile"
 
 # Build a map of host name to IP addresses, for queue nodes in my cluster.
-host_ips = Hash.new()
 hosts = []
 ips = []
-unless Chef::Config[:solo]
-  #TODO(jwood) Add Chef Server queries here.
-else
+env = 'unknown'
+if Chef::Config[:solo]
   for host_entry in node[:solo_ips]
     hosts.push(host_entry[:hostname])
     ips.push(host_entry[:ip])    
   end
-  host_ips = Hash[hosts.zip(ips)] 
-  Chef::Log.debug "host-ip hash: #{host_ips}"
+  env = 'solo'
+else
+  q_nodes = search(:node, "role:barbican-queue AND chef_environment:#{node.chef_environment}")
+  if q_nodes.empty?
+    Chef::Log.info 'No other queue nodes found to cluster with.'
+  else
+    for q_node in q_nodes
+      hosts.push(q_node[:hostname])
+      ips.push(q_node[:ipaddress])          
+    end
+  end
+  env = node.chef_environment
 end
-
+host_ips = Hash[hosts.zip(ips)] 
+Chef::Log.debug "Final host-ip hash: #{host_ips}"
 Chef::Log.debug "rabbitmq cluster: #{node['rabbitmq']['cluster']}"
 Chef::Log.debug "rabbitmq clusters: #{node['rabbitmq']['cluster_disk_nodes']}"
-
-
-# Configure host table as needed by RabbitMQ clustering.
-#host_ips.each do |host, ip|
-#  hostsfile_entry "#{ip}" do
-#    hostname "#{host}"
-#    action :create_if_missing
-#  end
-#end
 
 # Configure host table as needed by RabbitMQ clustering:
 es_hosts_entries = []
@@ -61,6 +60,12 @@ node.set["rabbitmq"]["cluster"] = true
 #    - Create string of cluster nodes.
 node.set['rabbitmq']['cluster_disk_nodes'] = hosts.map{|n| "rabbit@#{n}"}
 Chef::Log.debug "rabbitmq cluster string: #{node['rabbitmq']['cluster_disk_nodes']}"
+#    - Set the erlang cookie, that must be the same across all cluster nodes.
+node.set['rabbitmq']['erlang_cookie'] = "#{node[:node_group][:tag]}-#{env}"
+unless Chef::Config[:solo]
+  node.save
+end
+Chef::Log.debug "rabbitmq cookie: #{node['rabbitmq']['erlang_cookie']}"
 
 include_recipe "rabbitmq"
 

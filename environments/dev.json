@@ -9,12 +9,69 @@
   },
   "override_attributes": {
     "cloudpassage": {
-      "license_key": "CHANGE_ME"
+      "license_key": "CHANGE ME"
+    },
+    "ntp": {
+      "servers": ["time.rackspace.com"]
     },
     "postgresql": {
       "password": {
-        "postgres": "CHANGE_ME"
-      }
+        "postgres": "CHANGE ME"
+      },
+      "enable_pgdg_yum": true,
+      "version": "9.2",
+      "dir": "/var/lib/pgsql/9.2/data",
+      "server": {
+        "packages": ["postgresql92-server"],
+        "service_name": "postgresql-9.2"
+      },
+      "contrib": {
+        "packages": ["postgresql92-contrib"]
+      },
+      "config": {
+        "listen_addresses": "*"
+      },
+      "pg_hba": [
+        {
+          "comment": "# 'local' is for Unix domain socket connections only",
+          "type": "local",
+          "db": "all",
+          "user": "postgres",
+          "addr": null,
+          "method": "ident"
+        },
+        {
+          "type": "local",
+          "db": "all",
+          "user": "all",
+          "addr": null,
+          "method": "ident"
+        },
+        {
+          "comment": "# Open external comms with database",
+          "type": "host",
+          "db": "all",
+          "user": "all",
+          "addr": "0.0.0.0/0",
+          "method": "md5"
+        },
+        {
+          "comment": "# Open localhost comms with database",
+          "type": "host",
+          "db": "all",
+          "user": "all",
+          "addr": "127.0.0.1/32",
+          "method": "trust"
+        },
+        {
+          "comment": "# Open IPv6 localhost comms with database",
+          "type": "host",
+          "db": "all",
+          "user": "all",
+          "addr": "::1/128",
+          "method": "md5"
+        }
+      ]
     }
   }
 }
