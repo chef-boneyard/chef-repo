@@ -12,10 +12,6 @@ execute "bundle_install" do
   command "cd #{Chef::Config[:file_cache_path]}/swf;/usr/local/bin/bundle install"
 end
 
-execute "stop_god" do
-  command "god terminate"
-end
-
 execute "start_god" do
   command "god -c #{Chef::Config[:file_cache_path]}/swf/swf.god"
 end
