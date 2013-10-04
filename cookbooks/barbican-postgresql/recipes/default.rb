@@ -17,17 +17,21 @@
 # limitations under the License.
 #
 
-#package 'postgresql-devel'
-#include_recipe 'postgresql::server'
-#include_recipe 'repmgr'
+include_recipe 'barbican::_base'
 
-include_recipe "barbican-base"
+#TODO(dmend): make these into node attrs
+pw_bag = data_bag_item('passwords', 'postgresql')
+node.set['postgresql']['password']['postgres'] = pw_bag['password']
+
+include_recipe 'postgresql'
+include_recipe 'postgresql::server'
+include_recipe 'database::postgresql'
 
 # This connection info is used later in the recipe by the resources to connect to the DB
-postgresql_connection_info = {:host => "localhost",
-                              :port => "5432",
-                              :username => 'postgres',
-                              :password => node['postgresql']['password']['postgres']}
+postgresql_connection_info = { :host => "localhost",
+                               :port => "5432",
+                               :username => 'postgres',
+                               :password => node['postgresql']['password']['postgres'] }
 
 # Creates a database called 'barbican'
 postgresql_database 'barbican_api' do
@@ -50,5 +54,4 @@ postgresql_database_user 'barbican' do
   privileges [:all]
   action :grant
 end
-
 

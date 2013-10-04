@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: barbican
-# Recipe:: default
+# Recipe:: _base
 #
 # Copyright (C) 2013 Rackspace, Inc.
 # 
