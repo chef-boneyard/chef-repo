@@ -1,0 +1,16 @@
+{
+  "sources": {
+    "my_cookbook": {
+      "path": "."
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "apache2": {
+      "locked_version": "1.7.0"
+    },
+    "ntp": {
+      "locked_version": "1.4.0"
+    }
+  }
+}
