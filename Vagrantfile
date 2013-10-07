@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   nodes_queue = [
     { :vmname => 'barbican_queue_1', :hostname => 'barbican-queue-test-1', :ip => '192.168.50.8'},
     { :vmname => 'barbican_queue_2', :hostname => 'barbican-queue-test-2', :ip => '192.168.50.9'},
-    { :vmname => 'barbican_queue_3', :hostname => 'barbican-queue-test-3', :ip => '192.168.50.10'}
+    #{ :vmname => 'barbican_queue_3', :hostname => 'barbican-queue-test-3', :ip => '192.168.50.10'}
   ]
 
   nodes_queue.each do |node|
@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
         chef.roles_path = "roles"
         chef.data_bags_path = 'data_bags'
         chef.run_list = [
-          "recipe[barbican-rabbitmq]",
+          "role[barbican-queue]",
         ]
         chef.json = {
           "solo_ips" => nodes_queue,
@@ -129,7 +129,7 @@ Vagrant.configure("2") do |config|
                     }
                   }
       chef.run_list = [
-        'recipe[barbican-postgresql]'
+        'role[barbican-db]'
       ]
     end
   end
@@ -150,7 +150,7 @@ Vagrant.configure("2") do |config|
       chef.data_bags_path = "data_bags"
       chef.arguments = '-l debug'
       chef.run_list = [
-        "recipe[barbican::api]",
+        "role[barbican-api]",
       ]
       chef.json = {
           "solo_ips" => {
@@ -177,7 +177,7 @@ Vagrant.configure("2") do |config|
       chef.data_bags_path = 'data_bags'
       chef.arguments = '-l debug'
       chef.run_list = [
-        "recipe[barbican::worker]",
+        "role[barbican-worker]",
       ]
       chef.json = {
           "solo_ips" => {

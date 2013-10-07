@@ -41,3 +41,7 @@ cookbook_file "/etc/yum.repos.d/barbican.repo" do
   notifies :create, "ruby_block[reload-internal-yum-cache]", :immediately
 end
 
+unless Chef::Config[:solo]
+  include_recipe 'chef-cloudpassage'
+end
+

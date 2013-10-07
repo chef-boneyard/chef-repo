@@ -12,13 +12,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[authorized_keys]",
-    "recipe[ntp]",
-    "recipe[postgresql]",
-    "recipe[postgresql::server]",
-    "recipe[database::postgresql]",
-    "recipe[barbican-db]",
-    "recipe[chef-cloudpassage]"
+    "recipe[barbican-postgresql]"
   ],
   "env_run_lists": {
   }
