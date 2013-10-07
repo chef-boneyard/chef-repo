@@ -14,3 +14,4 @@ Vagrant.configure("2") do |config|
     chef.node_name = "my_server"
   end
 end 
+
