@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 include_recipe "chef-client"
-#include_recipe ""
+include_recipe "iptables"
 include_recipe "ntp"
