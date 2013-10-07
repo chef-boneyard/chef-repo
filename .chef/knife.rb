@@ -1,6 +1,7 @@
 current_dir = File.dirname(__FILE__)
 log_level                :info
 log_location             STDOUT
+knife[:editor] = 	"/usr/bin/vim"
 
 organization_base_name = "papi"
 require 'grit'
