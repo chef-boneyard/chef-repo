@@ -1,0 +1,7 @@
+default[:meetme_newrelic_plugin][:postgres][:host] = "localhost"
+default[:meetme_newrelic_plugin][:postgres][:port] = "5432"
+default[:meetme_newrelic_plugin][:postgres][:dbname] = "barbican_api"
+default[:meetme_newrelic_plugin][:postgres][:user] = "postgres"
+default[:meetme_newrelic_plugin][:postgres][:password] = "password_here"
+default[:meetme_newrelic_plugin][:postgres][:is_superuser_needed] = "False"
+default[:meetme_newrelic_plugin][:postgres][:is_relation_stats_needed] = "True"

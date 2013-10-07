@@ -45,3 +45,20 @@ cookbook_file "/etc/yum.repos.d/barbican.repo" do
   notifies :create, "ruby_block[reload-internal-yum-cache]", :immediately
 end
 
+# Configure NewRelic on this server.
+unless Chef::Config[:solo]
+  newrelic_info = data_bag_item(node.chef_environment, 'newrelic')
+  node.set['newrelic'] = node['newrelic'].merge(newrelic_info)
+  node.save
+  include_recipe 'barbican-base::newrelic'
+end
+
+#TODO(jwood) Find a final home this eventually.
+#unless Chef::Config[:solo]
+#  newrelic_info = data_bag_item(node.chef_environment, 'newrelic')
+#  Chef::Log.debug "newrelic license: #{newrelic_info['server_monitoring']['license']}"
+#  node.set['newrelic'] = node['newrelic'].merge(newrelic_info)
+#  node.save
+#  include_recipe 'newrelic::repository'
+#  include_recipe 'newrelic::server-monitor'
+#end
