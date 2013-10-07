@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
+  config.vm.network :forwarded_port, guest: 5672, host: 5672
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -62,6 +63,9 @@ Vagrant.configure("2") do |config|
   # option to your ~/.vagrant.d/Vagrantfile file
   config.berkshelf.enabled = true
 
+  # Enable vagrant-omnibus plugin.
+  config.omnibus.chef_version = :latest
+
   # An array of symbols representing groups of cookbook described in the Vagrantfile
   # to exclusively install and copy to Vagrant's shelf.
   # config.berkshelf.only = []
@@ -71,14 +75,7 @@ Vagrant.configure("2") do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      :mysql => {
-        :server_root_password => 'rootpass',
-        :server_debian_password => 'debpass',
-        :server_repl_password => 'replpass'
-      }
-    }
-
+    chef.data_bags_path = "../../data_bags"
     chef.run_list = [
         "recipe[barbican-rabbitmq::default]"
     ]

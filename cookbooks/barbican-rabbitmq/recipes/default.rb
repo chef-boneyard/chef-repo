@@ -23,7 +23,7 @@
 
 # Do anything needed beyond the standard rabbit mq install here
 
-include_recipe "barbican-base"
+include_recipe "barbican::_base"
 
 # Build a map of host name to IP addresses, for queue nodes in my cluster.
 hosts = []
