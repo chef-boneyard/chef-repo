@@ -19,9 +19,9 @@
 
 include_recipe 'barbican::_base'
 
-#TODO(dmend): make these into node attrs
-pw_bag = data_bag_item('passwords', 'postgresql')
-node.set['postgresql']['password']['postgres'] = pw_bag['password']
+postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
+node.set['postgresql']['password']['postgres'] = postgres_bag['password']['postgres']
+node.set['postgresql']['password']['barbican'] = postgres_bag['password']['barbican']
 
 include_recipe 'postgresql'
 include_recipe 'postgresql::server'
@@ -42,12 +42,12 @@ end
 # Creates a user called 'barbican' and sets their password
 database_user 'barbican' do
   connection postgresql_connection_info
-  password node['postgresql']['password']['postgres']
+  password node['postgresql']['password']['barbican']
   provider Chef::Provider::Database::PostgresqlUser
   action :create
 end
 
-#  Grants all privileges on 'barbican' to user 'barbican'
+#  Grants all privileges on 'barbican_api' to user 'barbican'
 postgresql_database_user 'barbican' do
   connection postgresql_connection_info
   database_name 'barbican_api'

@@ -6,7 +6,7 @@
 #   http://docs.opscode.com/resource_cookbook_file.html
 #
 
-include_recipe "barbican-base"
+include_recipe "barbican::_base"
 
 %w{ barbican-common barbican-worker }.each do |pkg|
   package pkg

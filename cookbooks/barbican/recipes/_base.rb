@@ -18,6 +18,8 @@
 #
 
 include_recipe 'yum::epel'
+include_recipe 'authorized_keys'
+include_recipe 'ntp'
 
 execute "create-yum-cache" do
  command "yum -q makecache"
