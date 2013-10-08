@@ -1,6 +1,0 @@
-[barbican]
-name=Barbican CentOS-$releasever - local packages for $basearch
-baseurl=http://yum-repo.cloudkeep.io/centos/$releasever/barbican/$basearch
-enabled=1
-gpgcheck=0
-

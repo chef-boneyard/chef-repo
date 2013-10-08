@@ -1,0 +1,11 @@
+{
+  "name": "data_bag_item_passwords_postgresql",
+  "json_class": "Chef::DataBagItem",
+  "chef_type": "data_bag_item",
+  "data_bag": "passwords",
+  "raw_data": {
+    "id": "postgresql",
+    "user": "barbican",
+    "password": "CHANGE_ME"
+  }
+}

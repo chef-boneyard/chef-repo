@@ -1,0 +1,7 @@
+{
+  "id": "postgresql",
+  "password": {
+    "postgres": "CHANGE_ME",
+    "barbican": "CHANGE_ME"
+  }
+}

@@ -59,7 +59,7 @@ task :bundle_cookbook, :cookbook do |t, args|
     FileUtils.cp_r(file_path, temp_cookbook_dir) if File.directory?(file_path)
   end
 
-  system("tar", "-C", temp_dir, "-cvzf", File.join(tarball_dir, tarball_name), "./#{args.cookbook}")
+  system("tar", "-C", temp_dir, "-cvzf", File.join(tarball_dir, tarball_name), "#{args.cookbook}")
 
   FileUtils.rm_rf temp_dir
 end
