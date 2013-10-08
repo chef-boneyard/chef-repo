@@ -12,10 +12,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[authorized_keys]",
-    "recipe[ntp]",
-    "recipe[barbican-api]",
-    "recipe[chef-cloudpassage]"
+    "recipe[barbican::api]"
   ],
   "env_run_lists": {
   }

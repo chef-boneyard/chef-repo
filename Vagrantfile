@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   nodes_queue = [
     { :vmname => 'barbican_queue_1', :hostname => 'barbican-queue-test-1', :ip => '192.168.50.8'},
     { :vmname => 'barbican_queue_2', :hostname => 'barbican-queue-test-2', :ip => '192.168.50.9'},
-    { :vmname => 'barbican_queue_3', :hostname => 'barbican-queue-test-3', :ip => '192.168.50.10'}
+    #{ :vmname => 'barbican_queue_3', :hostname => 'barbican-queue-test-3', :ip => '192.168.50.10'}
   ]
 
   nodes_queue.each do |node|
@@ -35,8 +35,9 @@ Vagrant.configure("2") do |config|
       barbican_queue.vm.provision :chef_solo do |chef|
         chef.arguments = '-l debug'
         chef.roles_path = "roles"
+        chef.data_bags_path = 'data_bags'
         chef.run_list = [
-          "role[barbican-queue-solo]",
+          "role[barbican-queue]",
         ]
         chef.json = {
           "solo_ips" => nodes_queue,
@@ -44,9 +45,6 @@ Vagrant.configure("2") do |config|
               "cluster" => true,
               "erlang_cookie" => "#{cluster_queue_name}"
           },
-          "ntp" => {
-              "servers" => ["time.rackspace.com"]
-          }
         }
       end
     end
@@ -60,24 +58,9 @@ Vagrant.configure("2") do |config|
     dbsimple.vm.network :forwarded_port, guest: 80, host: 8017
     dbsimple.vm.provision :chef_solo do |chef|
       chef.roles_path = "roles"
+      chef.data_bags_path = 'data_bags'
       chef.json = {
                     "postgresql" => {
-                        "password" => {
-                            "postgres" => "mypass"
-                        },
-                        'enable_pgdg_yum' => true,
-                        "version" => "9.2",
-                        'dir' => "/var/lib/pgsql/9.2/data",
-                        'server' => {
-                            'packages' => ["postgresql92-server"],
-                            'service_name' => "postgresql-9.2"
-                        },
-                        'contrib' => {
-                            'packages' => ["postgresql92-contrib"]
-                        },
-                        'config' => {
-                            'listen_addresses' => '*'
-                        },
                         'pg_hba' => [
                           {
                             'comment' => '# "local" is for Unix domain socket connections only',
@@ -146,15 +129,7 @@ Vagrant.configure("2") do |config|
                     }
                   }
       chef.run_list = [
-        "role[base]",
-        "role[ntpd]",
-        "role[db]",
-        "recipe[postgresql]",
-        "recipe[postgresql::server]",
-        "recipe[database::postgresql]",
-        "recipe[database]",
-        "recipe[barbican-db]"
-        #"recipe[chef-cloudpassage]"
+        'role[barbican-db]'
       ]
     end
   end
@@ -175,10 +150,7 @@ Vagrant.configure("2") do |config|
       chef.data_bags_path = "data_bags"
       chef.arguments = '-l debug'
       chef.run_list = [
-        "role[base]",
-        "role[ntpd]",
-        "role[api]",
-        "recipe[barbican-api]",
+        "role[barbican-api]",
       ]
       chef.json = {
           "solo_ips" => {
@@ -202,12 +174,10 @@ Vagrant.configure("2") do |config|
     # Provision the node.
     barbican_worker.vm.provision :chef_solo do |chef|
       chef.roles_path = "roles"
+      chef.data_bags_path = 'data_bags'
       chef.arguments = '-l debug'
       chef.run_list = [
-        "role[base]",
-        "role[ntpd]",
-        "role[worker]",
-        "recipe[barbican-worker]",
+        "role[barbican-worker]",
       ]
       chef.json = {
           "solo_ips" => {
