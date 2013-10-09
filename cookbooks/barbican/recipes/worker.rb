@@ -1,7 +1,22 @@
 #
-# Cookbook Name:: barbican-worker
-# Recipe:: default
+# Cookbook Name:: barbican
+# Recipe:: worker
 #
+# Copyright (C) 2013 Rackspace, Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#    http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 # Note that the yum repository configuration used here was found at this site:
 #   http://docs.opscode.com/resource_cookbook_file.html
 #
@@ -13,10 +28,11 @@ include_recipe "barbican::_base"
 end
 
 #TODO(jwood) Eventually get these values from a data bag.
+postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
 host_name = "#{node[:barbican_api][:host_name]}"
 db_name = "#{node[:barbican_api][:db_name]}"
 db_user = "#{node[:barbican_api][:db_user]}"
-db_pw = "#{node[:barbican_api][:db_pw]}"
+db_pw = postgres_bag['password']["#{db_user}"]
 db_ip = ''
 connection = ''
 q_ips = []
@@ -36,7 +52,6 @@ else
   else
     db_node = db_nodes[0]
     db_ip = db_node[:ipaddress]
-    db_pw = db_node[:postgresql][:password][:postgres]
   end
 
   # Get the cluster of queue nodes.
