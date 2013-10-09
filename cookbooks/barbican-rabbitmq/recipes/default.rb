@@ -97,3 +97,11 @@ rabbitmq_policy "ha-all" do
 end
 
 include_recipe "rabbitmq::mgmt_console"
+
+# Configure NewRelic on this RabbitMQ server.
+unless Chef::Config[:solo]
+  node.set[:meetme_newrelic_plugin][:rabbitmq][:host] = node[:ipaddress]
+  node.save
+  include_recipe 'barbican-rabbitmq::_newrelic'
+end
+

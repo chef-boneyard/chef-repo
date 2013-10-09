@@ -18,17 +18,14 @@ require 'json'
 require 'net/https'
 
 # Locate configuration items.
-github = data_bag_item(node[:authorized_keys][:databag_name], node[:authorized_keys][:databag_item])
-unless Chef::Config[:solo]
-  auth_dir = "/root/.ssh"
-  ssh_auth_file = "authorized_keys"
-else
-  # Don't clobber the Vagrant-installed keys file.
-  auth_dir = "/home/vagrant/.ssh"
-  ssh_auth_file = "authorized_keys2"
+if Chef::Config[:solo]
+  raise "No support for installing git keys onto Chef Solo VM instances."
 end
+auth_dir = "/root/.ssh"
+ssh_auth_file = "authorized_keys"
 ssh_auth_file_full = "#{auth_dir}/#{ssh_auth_file}"
 
+github = data_bag_item(node[:authorized_keys][:databag_name], node[:authorized_keys][:databag_item])
 repo_owner = github["repo_owner"]
 repo_name = github["repo_name"]
 token = github["token"]

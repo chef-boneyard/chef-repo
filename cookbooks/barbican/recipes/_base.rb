@@ -18,7 +18,9 @@
 #
 
 include_recipe 'yum::epel'
-include_recipe 'authorized_keys'
+unless Chef::Config[:solo]
+    include_recipe 'authorized_keys'
+end
 include_recipe 'ntp'
 
 execute "create-yum-cache" do
@@ -43,5 +45,9 @@ end
 
 unless Chef::Config[:solo]
   include_recipe 'chef-cloudpassage'
-end
 
+  newrelic_info = data_bag_item(node.chef_environment, 'newrelic')
+  node.set['newrelic'] = node['newrelic'].merge(newrelic_info)
+  node.save
+  include_recipe 'barbican::_newrelic'
+end
