@@ -10,6 +10,9 @@ knife role from file roles/*.rb
 # Upload environment files.
 knife environment from file environments/*.json
 
+# Upload data bag files. -- Don't do this as it can overwrite or expose sensitive data!
+# 
+
 # Upload Berkshelf-derived cookbooks.
 berks upload
 

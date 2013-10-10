@@ -10,4 +10,6 @@ depends          'yum'
 depends          'authorized_keys'
 depends          'ntp'
 depends          'chef-cloudpassage'
+depends          'newrelic'
+depends          'python'
 

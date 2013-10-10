@@ -55,3 +55,10 @@ postgresql_database_user 'barbican' do
   action :grant
 end
 
+# Configure NewRelic on this PostgreSQL server.
+unless Chef::Config[:solo]
+  node.set[:meetme_newrelic_plugin][:postgres][:host] = node[:ipaddress]
+  node.set[:meetme_newrelic_plugin][:postgres][:password] = node['postgresql']['password']['postgres']
+  node.save
+  include_recipe 'barbican-postgresql::_newrelic'
+end
