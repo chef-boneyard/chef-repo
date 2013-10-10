@@ -11,7 +11,7 @@ cookbook 'python'
 
 cookbook 'rabbitmq', github: 'rackspace-cookbooks/rabbitmq'
 
-cookbook 'authorized_keys', path: './cookbooks/authorized_keys'
+cookbook 'authorized_keys', github: 'cloudkeep/authorized_keys'
 cookbook 'repmgr', github: 'hw-cookbooks/repmgr'
 cookbook 'barbican', path: './cookbooks/barbican'
 cookbook 'barbican-postgresql', path: './cookbooks/barbican-postgresql'
