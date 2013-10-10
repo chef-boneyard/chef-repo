@@ -27,7 +27,6 @@ include_recipe "barbican::_base"
   package pkg
 end
 
-#TODO(jwood) Eventually get these values from a data bag.
 postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
 host_name = "#{node[:barbican_api][:host_name]}"
 db_name = "#{node[:barbican_api][:db_name]}"
