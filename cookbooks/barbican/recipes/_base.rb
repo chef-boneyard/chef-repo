@@ -44,10 +44,14 @@ cookbook_file "/etc/yum.repos.d/barbican.repo" do
 end
 
 unless Chef::Config[:solo]
-  include_recipe 'chef-cloudpassage'
+  newrelic_info = data_bag_item(node.chef_environment, :newrelic)
+  node.set[:newrelic] = node[:newrelic].merge(newrelic_info)
 
-  newrelic_info = data_bag_item(node.chef_environment, 'newrelic')
-  node.set['newrelic'] = node['newrelic'].merge(newrelic_info)
+  cp_info = data_bag_item(node.chef_environment, :cloudpassage)
+  node.set[:cloudpassage] = node[:cloudpassage].merge(cp_info)
+
   node.save
+
   include_recipe 'barbican::_newrelic'
+  include_recipe 'chef-cloudpassage'
 end
