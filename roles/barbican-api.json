@@ -1,0 +1,19 @@
+{
+  "name": "barbican-api",
+  "description": "Role for nodes running the Barbican api server.",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "node_group": {
+      "tag": "api",
+      "description": "Barbican API node"
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[barbican::api]"
+  ],
+  "env_run_lists": {
+  }
+}

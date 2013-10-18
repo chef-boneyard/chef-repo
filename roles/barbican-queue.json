@@ -1,0 +1,19 @@
+{
+  "name": "barbican-queue",
+  "description": "Barbican Queue service",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "node_group": {
+      "tag": "queue",
+      "description": "Barbican Queue Node"
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[barbican-rabbitmq]"
+  ],
+  "env_run_lists": {
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "barbican-db",
+  "description": "Role for the Barbican Databases",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "node_group": {
+      "tag": "db",
+      "description": "Barbican Database Node"
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[barbican-postgresql]"
+  ],
+  "env_run_lists": {
+  }
+}

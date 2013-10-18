@@ -1,7 +1,18 @@
+.DS_Store
 .rake_test_cache
+.idea/*
 
 ###
 # Ignore Chef key files and secrets
 ###
 .chef/*.pem
 .chef/encrypted_data_bag_secret
+
+Berksfile.lock
+Gemfile.lock
+.vagrant
+
+.venv
+
+Users
+*/Users
