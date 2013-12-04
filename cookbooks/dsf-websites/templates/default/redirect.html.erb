@@ -1,0 +1,11 @@
+<html>
+<head>
+<title><%= @title || "Redirecting to #{ @redirect_to }" %></title>
+<meta http-equiv="refresh" content="<%= @refresh_time || "0" %>; url=<%= @redirect_to %>">
+</head>
+<body>
+<% if @body -%>
+<%= @body %>
+<% end -%>
+</body>
+</html>
