@@ -1,0 +1,31 @@
+begin
+  require 'berkshelf/vagrant'
+rescue LoadError
+  puts "[WARNING] Berkshelf not found in your Vagrant's RubyGems but your Vagrantfile is attempting"
+  puts "[WARNING] to require the Berkshelf Vagrant plugin! Install the Berkshelf Vagrant plugin or"
+  puts "[WARNING] remove the 'require \"berkshelf/vagrant\"' line from the top of your Vagrantfile."
+  puts ""
+  puts "If you installed Vagrant by RubyGems:"
+  puts "  Install Berkshelf by running: \"gem install berkshelf\""
+  puts "If you installed Vagrant by one of the pre-packaged installers:"
+  puts "  Install Berkshelf by running: \"vagrant gem install berkshelf\""
+  puts ""
+end
+
+Vagrant::Config.run do |config|
+  config.vm.host_name = "dsf-websites-berkshelf"
+
+  config.vm.box = "chef_11.8.0-precise64"
+  config.vm.box_url = "http://belly-vagrant.s3.amazonaws.com/chef_11.8.0-precise64.box"
+
+  config.vm.forward_port 80, 8080
+
+  config.vm.provision :chef_solo do |chef|
+    chef.json = {
+    }
+
+    chef.run_list = [
+      "recipe[dsf-websites::joelapenna-com]"
+    ]
+  end
+end

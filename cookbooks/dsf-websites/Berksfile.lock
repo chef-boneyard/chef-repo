@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "dsf-websites": {
+      "path": "."
+    },
+    "apache2": {
+      "locked_version": "1.8.4"
+    },
+    "apt": {
+      "locked_version": "2.0.0"
+    }
+  }
+}
