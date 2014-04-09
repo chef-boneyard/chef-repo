@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+
+gem "rake"
+gem "foodcritic"
+gem "chef", "~> 10.16.4"
+gem "moneta", "< 0.7.0"
+gem "berkshelf"
+gem "kitchen-ec2"

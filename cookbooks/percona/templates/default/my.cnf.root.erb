@@ -1,0 +1,5 @@
+<% %w[client mysqladmin mysqldump].each do |record| -%>
+[<%= record %>]
+user=root
+password='<%= @root_password %>'
+<% end -%>

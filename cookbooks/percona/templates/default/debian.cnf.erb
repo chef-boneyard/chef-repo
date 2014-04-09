@@ -1,0 +1,12 @@
+# Automatically generated for Debian scripts. DO NOT TOUCH!
+[client]
+host     = <%= node["percona"]["server"]["hostname"] %>
+user     = <%= node["percona"]["server"]["debian_username"] %>
+password = <%= @debian_password %>
+socket   = <%= node["percona"]["server"]["socket"] %>
+[mysql_upgrade]
+host     = <%= node["percona"]["server"]["hostname"] %>
+user     = <%= node["percona"]["server"]["debian_username"] %>
+password = <%= @debian_password %>
+socket   = <%= node["percona"]["server"]["socket"] %>
+basedir  = <%= node["percona"]["server"]["basedir"] %>

@@ -1,0 +1,48 @@
+---
+driver_plugin: ec2
+driver_config:
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  # instance_type: ebs
+  flavor_id: t1.micro
+  aws_ssh_key_id: vagrant
+  ssh_key: <%= File.expand_path('./test/support/keys/vagrant') %>
+  availability_zone: us-east-1d
+  require_chef_omnibus: <%= ENV['CHEF_VERSION'] ? ENV['CHEF_VERSION'] : 'latest' %>
+
+platforms:
+# Source: http://cloud-images.ubuntu.com/locator/ec2/
+- name: ubuntu1204-64
+  driver_config:
+    image_id: ami-e7582d8e
+    username: ubuntu
+  run_list:
+  - recipe[apt]
+
+# Source: http://www.bashton.com/blog/2013/centos-6-4-ami-available/
+- name: centos64-64
+  driver_config:
+    image_id: ami-52009e3b
+    username: ec2-user
+
+suites:
+- name: client-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::client]
+
+- name: server-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::server]
+
+- name: xtrabackup-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::server]
+  - recipe[percona::backup]
+
+- name: toolkit-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::toolkit]
+
+- name: monitoring-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::monitoring]
