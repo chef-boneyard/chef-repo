@@ -1,0 +1,516 @@
+#
+# The MySQL database server configuration file.
+#
+# You can copy this to one of:
+# - "/etc/mysql/my.cnf" to set global options,
+# - "~/.my.cnf" to set user-specific options.
+#
+# One can use all long options that the program supports.
+# Run program with --help to get a list of available options and with
+# --print-defaults to see which it would actually understand and use.
+#
+# For explanations see
+# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
+
+# This will be passed to all mysql clients
+# It has been reported that passwords should be enclosed with ticks/quotes
+# escpecially if they contain "#" chars...
+# Remember to edit /etc/mysql/debian.cnf when changing the socket location.
+[client]
+port   = <%= node["percona"]["server"]["port"] %>
+socket = <%= node["percona"]["server"]["socket"] %>
+
+# Here is entries for some specific programs
+# The following values assume you have at least 32M ram
+
+[mysqlhotcopy]
+interactive-timeout
+
+# This was formally known as [safe_mysqld]. Both versions are currently parsed.
+[mysqld_safe]
+socket           = <%= node["percona"]["server"]["socket"] %>
+nice             = <%= node["percona"]["server"]["nice"] %>
+open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
+
+# *** Application-specific options follow here ***
+
+#
+# The MySQL server
+#
+[mysqld]
+
+#
+# * Basic Settings
+#
+user              = <%= node["percona"]["server"]["username"] %>
+pid-file          = <%= node["percona"]["server"]["pidfile"] %>
+socket            = <%= node["percona"]["server"]["socket"] %>
+port              = <%= node["percona"]["server"]["port"] %>
+basedir           = <%= node["percona"]["server"]["basedir"] %>
+datadir           = <%= node["percona"]["server"]["datadir"] %>
+tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
+slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
+# language          = <%= node["percona"]["server"]["language"] %>
+character_set_server = <%= node["percona"]["server"]["character_set"] %>
+collation_server  = <%= node["percona"]["server"]["collation"] %>
+
+<% if node["percona"]["server"]["skip_name_resolve"] %>
+skip-name-resolve
+<% end %>
+
+<% if node["percona"]["server"]["skip_external_locking"] %>
+skip-external-locking
+<% end %>
+
+net_read_timeout = <%= node["percona"]["server"]["net_read_timeout"] %>
+connect_timeout  = <%= node["percona"]["server"]["connect_timeout"] %>
+
+#
+# For compatibility to other Debian packages that still use
+# libmysqlclient10 and libmysqlclient12.
+old_passwords = <%= @old_passwords %>
+
+#
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+<% if !node["percona"]["server"]["bind_address"].empty? %>
+bind-address = <%= node["percona"]["server"]["bind_address"] %>
+<% end %>
+#
+
+# * Fine Tuning
+#
+key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
+
+# The maximum size of a query packet the server can handle as well as
+# maximum query size server can process (Important when working with
+# large BLOBs).  enlarged dynamically, for each connection.
+max_allowed_packet  = <%= node["percona"]["server"]["max_allowed_packet"] %>
+
+# Maximum String length size of a group concat result
+group_concat_max_len = <%= node["percona"]["server"]["group_concat_max_len"] %>
+
+# Thread stack size to use. This amount of memory is always reserved at
+# connection time. MySQL itself usually needs no more than 64K of
+# memory, while if you use your own stack hungry UDF functions or your
+# OS requires more stack for some operations, you might need to set this
+# to a higher value.
+thread_stack = <%= node["percona"]["server"]["thread_stack"] %>
+
+# query_alloc_block_size controls how much memory is reserved for
+# parsing SQL statements and some other junk.  I increase it on boxes
+# that run complex queries to reduce possible memory fragmentation.  YMMV
+# default is 8k
+query_alloc_block_size = <%= node["percona"]["server"]["query_alloc_block_size"] %>
+
+# if your OS supports it, you can lock the buffer pool into memory
+# with this option to prevent swapping.  I'm not sure if linux supports this
+# but Solaris does.  On linux, using the swapiness sysctl is probably nearly
+# as effective.
+<% if node["percona"]["server"]["memlock"] %>
+memlock
+<% end %>
+
+# Set the default transaction isolation level. Levels available are:
+# READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE
+
+# REPEATABLE-READ requires next-key locks.  If your application isn't sensitive # to 'phantom rows', (it probably isn't) then read-committed is fine.  Feel
+# free to change this to REPEATABLE-READ at a small performance penalty if it
+# makes you feel better.
+transaction_isolation = <%= node["percona"]["server"]["transaction_isolation"] %>
+
+# Maximum size for internal (in-memory) temporary tables. If a table
+# grows larger than this value, it is automatically converted to disk
+# based table This limitation is for a single table. There can be many
+# of them.  Also, if max_heap_table_size < tmp_table_size, it will be used
+# as the limit instead, so making it bigger than that  is not useful.
+tmp_table_size = <%= node["percona"]["server"]["tmp_table_size"] %>
+
+# Storage engine which is used by default when creating new tables, if not
+# specified differently during the CREATE TABLE statement.
+default_storage_engine = <%= node["percona"]["server"]["default_storage_engine"] %>
+
+# Maximum allowed size for a single HEAP (in memory) table. This option
+# is a protection against the accidential creation of a very large HEAP
+# table which could otherwise use up all memory resources.
+max_heap_table_size = <%= node["percona"]["server"]["max_heap_table_size"] %>
+
+# Sort buffer is used to perform sorts for some ORDER BY and GROUP BY
+# queries. If sorted data does not fit into the sort buffer, a disk
+# based merge sort is used instead - See the "Sort_merge_passes"
+# status variable. Allocated per thread if sort is needed.
+sort_buffer_size = <%= node["percona"]["server"]["sort_buffer_size"] %>
+
+# This buffer is used for the optimization of full JOINs (JOINs without
+# indexes). Such JOINs are very bad for performance in most cases
+# anyway, but setting this variable to a large value reduces the
+# performance impact. See the "Select_full_join" status variable for a
+# count of full JOINs. Allocated per thread if full join is found
+join_buffer_size = <%= node["percona"]["server"]["join_buffer_size"] %>
+
+# How many threads we should keep in a cache for reuse. When a client
+# disconnects, the client's threads are put in the cache if there aren't
+# more than thread_cache_size threads from before.  This greatly reduces
+# the amount of thread creations needed if you have a lot of new
+# connections. (Normally this doesn't give a notable performance
+# improvement if you have a good thread implementation.)
+thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
+
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+myisam-recover = <%= node["percona"]["server"]["myisam_recover"] %>
+
+# back_log is the number of connections the operating system can keep in
+# the listen queue, before the MySQL connection manager thread has
+# processed them. If you have a very high connection rate and experience
+# "connection refused" errors, you might need to increase this value.
+# Check your OS documentation for the maximum value of this parameter.
+# Attempting to set back_log higher than your operating system limit
+# will have no effect.
+back_log = <%= node["percona"]["server"]["back_log"] %>
+max_connections = <%= node["percona"]["server"]["max_connections"] %>
+
+# I don't know why 0 doesn't disable max_connect_errors checking
+# but it doesn't, so set it to a high value to prevent MySQL from
+# refusing to accept connections from a flaky host, especially if you
+# are using a load balancer!
+max_connect_errors = <%= node["percona"]["server"]["max_connect_errors"] %>
+
+# The number of open tables for all threads.
+# make sure that the open file limit is at least twice this in the
+# mysqld_safe section
+<%- if node['mysql']['version'].to_f >= 5.6 %>
+table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
+<%- else %>
+table_cache             = <%= node["percona"]["server"]["table_cache"] %>
+<%- end %>
+
+#thread_concurrency     = 10
+#
+# * Query Cache Configuration
+#
+
+# Query cache is used to cache SELECT results and later return them
+# without actual executing the same query once again. Having the query
+# cache enabled may result in significant speed improvements, if your
+# have a lot of identical queries and rarely changing tables. See the
+# "Qcache_lowmem_prunes" status variable to check if the current value
+# is high enough for your load.
+# Note: In case your tables change very often or if your queries are
+# textually different every time, the query cache may result in a
+# slowdown instead of a performance improvement.
+query_cache_size = <%= node["percona"]["server"]["query_cache_size"] %>
+
+# Only cache result sets that are smaller than this limit. This is to
+# protect the query cache of a very large result set overwriting all
+# other query results.
+query_cache_limit = <%= node["percona"]["server"]["query_cache_limit"] %>
+
+#
+# * Logging and Replication
+#
+# Both location gets rotated by the cronjob.
+# Be aware that this log type is a performance killer.
+# As of 5.1 you can enable the  at runtime!
+#log_type           = FILE
+#general_log    = /var/log/mysql/mysql.log
+
+# sync_binlog ensures that all writes to the binary log are immediately
+# flushed to disk.  This is important, especially for replication, because
+# if the server crashes and has not written all of the binary log to disk (and flushed it)
+# then some rows will not make it to the slave
+sync_binlog = <%= node["percona"]["server"]["sync_binlog"] %>
+
+#
+# Error logging goes to syslog due to /etc/mysql/conf.d/mysqld_safe_syslog.cnf.
+#
+# Here you can see queries with especially long duration
+# Slow queries are queries which take more than the
+# amount of time defined in "long_query_time" or which do not use
+# indexes well, if log_long_format is enabled. It is normally good idea
+# to have this turned on if you frequently add new queries to the
+# system.
+slow_query_log = <%= node["percona"]["server"]["slow_query_log"] %>
+slow_query_log_file  = <%= node["percona"]["server"]["slow_query_log_file"] %>
+
+# All queries taking more than this amount of time (in seconds) will be
+# trated as slow. Do not use "1" as a value here, as this will result in
+# even very fast queries being logged from time to time (as MySQL
+# currently measures time with second accuracy only).
+long_query_time = <%= node["percona"]["server"]["long_query_time"] %>
+
+# log-queries-not-using-indexes
+#
+# The following can be used as easy to replay backup logs or for replication.
+# note: if you are setting up a replication slave, see README.Debian about
+#       other settings you may need to change.
+
+# Unique server identification number between 1 and 2^32-1. This value
+# is required for both master and slave hosts. It defaults to 1 if
+# "master-host" is not set, but will MySQL will not function as a master
+# if it is omitted.
+server-id = <%= node["percona"]["server"]["server_id"] %>
+
+# Make the slave read-only. Only users with the SUPER privilege and the
+# replication slave thread will be able to modify data on it. You can
+# use this to ensure that no applications will accidently modify data on
+# the slave instead of the master
+#read_only
+
+log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
+expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
+max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
+binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
+
+<% node["percona"]["server"]["binlog_do_db"].each do |db_name| %>
+binlog-do-db     = <%= db_name %>
+<% end -%>
+
+# The size of the cache to hold the SQL statements for the binary log
+# during a transaction. If you often use big, multi-statement
+# transactions you can increase this value to get more performance. All
+# statements from transactions are buffered in the binary log cache and
+# are being written to the binary log at once after the COMMIT.  If the
+# transaction is larger than this value, temporary file on disk is used
+# instead.  This buffer is allocated per connection on first update
+# statement in transaction
+binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
+
+# Enable binary logging. This is required for acting as a MASTER in a
+# replication configuration. You also need the binary log if you need
+# the ability to do point in time recovery from your latest backup.
+
+# it is recommened to specify a filename for the binary log, hopefully
+# something that is not host specific.  I've chosen master-bin.
+<% if !node["percona"]["server"]["log_bin"].empty? %>
+log-bin = <%= node["percona"]["server"]["log_bin"] %>
+<% end %>
+
+# If you're using replication with chained slaves (A->B->C), you need to
+# enable this option on server B. It enables logging of updates done by
+# the slave thread into the slave's binary log.
+<% if node["percona"]["server"]["log_slave_updates"] %>
+log_slave_updates
+<% end %>
+
+# Enable the full query log. Every query (even ones with incorrect
+# syntax) that the server receives will be logged. This is useful for
+# debugging, it is usually disabled in production use.
+#log
+
+# Log warnings to the error log
+<% if node["percona"]["server"]["log_warnings"] %>
+log_warnings
+<% end %>
+
+# Log more information in the slow query log. Normally it is good to
+# have this turned on. This will enable logging of queries that are not
+# using indexes in addition to long running queries.
+<% if node["percona"]["server"]["log_long_format"] %>
+log_long_format
+<% end %>
+
+# MyISAM uses special tree-like cache to make bulk inserts (that is,
+# INSERT ... SELECT, INSERT ... VALUES (...), (...), ..., and LOAD DATA
+# INFILE) faster. This variable limits the size of the cache tree in
+# bytes per thread. Setting it to 0 will disable this optimisation.  Do
+# not set it larger than "key_buffer_size" for optimal performance.
+# This buffer is allocated when a bulk insert is detected.
+bulk_insert_buffer_size = <%= node["percona"]["server"]["bulk_insert_buffer_size"] %>
+
+# This buffer is allocated when MySQL needs to rebuild the index in
+# REPAIR, OPTIMIZE, ALTER table statements as well as in LOAD DATA INFILE
+# into an empty table. It is allocated per thread so be careful with
+# large settings.
+myisam_sort_buffer_size = <%= node["percona"]["server"]["myisam_sort_buffer_size"] %>
+
+# The maximum size of the temporary file MySQL is allowed to use while
+# recreating the index (during REPAIR, ALTER TABLE or LOAD DATA INFILE.
+# If the file-size would be bigger than this, the index will be created
+# through the key cache (which is slower).
+myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_size"] %>
+
+# If a table has more than one index, MyISAM can use more than one
+# thread to repair them by sorting in parallel. This makes sense if you
+# have multiple CPUs and plenty of memory.
+myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
+
+# Automatically check and repair not properly closed MyISAM tables.
+<% if node["percona"]["server"]["myisam_recover"] %>
+myisam_recover
+<% end %>
+
+
+#binlog_do_db   = include_database_name
+#binlog_ignore_db = include_database_name
+#
+# * InnoDB
+#
+# InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
+# Read the manual for more InnoDB related options. There are many!
+
+# Use this option if you have a MySQL server with InnoDB support enabled
+# but you do not plan to use it. This will save memory and disk space
+# and speed up some things.
+<% if node["percona"]["server"]["skip_innodb"] %>
+skip-innodb
+<% end %>
+
+# Additional memory pool that is used by InnoDB to store metadata
+# information.  If InnoDB requires more memory for this purpose it will
+# start to allocate it from the OS.  As this is fast enough on most
+# recent operating systems, you normally do not need to change this
+# value. SHOW INNODB STATUS will display the current amount used.
+innodb_additional_mem_pool_size = <%= node["percona"]["server"]["innodb_additional_mem_pool_size"] %>
+
+# This config file assumes a main memory of at least 8G
+innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size"] %>
+
+# InnoDB stores data in one or more data files forming the tablespace.
+# If you have a single logical drive for your data, a single
+# autoextending file would be good enough. In other cases, a single file
+# per device is often a good choice. You can configure InnoDB to use raw
+# disk partitions as well - please refer to the manual for more info
+# about this.
+
+# to prevent fragmentation of the InnoDB tablespace, either create a
+# very big initial datafile, or set the autoextend amount to a large
+# value.  The disadvantage of using a large autoextend size is that the
+# server may take some time to extend the file when needed
+
+# can't specify tablespace sizes for innodb-file-per-table tablespaces
+# so using a big autoextend is preferable in those cases.
+innodb_data_file_path = <%= node["percona"]["server"]["innodb_data_file_path"] %>
+# innodb_autoextend_increment = 128M
+<% if node["percona"]["server"]["innodb_file_per_table"] %>
+innodb_file_per_table
+<% end %>
+
+# The file format to use for new InnoDB tables.
+# Currently Antelope and Barracuda are supported.
+# This applies only for tables that have their own tablespace,
+# so for it to have an effect innodb_file_per_table must be enabled.
+innodb_file_format = <%= node["percona"]["server"]["innodb_file_format"] %>
+
+# Set this option if you would like the InnoDB tablespace files to be
+# stored in another location. By default this is the MySQL datadir.
+<% if !node["percona"]["server"]["innodb_data_home_dir"].empty? %>
+innodb_data_home_dir = <%= node["percona"]["server"]["innodb_data_home_dir"] %>
+<% end %>
+
+# Number of threads allowed inside the InnoDB kernel. The optimal value
+# depends highly on the application, hardware as well as the OS
+# scheduler properties. A too high value may lead to thread thrashing.
+innodb_thread_concurrency = <%= node["percona"]["server"]["innodb_thread_concurrency"] %>
+
+# If set to 1, InnoDB will flush (fsync) the transaction logs to the
+# disk at each commit, which offers full ACID behavior. If you are
+# willing to compromise this safety, and you are running small
+# transactions, you may set this to 0 or 2 to reduce disk I/O to the
+# logs. Value 0 means that the log is only written to the log file and
+# the log file flushed to disk approximately once per second. Value 2
+# means the log is written to the log file at each commit, but the log
+# file is only flushed to disk approximately once per second.
+innodb_flush_log_at_trx_commit = <%= node["percona"]["server"]["innodb_flush_log_at_trx_commit"] %>
+
+# Speed up InnoDB shutdown. This will disable InnoDB to do a full purge
+# and insert buffer merge on shutdown. It may increase shutdown time a
+# lot, but InnoDB will have to do it on the next startup instead.
+<% if node["percona"]["server"]["innodb_fast_shutdown"] %>
+innodb_fast_shutdown
+<% end %>
+
+# The size of the buffer InnoDB uses for buffering log data. As soon as
+# it is full, InnoDB will have to flush it to disk. As it is flushed
+# once per second anyway, it does not make sense to have it very large
+# (even with long transactions).
+innodb_log_buffer_size = <%= node["percona"]["server"]["innodb_log_buffer_size"] %>
+
+# Size of each log file in a log group. You should set the combined size
+# of log files to about 25%-100% of your buffer pool size to avoid
+# unneeded buffer pool flush activity on log file overwrite. However,
+# note that a larger logfile size will increase the time needed for the
+# recovery process.
+
+# make sure the log files are large enough that you don't hold up
+# checkpoints when the logs rotate!
+innodb_log_file_size = <%= node["percona"]["server"]["innodb_log_file_size"] %>
+
+# Total number of files in the log group. A value of 2-3 is usually good
+# enough.
+innodb_log_files_in_group = <%= node["percona"]["server"]["innodb_log_files_in_group"] %>
+
+# Location of the InnoDB log files. Default is the MySQL datadir. You
+# may wish to point it to a dedicated hard drive or a RAID1 volume for
+# improved performance
+
+# be careful if you use LVM and plan to snapshot your filesystem for hot
+# backup.  your log files must be on the same logical volume as your data
+# files in order for this to work.
+
+#innodb_log_group_home_dir
+
+# Maximum allowed percentage of dirty pages in the InnoDB buffer pool.
+# If it is reached, InnoDB will start flushing them out agressively to
+# not run out of clean pages at all. This is a soft limit, not
+# guaranteed to be held.
+innodb_max_dirty_pages_pct = <%= node["percona"]["server"]["innodb_max_dirty_pages_pct"] %>
+
+# The flush method InnoDB will use for Log. The tablespace always uses
+# doublewrite flush logic. The default value is "fdatasync", another
+# option is "O_DSYNC".
+
+# use directIO to bypass filesystem cache where possible
+innodb_flush_method = <%= node["percona"]["server"]["innodb_flush_method"] %>
+
+# How long an InnoDB transaction should wait for a lock to be granted
+# before being rolled back. InnoDB automatically detects transaction
+# deadlocks in its own lock table and rolls back the transaction. If you
+# use the LOCK TABLES command, or other transaction-safe storage engines
+# than InnoDB in the same transaction, then a deadlock may arise which
+# InnoDB cannot notice. In cases like this the timeout is useful to
+# resolve the situation.
+innodb_lock_wait_timeout = <%= node["percona"]["server"]["innodb_lock_wait_timeout"] %>
+
+# Let as many clients commit at once as necessary
+# If you have a very intensive write application or if you have
+# innodb_flush_logs_at_trx <> 1 it may make sense to play with this.
+
+# with this configuration it probably won't matter anyway, because binary
+# logging is enabled, which enforces serialized commits, even when the
+# isolation level isn't serializable.
+innodb_commit_concurrency=0
+
+innodb_open_files=2000
+
+#
+# * Security Features
+#
+# Read the manual, too, if you want chroot!
+# chroot = /var/lib/mysql/
+#
+# For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
+#
+# ssl-ca=/etc/mysql/cacert.pem
+# ssl-cert=/etc/mysql/server-cert.pem
+# ssl-key=/etc/mysql/server-key.pem
+
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = <%= node["percona"]["server"]["max_allowed_packet"] %>
+
+[mysql]
+#no-auto-rehash # faster start of mysql but no tab completition
+
+[isamchk]
+key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
+
+#
+# * IMPORTANT: Additional settings that can override those from this file!
+#   The files must end with '.cnf', otherwise they'll be ignored.
+#
+<% if !node["percona"]["server"]["includedir"].empty? %>
+!includedir <%= node["percona"]["server"]["includedir"] %>
+<% end %>
