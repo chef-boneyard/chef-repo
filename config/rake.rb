@@ -5,7 +5,7 @@
 # Used with the ssl_cert task.
 ###
 
-# The company name - used for SSL certificates, and in srvious other places
+# The company name - used for SSL certificates, and in various other places
 COMPANY_NAME = "Example Com"
 
 # The Country Name to use for SSL Certificates
