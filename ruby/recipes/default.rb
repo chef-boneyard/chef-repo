@@ -1,11 +1,13 @@
-local_ruby_up_to_date = ::File.exists?('/usr/local/bin/ruby') && system("#{'/usr/local/bin/ruby'} -v | grep -q '2.0.0'")
+# ToDo: define an attribute for the version
+
+local_ruby_up_to_date = ::File.exists?('/usr/local/bin/ruby') && system("#{'/usr/local/bin/ruby'} -v | grep -q '2.1.2'")
 
 if local_ruby_up_to_date
-  Chef::Log.info("Userspace Ruby version is 2.0.0 - up-to-date")
+  Chef::Log.info("Userspace Ruby version is 2.1.2 - up-to-date")
 elsif !::File.exists?('/usr/local/bin/ruby')
-  Chef::Log.info("Userspace Ruby version is not 2.0.0 - /usr/local/bin/ruby does not exist")
+  Chef::Log.info("Userspace Ruby version is not 2.1.2 - /usr/local/bin/ruby does not exist")
 else
-  Chef::Log.info("Userspace Ruby version is not 2.0.0 - found #{`#{'/usr/local/bin/ruby'} -v`}")
+  Chef::Log.info("Userspace Ruby version is not 2.1.2 - found #{`#{'/usr/local/bin/ruby'} -v`}")
 end
 
 case node['platform']
