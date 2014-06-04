@@ -12,8 +12,17 @@ end
 
 case node['platform']
 when 'debian','ubuntu'
-  remote_file "/tmp/ruby2.0_2.0.0-p247.1_amd64.deb" do
-    source 'https://s3.amazonaws.com/share-yesvideo/static/ruby2.0_2.0.0-p247.1_amd64.deb'
+  # remote_file "/tmp/ruby2.0_2.0.0-p247.1_amd64.deb" do
+  #   source 'https://s3.amazonaws.com/share-yesvideo/static/ruby2.0_2.0.0-p247.1_amd64.deb'
+  #   action :create_if_missing
+  #
+  #   not_if do
+  #     local_ruby_up_to_date
+  #   end
+  # end
+
+  remote_file "/tmp/ruby-2.1.2.medium_build.tar.gz" do
+    source 'https://s3.amazonaws.com/share-yesvideo/static/ruby-2.1.2.medium_build.tar.gz'
     action :create_if_missing
 
     not_if do
@@ -21,34 +30,46 @@ when 'debian','ubuntu'
     end
   end
 
+
   ['ruby-enterprise','ruby1.9','ruby2.0'].each do |pkg|
     package pkg do
       action :remove
       ignore_failure true
 
       only_if do
-       ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
+       ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
       end
     end
   end
 end
 
-execute "Install Ruby 2.0.0" do
+
+execute "Extract Ruby 2.1.2" do
   cwd "/tmp"
 
-  command "dpkg -i /tmp/ruby2.0_2.0.0-p247.1_amd64.deb"
+  command "tar -xvpf /tmp/ruby-2.1.2.medium_build.tar.gz"
+
   only_if do
-    ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
+    # ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
+    ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
   end
-
 end
 
-execute 'Delete downloaded ruby packages' do
-  command "rm -vf /tmp/ruby2.0_2.0.0-p247.1_amd64.deb"
-  only_if do
-     ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
-   end
+execute "Install Ruby 2.1.2" do
+  Chef::Log.info("Installing Ruby 2.1.2...")
+
+  cwd "/tmp/ruby-2.1.2"
+
+  command "sudo make install"
 end
+
+
+# execute 'Delete downloaded ruby packages' do
+#   command "rm -vf /tmp/ruby-2.1.2.medium_build.tar.gz"
+#   only_if do
+#      ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
+#    end
+# end
 
 include_recipe 'opsworks_rubygems'
 include_recipe 'opsworks_bundler'
