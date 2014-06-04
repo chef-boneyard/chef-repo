@@ -14,5 +14,6 @@ end
 
 execute "start_god" do
   command "god -c #{Chef::Config[:file_cache_path]}/swf/swf.god"
+  command "god restart workers"
 end
 
