@@ -43,7 +43,6 @@ when 'debian','ubuntu'
   end
 end
 
-
 execute "Extract Ruby 2.1.2" do
   cwd "/tmp"
 
@@ -63,13 +62,19 @@ execute "Install Ruby 2.1.2" do
   command "sudo make install"
 end
 
+execute 'Delete downloaded ruby packages' do
+  command "rm -f /tmp/ruby-2.1.2.medium_build.tar.gz"
+  only_if do
+     ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
+   end
+end
 
-# execute 'Delete downloaded ruby packages' do
-#   command "rm -vf /tmp/ruby-2.1.2.medium_build.tar.gz"
-#   only_if do
-#      ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
-#    end
-# end
+execute 'Delete install location' do
+  command "rm -rf /tmp/ruby-2.1.2"
+  only_if do
+    ::File.exists?("/tmp/ruby-2.1.2")
+  end
+end
 
 include_recipe 'opsworks_rubygems'
 include_recipe 'opsworks_bundler'
