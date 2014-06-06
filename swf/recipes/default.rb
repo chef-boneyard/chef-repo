@@ -13,7 +13,10 @@ execute "bundle_install" do
 end
 
 execute "start_god" do
-  command "god -c #{Chef::Config[:file_cache_path]}/swf/swf.god"
-  command "god restart"
+  command "god -c #{Chef::Config[:file_cache_path]}/swf/swf.god && sleep 5"
+end
+
+execute "restart_god_workers" do
+  command "god restart workers"
 end
 
