@@ -1,4 +1,4 @@
-access_key_id:      <%%= ENV['AWS_ACCESS_KEY'] || '<%= node[:AWS_ACCESS_KEY]%>' %>
-secret_access_key:  <%%= ENV['AWS_SECRET_ACCESS_KEY'] || '<%= node[:AWS_SECRET_ACCESS_KEY] %>' %>
-swf_domain:         <%%= ENV['AWS_SWF_DOMAIN'] || 'VideoProcessing' %>
-swf_retention_days: <%%= ENV['AWS_SWF_RETENTION_DAYS'] || 7 %>
+access_key_id: '<%= node[:AWS_ACCESS_KEY]%>'
+secret_access_key: '<%= node[:AWS_SECRET_ACCESS_KEY] %>'
+swf_domain: '<%= node[:AWS_SWF_DOMAIN] %>'
+swf_retention_days: <%= node[:AWS_SWF_RETENTION_DAYS] %>
