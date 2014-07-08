@@ -21,6 +21,12 @@ when 'debian','ubuntu'
   #   end
   # end
 
+  ['libreadline6', 'libreadline6-dev'].each do |pkg|
+    package pkg do
+      action :install
+    end
+  end
+
   remote_file "/tmp/ruby-2.1.2.medium_build.tar.gz" do
     source 'https://s3.amazonaws.com/share-yesvideo/static/ruby-2.1.2.medium_build.tar.gz'
     action :create_if_missing
@@ -58,7 +64,7 @@ execute "Install Ruby 2.1.2" do
   Chef::Log.info("Installing Ruby 2.1.2...")
 
   cwd "/tmp/ruby-2.1.2"
-
+  command "./configure --without-X11"
   command "sudo make install"
 end
 
