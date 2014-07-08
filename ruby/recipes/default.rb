@@ -53,7 +53,7 @@ end
 execute "Install Ruby #{node[:ruby][:version]}" do
   Chef::Log.info("Installing Ruby #{node[:ruby][:version]}...")
 
-  cwd "#{node[:ruby][:install_dir]}ruby-#{node[:ruby][:version]}"
+  cwd "#{node[:ruby][:install_dir]}/ruby-#{node[:ruby][:version]}"
   command "sudo make install"
 end
 
