@@ -69,12 +69,12 @@ execute 'Delete downloaded ruby packages' do
    end
 end
 
-execute 'Delete install location' do
-  command "rm -rf /tmp/ruby-2.1.2"
-  only_if do
-    ::File.exists?("/tmp/ruby-2.1.2")
-  end
-end
+#execute 'Delete install location' do
+#  command "rm -rf /tmp/ruby-2.1.2"
+#  only_if do
+#    ::File.exists?("/tmp/ruby-2.1.2")
+#  end
+#end
 
 include_recipe 'opsworks_rubygems'
 include_recipe 'opsworks_bundler'
