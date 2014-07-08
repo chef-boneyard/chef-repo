@@ -52,11 +52,10 @@ end
 execute "Extract Ruby 2.1.2" do
   cwd "/tmp"
 
-  command "tar -xvpf /tmp/ruby-2.1.2.medium_build.tar.gz"
+  command "tar -xvpf /tmp/ruby-2.1.2-compiled.tar.gz"
 
   only_if do
-    # ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
-    ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
+    ::File.exists?("/tmp/ruby-2.1.2-compiled.tar.gz")
   end
 end
 
@@ -64,16 +63,15 @@ execute "Install Ruby 2.1.2" do
   Chef::Log.info("Installing Ruby 2.1.2...")
 
   cwd "/tmp/ruby-2.1.2"
-  command "./configure --without-X11"
   command "sudo make install"
 end
 
-execute 'Delete downloaded ruby packages' do
-  command "rm -f /tmp/ruby-2.1.2.medium_build.tar.gz"
-  only_if do
-     ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
-   end
-end
+# execute 'Delete downloaded ruby packages' do
+#   command "rm -f /tmp/ruby-2.1.2-compiled.tar.gz"
+#   only_if do
+#      ::File.exists?("/tmp/ruby-2.1.2-compiled.tar.gz")
+#    end
+# end
 
 #execute 'Delete install location' do
 #  command "rm -rf /tmp/ruby-2.1.2"
