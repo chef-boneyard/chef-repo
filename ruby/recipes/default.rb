@@ -1,28 +1,25 @@
 # ToDo: define an attribute for the version
 
-local_ruby_up_to_date = ::File.exists?('/usr/local/bin/ruby') && system("#{'/usr/local/bin/ruby'} -v | grep -q '2.1.2'")
+local_ruby_up_to_date = ::File.exists?('/usr/local/bin/ruby') && system("#{'/usr/local/bin/ruby'} -v | grep -q '#{node[:ruby][:version]}'")
 
 if local_ruby_up_to_date
-  Chef::Log.info("Userspace Ruby version is 2.1.2 - up-to-date")
+  Chef::Log.info("Userspace Ruby version is #{node[:ruby][:version]} - up-to-date")
 elsif !::File.exists?('/usr/local/bin/ruby')
-  Chef::Log.info("Userspace Ruby version is not 2.1.2 - /usr/local/bin/ruby does not exist")
+  Chef::Log.info("Userspace Ruby version is not #{node[:ruby][:version]} - /usr/local/bin/ruby does not exist")
 else
-  Chef::Log.info("Userspace Ruby version is not 2.1.2 - found #{`#{'/usr/local/bin/ruby'} -v`}")
+  Chef::Log.info("Userspace Ruby version is not #{node[:ruby][:version]} - found #{`#{'/usr/local/bin/ruby'} -v`}")
 end
 
 case node['platform']
 when 'debian','ubuntu'
-  # remote_file "/tmp/ruby2.0_2.0.0-p247.1_amd64.deb" do
-  #   source 'https://s3.amazonaws.com/share-yesvideo/static/ruby2.0_2.0.0-p247.1_amd64.deb'
-  #   action :create_if_missing
-  #
-  #   not_if do
-  #     local_ruby_up_to_date
-  #   end
-  # end
+  ['libreadline6', 'libreadline6-dev'].each do |pkg|
+    package pkg do
+      action :install
+    end
+  end
 
-  remote_file "/tmp/ruby-2.1.2.medium_build.tar.gz" do
-    source 'https://s3.amazonaws.com/share-yesvideo/static/ruby-2.1.2.medium_build.tar.gz'
+  remote_file "#{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}" do
+    source "https://s3.amazonaws.com/share-yesvideo/static/#{node[:ruby][:distro]}"
     action :create_if_missing
 
     not_if do
@@ -37,44 +34,42 @@ when 'debian','ubuntu'
       ignore_failure true
 
       only_if do
-       ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
+       ::File.exists?("#{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}")
       end
     end
   end
 end
 
-execute "Extract Ruby 2.1.2" do
-  cwd "/tmp"
+execute "Extract Ruby #{node[:ruby][:version]}" do
+  cwd "#{node[:ruby][:install_dir]}"
 
-  command "tar -xvpf /tmp/ruby-2.1.2.medium_build.tar.gz"
+  command "tar -xvpf #{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}"
 
   only_if do
-    # ::File.exists?("/tmp/ruby2.0_2.0.0-p247.1_amd64.deb")
-    ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
+    ::File.exists?("#{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}")
   end
 end
 
-execute "Install Ruby 2.1.2" do
-  Chef::Log.info("Installing Ruby 2.1.2...")
+execute "Install Ruby #{node[:ruby][:version]}" do
+  Chef::Log.info("Installing Ruby #{node[:ruby][:version]}...")
 
-  cwd "/tmp/ruby-2.1.2"
-
+  cwd "#{node[:ruby][:install_dir]}/ruby-#{node[:ruby][:version]}"
   command "sudo make install"
 end
 
-execute 'Delete downloaded ruby packages' do
-  command "rm -f /tmp/ruby-2.1.2.medium_build.tar.gz"
-  only_if do
-     ::File.exists?("/tmp/ruby-2.1.2.medium_build.tar.gz")
-   end
-end
+# execute 'Delete downloaded ruby packages' do
+#   command "rm -f #{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}"
+#   only_if do
+#      ::File.exists?("#{node[:ruby][:install_dir]}/#{node[:ruby][:distro]}")
+#    end
+# end
 
-execute 'Delete install location' do
-  command "rm -rf /tmp/ruby-2.1.2"
-  only_if do
-    ::File.exists?("/tmp/ruby-2.1.2")
-  end
-end
+#execute 'Delete install location' do
+#  command "rm -rf /tmp/ruby-2.1.2"
+#  only_if do
+#    ::File.exists?("/tmp/ruby-2.1.2")
+#  end
+#end
 
 include_recipe 'opsworks_rubygems'
 include_recipe 'opsworks_bundler'
