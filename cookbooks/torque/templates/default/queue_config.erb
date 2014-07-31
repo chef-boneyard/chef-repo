@@ -1,0 +1,13 @@
+echo "set server managers = <%=node['torque']['user']%>@<%= node['torque']['manager_host']%>" | qmgr
+qmgr -c "set server scheduling = <%=node['torque']['server_scheduling']%>"
+qmgr -c "set server keep_completed = <%=node['torque']['keep_completed']%>"
+qmgr -c "set server mom_job_sync = <%=node['torque']['mom_job_sync']%>"
+qmgr -c "set server acl_hosts = <%=node['torque']['acl_hosts']%>"
+qmgr -c "create queue <%=node['torque']['queue']%>"
+qmgr -c "set queue <%=node['torque']['queue']%> queue_type = <%=node['torque']['queue_type']%>"
+qmgr -c "set queue <%=node['torque']['queue']%> started = <%=node['torque']['started']%>"
+qmgr -c "set queue <%=node['torque']['queue']%> enabled = <%=node['torque']['enabled']%>"
+qmgr -c "set queue <%=node['torque']['queue']%> resources_default.walltime = <%=node['torque']['walltime']%>"
+qmgr -c "set queue <%=node['torque']['queue']%> auto_node_np = <%=node['torque']['auto_node_np']%>"
+qmgr -c "set server default_queue = <%=node['torque']['default_queue']%>"
+ 
