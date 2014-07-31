@@ -1,0 +1,11 @@
+name                 'torque'
+maintainer           'Sandor Acs and Gergely Mark @ MTA SZTAKI'
+maintainer_email     'acs.sandor@sztaki.mta.hu, gergely.mark@sztaki.mta.hu'
+license              'Apache 2.0'
+description          'Installs and configures torque (PBS) cluster'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version              '0.2.1'
+supports             'ubuntu',   '>= 12.04'
+supports             'redhat',   '>= 6.0'
+supports             'centos',   '>= 6.0'
+depends              'yum-epel', '>= 0.3.6'
