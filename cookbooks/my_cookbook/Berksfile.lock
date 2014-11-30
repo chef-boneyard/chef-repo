@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "my_cookbook": {
+      "path": "."
+    },
+    "chef-client": {
+      "locked_version": "3.1.0"
+    },
+    "cron": {
+      "locked_version": "1.2.8"
+    },
+    "logrotate": {
+      "locked_version": "1.4.0"
+    },
+    "iptables": {
+      "locked_version": "0.12.0"
+    },
+    "ntp": {
+      "locked_version": "1.4.0"
+    }
+  }
+}
