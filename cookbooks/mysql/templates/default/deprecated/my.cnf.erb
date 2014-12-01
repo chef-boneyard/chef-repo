@@ -22,14 +22,14 @@
 # Remember to edit /etc/mysql/debian.cnf when changing the socket location.
 [client]
 port            = <%= node['mysql']['port'] %>
-socket          = <%= node['mysql']['socket'] %>
+socket          = <%= node['mysql']['server']['socket'] %>
 
 # Here is entries for some specific programs
 # The following values assume you have at least 32M ram
 
 # This was formally known as [safe_mysqld]. Both versions are currently parsed.
 [mysqld_safe]
-socket          = <%= node['mysql']['socket'] %>
+socket          = <%= node['mysql']['server']['socket'] %>
 nice            = <%= node['mysql']['nice'] %>
 
 [mysqld]
@@ -44,12 +44,12 @@ nice            = <%= node['mysql']['nice'] %>
 #
 
 user            = mysql
-pid-file        = <%= node['mysql']['pid_file'] %>
-socket          = <%= node['mysql']['socket'] %>
+pid-file        = <%= node['mysql']['server']['pid_file'] %>
+socket          = <%= node['mysql']['server']['socket'] %>
 port            = <%= node['mysql']['port'] %>
-basedir         = <%= node['mysql']['basedir'] %>
+basedir         = <%= node['mysql']['server']['basedir'] %>
 datadir         = <%= node['mysql']['data_dir'] %>
-tmpdir          = <%= node['mysql']['tmpdir'].join(':') %>
+tmpdir          = <%= node['mysql']['server']['tmpdir'].join(':') %>
 skip-external-locking
 <%- if node['mysql']['tunable']['skip-name-resolve'] %>
 skip-name-resolve
@@ -104,10 +104,12 @@ wait_timeout            = <%= node['mysql']['tunable']['wait_timeout'] %>
 net_read_timeout        = <%= node['mysql']['tunable']['net_read_timeout'] %>
 net_write_timeout       = <%= node['mysql']['tunable']['net_write_timeout'] %>
 back_log                = <%= node['mysql']['tunable']['back_log'] %>
-table_cache             = <%= node['mysql']['tunable']['table_cache'] %>
-<%- if node['mysql']['tunable']['table_open_cache'] %>
+<%- if node['mysql']['version'].to_f >= 5.6 %>
 table_open_cache        = <%= node['mysql']['tunable']['table_open_cache'] %>
+<%- else %>
+table_cache             = <%= node['mysql']['tunable']['table_open_cache'] %>
 <%- end %>
+
 tmp_table_size          = <%= node['mysql']['tunable']['tmp_table_size'] %>
 max_heap_table_size     = <%= node['mysql']['tunable']['max_heap_table_size'] %>
 bulk_insert_buffer_size = <%= node['mysql']['tunable']['bulk_insert_buffer_size'] %>
@@ -144,13 +146,11 @@ log_warnings
 
 #
 # Here you can see queries with especially long duration
-<%- if node['mysql']['version'].to_f >= 5.5 %>
-<%-   if node['mysql']['tunable']['slow_query_log'] %>
+<%- if node['mysql']['server']['slow_query_log'] %>
 slow_query_log      = 1
-slow_query_log_file = <%= node['mysql']['tunable']['slow_query_log'] %>
-<%-   end %>
+slow_query_log_file = <%= node['mysql']['server']['slow_query_log_file'] %>
 <%- else %>
-log_slow_queries    = <%= node['mysql']['tunable']['slow_query_log'] %>
+log_slow_queries    = <%= node['mysql']['server']['log_slow_queries'] %>
 <%- end %>
 
 long_query_time         = <%= node['mysql']['tunable']['long_query_time'] %>
@@ -236,7 +236,7 @@ innodb_buffer_pool_instances    = <%= node['mysql']['tunable']['innodb_buffer_po
 
 ## InnoDB Plugin Independent Settings
 innodb_data_home_dir            = <%= node['mysql']['data_dir']  %>
-innodb_log_group_home_dir       = <%= node['mysql']['log_dir']  %>
+innodb_log_group_home_dir       = <%= node['mysql']['server']['directories']['log_dir']  %>
 <%- if node['mysql']['log_files_in_group'] %>
 innodb_log_files_in_group       = <%= node['mysql']['log_files_in_group'] %>
 <%- end %>
@@ -249,6 +249,9 @@ innodb_file_per_table
 <%- end %>
 innodb_table_locks              = <%= node['mysql']['tunable']['innodb_table_locks'] %>
 innodb_lock_wait_timeout        = <%= node['mysql']['tunable']['innodb_lock_wait_timeout'] %>
+<%- if node['mysql']['tunable']['innodb_rollback_on_timeout'] %>
+innodb_rollback_on_timeout
+<%- end %>
 innodb_thread_concurrency       = <%= node['mysql']['tunable']['innodb_thread_concurrency'] %>
 innodb_commit_concurrency       = <%= node['mysql']['tunable']['innodb_commit_concurrency'] %>
 innodb_support_xa               = <%= node['mysql']['tunable']['innodb_support_xa'] %>
@@ -268,8 +271,14 @@ innodb_log_buffer_size  = <%= node['mysql']['tunable']['innodb_log_buffer_size']
 <%- if node['mysql']['tunable']['innodb_adaptive_flushing'] %>
 innodb_adaptive_flushing  = <%= node['mysql']['tunable']['innodb_adaptive_flushing'] %>
 <%- end %>
+<%- if node['mysql']['tunable']['innodb_adaptive_flushing_method'] %>
+innodb_adaptive_flushing_method = <%= node['mysql']['tunable']['innodb_adaptive_flushing_method'] %>
+<%- end %>
+<%- if node['mysql']['tunable']['innodb_adaptive_checkpoint'] %>
+innodb_adaptive_checkpoint = <%= node['mysql']['tunable']['innodb_adaptive_checkpoint'] %>
+<%- end %>
 
-<% if @skip_federated %>
+<% if node['mysql']['server']['skip_federated'] %>
 #
 # * Federated
 #
@@ -282,8 +291,35 @@ skip-federated
 # * Security Features
 #
 # Read the manual, too, if you want chroot!
-# chroot = /var/lib/mysql/
-#
+
+<% if node['mysql']['security']['chroot'] -%>
+chroot = <%= node['mysql']['security']['chroot'] %>
+<% end %>
+
+<% if node['mysql']['security']['safe_user_create'] -%>
+safe-user-create = <%= node['mysql']['security']['safe_user_create'] %>
+<% end %>
+
+<% if node['mysql']['security']['secure_auth'] -%>
+secure-auth = <%= node['mysql']['security']['secure_auth'] %>
+<% end %>
+
+<% if node['mysql']['security']['skip_symbolic_links'] -%>
+skip-symbolic-links = <%= node['mysql']['security']['skip_symbolic_links'] %>
+<% end %>
+
+<% if node['mysql']['security']['secure_file_priv'] -%>
+secure-file-priv = <%= node['mysql']['security']['secure_file_priv'] %>
+<% end %>
+
+<% if node['mysql']['security']['local_infile'] -%>
+local-infile = <%= node['mysql']['security']['local_infile'] %>
+<% end %>
+
+<% if node['mysql']['security']['skip_show_database'] -%>
+skip-show-database
+<% end %>
+
 # For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
 #
 # ssl-ca=/etc/mysql/cacert.pem
@@ -329,10 +365,10 @@ skip-bdb
 old_passwords           = <%= node['mysql']['old_passwords'] %>
 <% end -%>
 
-<% if node['mysql']['confd_dir'] -%>
+<% if node['mysql']['server']['directories']['confd_dir'] -%>
 #
 # * IMPORTANT: Additional settings that can override those from this file!
 #   The files must end with '.cnf', otherwise they'll be ignored.
 #
-!includedir <%= node['mysql']['confd_dir'] %>/
+!includedir <%= node['mysql']['server']['directories']['confd_dir'] %>/
 <% end -%>

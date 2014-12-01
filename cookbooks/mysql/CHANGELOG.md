@@ -2,6 +2,285 @@ mysql Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the mysql cookbook.
 
+v5.6.1 (2014-10-29)
+------------------
+- Use Gem::Version instead of Chef::Version
+
+v5.6.0 (2014-10-29)
+------------------
+- Changing default charset to utf8
+- Quoting passwords in debian.cnf.erb
+- Amazon 2014.09 support
+- Ubuntu 14.10 support
+- Only hide passwords from STDOUT via "sensitive true" in chef-client higher than 11.14
+- Updating test harness
+
+v5.5.4 (2014-10-07)
+------------------
+- Adding sensitive flag to execute resources to protect passwords from logs  
+
+v5.5.3 (2014-09-24)
+------------------
+- Reverting back to Upstart on Ubuntu 14.04
+
+v5.5.2 (2014-09-8)
+------------------
+- Reverting commit that broke Debian pass_string
+
+v5.5.1 (2014-09-2)
+------------------
+- Switching Ubuntu service provider to use SysVinit instead of Upstart
+
+v5.5.0 (2014-08-27)
+-------------------
+- Adding package version and action parameters to mysql_service resource
+- Fixing Debian pass_string
+
+v5.4.4 (2014-08-27)
+-------------------
+- Changing module namespace to MysqlCookbook
+
+v5.4.3 (2014-08-25)
+-------------------
+- More refactoring. Moving helper function bits into resource parsed_parameters
+
+v5.4.2 (2014-08-25)
+-------------------
+- Moving provider local variables into definitions for RHEL provider
+
+v5.4.1 (2014-08-25)
+-------------------
+- Refactoring resources into the LWRP style with parsed parameters
+- Moving provider local variables into definitions
+
+v5.4.0 (2014-08-25)
+-------------------
+- #212 - support for centos-7 (mysql55 and mysql56)
+- Adding (untested) Debian-6 support
+- Adding Suse support to metadata.rb
+- Adding ability to change MySQL root password
+- Added libmysqlclient-devel package to SuSE client provider
+- Appeasing AppArmor
+- Reducing duplication in client provider
+
+v5.3.6 (2014-06-18)
+-------------------
+- Fixing pid path location. Updating tests to include real RHEL
+
+
+v5.3.4 (2014-06-16)
+-------------------
+- Fixing specs for Amazon Linux server package names
+
+
+v5.3.2 (2014-06-16)
+-------------------
+- Fixing Amazon Linux support
+
+
+v5.3.0 (2014-06-11)
+-------------------
+- #189 - Fix server_repl_password description
+- #191 - Adding support for server55 and server56 on el-6
+- #193 - Fix syntax in mysql_service example
+- #199 - Adding Suse support
+
+
+v5.2.12 (2014-05-19)
+--------------------
+PR #192 - recipes/server.rb should honor parameter node['mysql']['version']
+
+
+v5.2.10 (2014-05-15)
+--------------------
+- COOK-4394 - restore freebsd support
+
+
+v5.2.8 (2014-05-15)
+-------------------
+- [COOK-4653] - Missing mySQL 5.6 support for Ubuntu 14.04
+
+
+v5.2.6 (2014-05-07)
+-------------------
+- [COOK-4625] - Fix password resource parameter consumption on Debian and Ubuntu
+- Fix up typos and version numbers in PLATFORMS.md
+- Fix up specs from COOK-4613 changes
+
+
+v5.2.4 (2014-05-02)
+-------------------
+- [COOK-4613] - Fix permissions on mysql data_dir to allow global access to mysql.sock
+
+
+v5.2.2 (2014-04-24)
+-------------------
+- [COOK-4564] - Using positive tests for datadir move
+
+
+v5.2.0 (2014-04-22)
+-------------------
+- [COOK-4551] - power grants.sql from resource parameters
+
+
+v5.1.12 (2014-04-21)
+--------------------
+- [COOK-4554] - Support for Debian Sid
+
+
+v5.1.10 (2014-04-21)
+--------------------
+- [COOK-4565] Support for Ubuntu 14.04
+- [COOK-4565] Adding Specs and TK platform
+- Removing non-LTS 13.10 specs and TK platform
+
+
+v5.1.8 (2014-04-12)
+-------------------
+Adding Ubuntu 13.04 to Platforminfo
+
+
+v5.1.6 (2014-04-11)
+-------------------
+- [COOK-4548] - Add template[/etc/mysql/debian.cnf] to Ubuntu provider
+
+
+v5.1.4 (2014-04-11)
+-------------------
+- [COOK-4547] - Shellescape server_root_password
+
+
+v5.1.2 (2014-04-09)
+-------------------
+- [COOK-4519] - Fix error in run_dir for Ubuntu
+- [COOK-4531] - Fix pid and run_dir for Debian
+
+
+v5.1.0 (2014-04-08)
+-------------------
+[COOK-4523] - Allow for both :restart and :reload
+
+
+v5.0.6 (2014-04-07)
+-------------------
+- [COOK-4519] - Updating specs to reflect pid file change on Ubuntu
+
+
+v5.0.4 (2014-04-07)
+-------------------
+- [COOK-4519] - Fix path to pid file on Ubuntu
+
+
+v5.0.2 (2014-04-01)
+-------------------
+- Moving server_deprecated into recipes directory
+
+
+v5.0.0 (2014-03-31)
+-------------------
+- Rewriting as a library cookbook
+- Exposing mysql_service and mysql_client resources
+- User now needs to supply configuration
+- Moving attribute driven recipe to server-deprecated
+
+
+v4.1.2 (2014-02-28)
+-------------------
+- [COOK-4349] - Fix invalid platform check
+- [COOK-4184] - Better handling of Ubuntu upstart service
+- [COOK-2100] - Changing innodb_log_file_size tunable results in inability to start MySQL
+
+
+v4.1.1 (2014-02-25)
+-------------------
+- **[COOK-2966] - Address foodcritic failures'
+- **[COOK-4182] - Template parse failure in /etc/init/mysql.conf (data_dir)'
+- **[COOK-4198] - Added missing tunable'
+- **[COOK-4206] - create root@127.0.0.1, as well as root@localhost'
+
+
+v4.0.20 (2014-01-18)
+--------------------
+* [COOK-3931] - MySQL Server Recipe Regression for Non-LTS Ubuntu Versions
+* [COOK-3945] - MySQL cookbook fails on Ubuntu 13.04/13.10
+* [COOK-3966] - mysql::server recipe can't find a template with debian 7.x
+* [COOK-3985] - Missing /etc/mysql/debian.cnf template on mysql::_server_debian.rb recipe (mysql 4.0.4)
+* [COOK-3974] - debian.cnf not updated
+* [COOK-4001] - Pull request: Fixes for broken mysql::server on Debian
+* [COOK-4071] - Mysql cookbook doesn't work on debian 7.2
+
+
+v4.0.14
+-------
+Fixing style cops
+
+
+v4.0.12
+-------
+### Bug
+- **[COOK-4068](https://tickets.opscode.com/browse/COOK-4068)** - rework MySQL Windows recipe
+
+### Improvement
+- **[COOK-3801](https://tickets.opscode.com/browse/COOK-3801)** - Add innodb_adaptive_flushing_method and innodb_adaptive_checkpoint
+
+
+v4.0.10
+-------
+fixing metadata version error. locking to 3.0
+
+
+v4.0.8
+------
+Locking yum dependency to '< 3'
+
+
+v4.0.6
+------
+# Bug
+- [COOK-3943] Notifying service restart on grants update
+
+
+v4.0.4
+------
+[COOK-3952] - Adding 'recursive true' to directory resources
+
+
+v4.0.2
+------
+### BUGS
+- Adding support for Amazon Linux in attributes/server_rhel.rb
+- Fixing bug where unprivileged users cannot connect over a local socket. Adding integration test.
+- Fixing bug in mysql_grants_cmd generation
+
+
+v4.0.0
+------
+- [COOK-3928] Heavily refactoring for readability. Moving platform implementation into separate recipes
+- Moving integration tests from minitest to serverspec, removing "improper" tests
+- Moving many attributes into the ['mysql']['server']['whatever'] namespace
+- [COOK-3481] - Merged Lucas Welsh's Windows bits and moved into own recipe
+- [COOK-3697] - Adding security hardening attributes
+- [COOK-3780] - Fixing data_dir on Debian and Ubuntu
+- [COOK-3807] - Don't use execute[assign-root-password] on Debian and Ubuntu
+- [COOK-3881] - Fixing /etc being owned by mysql user
+
+
+v3.0.12
+-------
+### Bug
+- **[COOK-3752](https://tickets.opscode.com/browse/COOK-3752)** - mysql service fails to start in mysql::server recipe
+
+
+v3.0.10
+-------
+- Fix a failed release attempt for v3.0.8
+
+
+v3.0.8
+------
+### Bug
+- **[COOK-3749](https://tickets.opscode.com/browse/COOK-3749)** - Fix a regression with Chef 11-specific features
+
 
 v3.0.6
 ------

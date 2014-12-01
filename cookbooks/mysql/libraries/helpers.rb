@@ -1,31 +1,223 @@
-#
-# Author:: Seth Chisamore (<schisamo@opscode.com>)
-#
-# Copyright:: Copyright (c) 2011-2013 Opscode, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 module Opscode
   module Mysql
-    # Opscode Mysql Helpers
     module Helpers
-      def debian_before_squeeze?
-        (node['platform'] == 'debian') && (node['platform_version'].to_f < 6.0)
+      def package_name_for(platform, platform_family, platform_version, version)
+        keyname = keyname_for(platform, platform_family, platform_version)
+        PlatformInfo.mysql_info[platform_family][keyname][version]['package_name']
+      rescue NoMethodError
+        nil
       end
 
-      def ubuntu_before_lucid?
-        (node['platform'] == 'ubuntu') && (node['platform_version'].to_f < 10.0)
+      def sensitive_supported?
+        Gem::Version.new(Chef::VERSION) >= Gem::Version.new('11.14.0')
+      end
+
+      def keyname_for(platform, platform_family, platform_version)
+        case
+        when platform_family == 'rhel'
+          platform == 'amazon' ? platform_version : platform_version.to_i.to_s
+        when platform_family == 'suse'
+          platform_version
+        when platform_family == 'fedora'
+          platform_version
+        when platform_family == 'debian'
+          if platform == 'ubuntu'
+            platform_version
+          elsif platform_version =~ /sid$/
+            platform_version
+          else
+            platform_version.to_i.to_s
+          end
+        when platform_family == 'smartos'
+          platform_version
+        when platform_family == 'omnios'
+          platform_version
+        when platform_family == 'freebsd'
+          platform_version.to_i.to_s
+        end
+      rescue NoMethodError
+        nil
+      end
+    end
+
+    class PlatformInfo
+      def self.mysql_info
+        @mysql_info ||= {
+          'rhel' => {
+            '5' => {
+              '5.0' => {
+                'package_name' => 'mysql-server'
+              },
+              '5.1' => {
+                'package_name' => 'mysql51-mysql-server'
+              },
+              '5.5' => {
+                'package_name' => 'mysql55-mysql-server'
+              }
+            },
+            '6' => {
+              '5.1' => {
+                'package_name' => 'mysql-server'
+              },
+              '5.5' => {
+                'package_name' => 'mysql-community-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-community-server'
+              }
+            },
+            '7' => {
+              '5.5' => {
+                'package_name' => 'mysql-community-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-community-server'
+              }
+            },
+            '2013.03' => {
+              '5.5' => {
+                'package_name' => 'mysql-server'
+              }
+            },
+            '2013.09' => {
+              '5.1' => {
+                'package_name' => 'mysql-server'
+              },
+              '5.5' => {
+                'package_name' => 'mysql-community-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-community-server'
+              }
+            },
+            '2014.03' => {
+              '5.1' => {
+                'package_name' => 'mysql51-server'
+              },
+              '5.5' => {
+                'package_name' => 'mysql-community-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-community-server'
+              }
+            },
+            '2014.09' => {
+              '5.1' => {
+                'package_name' => 'mysql51-server'
+              },
+              '5.5' => {
+                'package_name' => 'mysql-community-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-community-server'
+              }
+            }
+          },
+          'fedora' => {
+            '19' => {
+              '5.5' => {
+                'package_name' => 'community-mysql-server'
+              }
+            },
+            '20' => {
+              '5.5' => {
+                'package_name' => 'community-mysql-server'
+              }
+            }
+          },
+          'suse' => {
+            '11.3' => {
+              '5.5' => {
+                'package_name' => 'mysql'
+              }
+            }
+          },
+          'debian' => {
+            '6' => {
+              '5.1' => {
+                'package_name' => 'mysql-server-5.1'
+              }
+            },
+            '7' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              }
+            },
+            'jessie/sid' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              }
+            },
+            '10.04' => {
+              '5.1' => {
+                'package_name' => 'mysql-server-5.1'
+              }
+            },
+            '12.04' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              }
+            },
+            '13.04' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              }
+            },
+            '13.10' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              }
+            },
+            '14.04' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-server-5.6'
+              }
+            },
+            '14.10' => {
+              '5.5' => {
+                'package_name' => 'mysql-server-5.5'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-server-5.6'
+              }
+            }
+          },
+          'smartos' => {
+            '5.11' => {
+              '5.5' => {
+                'package_name' => 'mysql-server'
+              },
+              '5.6' => {
+                'package_name' => 'mysql-server'
+              }
+            }
+          },
+          'omnios' => {
+            '151006' => {
+              '5.5' => {
+                'package_name' => 'database/mysql-55'
+              },
+              '5.6' => {
+                'package_name' => 'database/mysql-56'
+              }
+            }
+          },
+          'freebsd' => {
+            '9' => {
+              '5.5' => {
+                'package_name' => 'mysql55-server'
+              }
+            },
+            '10' => {
+              '5.5' => {
+                'package_name' => 'mysql55-server'
+              }
+            }
+          }
+        }
       end
     end
   end
