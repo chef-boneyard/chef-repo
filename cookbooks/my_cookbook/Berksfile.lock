@@ -1,22 +1,21 @@
-{
-  "sources": {
-    "my_cookbook": {
-      "path": "."
-    },
-    "chef-client": {
-      "locked_version": "3.1.0"
-    },
-    "cron": {
-      "locked_version": "1.2.8"
-    },
-    "logrotate": {
-      "locked_version": "1.4.0"
-    },
-    "iptables": {
-      "locked_version": "0.12.0"
-    },
-    "ntp": {
-      "locked_version": "1.4.0"
-    }
-  }
-}
+DEPENDENCIES
+  my_cookbook
+    path: .
+    metadata: true
+
+GRAPH
+  chef-client (3.9.0)
+    cron (>= 1.2.0)
+    logrotate (>= 1.2.0)
+    windows (~> 1.11)
+  chef_handler (1.1.6)
+  cron (1.6.1)
+  iptables (0.14.0)
+  logrotate (1.7.0)
+  my_cookbook (0.1.0)
+    chef-client (>= 0.0.0)
+    iptables (>= 0.0.0)
+    ntp (>= 0.0.0)
+  ntp (1.6.5)
+  windows (1.34.8)
+    chef_handler (>= 0.0.0)
