@@ -13,6 +13,17 @@ organization << "-#{current_branch}" unless current_branch == 'master'
 current_dir = File.dirname(__FILE__)
 log_level                :info
 log_location             STDOUT
+knife[:editor] = 	"/usr/bin/vim"
+
+organization_base_name = "papi"
+require 'grit'
+repository = Grit::Repo.new(Dir.pwd)
+current_branch = Grit::Head.current(repository).name
+organization = organization_base_name
+organization << "-#{current_branch}" unless current_branch == 'master'
+
+
+
 node_name                "levmichael1979"
 client_key               "#{current_dir}/levmichael1979.pem"
 validation_client_name   "papi-validator"
