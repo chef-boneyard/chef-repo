@@ -1,5 +1,13 @@
 # See https://docs.chef.io/config_rb_knife.html for more information on knife configuration options
+knife[:editor]="/bin/vim" 
 
+
+organization_base_name = "papi"
+require 'grit'
+repository = Grit::Repo.new(Dir.pwd)
+current_branch = Grit::Head.current(repository).name
+organization = organization_base_name
+organization << "-#{current_branch}" unless current_branch == 'master'
 
 
 current_dir = File.dirname(__FILE__)
@@ -16,3 +24,4 @@ cookbook_path            ["#{current_dir}/../cookbooks"]
 cookbook_copyright 	 "papi"
 cookbook_license  	 "none"
 cookbook_email 		 "levmichael3@gmail.com" 
+
