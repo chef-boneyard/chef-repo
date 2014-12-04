@@ -12,6 +12,10 @@ Vagrant.configure("2") do |config|
     chef.validation_key_path = "/var/chef-repo/.chef/papi-validator.pem"
     chef.validation_client_name = "papi-validator"
     chef.node_name = "my_server"
+    chef.environment = "STAGING"
+    chef.add_role "test_server"
+    chef.delete_node = true
+    chef.delete_client = true
   end
 end 
 
