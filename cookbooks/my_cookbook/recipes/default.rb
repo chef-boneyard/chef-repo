@@ -18,9 +18,9 @@
 #
 Chef::Log.info ("	**	About to install from my_cookbook	**	")
 
-include_recipe "chef-client"
-include_recipe "iptables"
+#include_recipe "chef-client"
+#include_recipe "iptables"
 include_recipe "ntp"
-
+include_recipe "chef_handler"
 Chef::Log.info ("	**	Finished  install from my_cookbook	**	")
 

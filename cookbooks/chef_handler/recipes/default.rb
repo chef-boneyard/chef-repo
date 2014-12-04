@@ -31,3 +31,15 @@ remote_directory node['chef_handler']['handler_path'] do
   end
   action :nothing
 end.run_action(:create)
+
+gem_package('chef-handler-flowdock'){action :nothing}.run_action(:install)
+
+chef_handler 'Chef::Handler::FlowdockHandler' do
+  action :enable
+  attributes :api_token => "536e1ad158d6bef37e0b1b77590da91a",
+             :from => {:name => "root", :address => "root@#{run_status.node.fqdn}"}
+Chef::Log.info ("       **      installing chef-handler on #{run_status.node.fqdn}       **      ")
+
+  source File.join(Gem::Specification.find{|s| s.name == 'chef-handler-flowdock'}.gem_dir,'lib', 'chef', 'handler', 'flowdock_handler.rb')
+end
+
