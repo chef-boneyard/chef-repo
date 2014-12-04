@@ -1,3 +1,10 @@
+======================
+I have added all of my chef development files to GitHub.
+This is all I need for running chef with a vagrant box (CentOS-6.6 64bit) hosted in Chef manage platform (all keys included here).
+======================
+
+
+
 Overview
 ========
 
