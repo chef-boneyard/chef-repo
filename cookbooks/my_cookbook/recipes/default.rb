@@ -16,11 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-Chef::Log.info (	**	About to install from my_cookbook	**	)
+Chef::Log.info ("	**	About to install from my_cookbook	**	")
 
 include_recipe "chef-client"
 include_recipe "iptables"
 include_recipe "ntp"
 
-Chef::Log.info (	**	Finished  install from my_cookbook	**	)
+Chef::Log.info ("	**	Finished  install from my_cookbook	**	")
 
