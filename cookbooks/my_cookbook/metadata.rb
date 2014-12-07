@@ -10,4 +10,4 @@ version          '0.1.3'
 depends "chef-client"
 depends "iptables"
 depends "ntp"
-depends "chef_handler"
+#depends "chef_handler"
