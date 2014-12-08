@@ -18,3 +18,4 @@ GRAPH
     ntp (>= 0.0.0)
   ntp (1.6.5)
   windows (1.34.8)
+    chef_handler (>= 0.0.0)

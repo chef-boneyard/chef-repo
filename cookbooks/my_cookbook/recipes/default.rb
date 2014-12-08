@@ -16,10 +16,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-message = node['my_cookbook']['role']
+message = "       **  ROLE        [#{node['my_cookbook']['role']}] install from my_cookbook  **      "
 
-Chef::Log.info ("	**	[#{message}] About to install from my_cookbook	**	")
+Chef::Log.info ("#{message}")
 include_recipe "ntp"
 include_recipe "chef_handler"
-Chef::Log.info ("	**	 [#{message}] Finished  install from my_cookbook	**	")
+include_recipe "my_cookbook::my_flowdock"
+
+template '/tmp/message' do
+ source 'message.erb'
+ variables(
+ greet: 'Hallo',
+ who: 'me',
+ from: node['fqdn']
+ )
+end
+
+
+Chef::Log.info ("#{message}")
 
