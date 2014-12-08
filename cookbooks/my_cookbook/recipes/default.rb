@@ -18,6 +18,5 @@
 #
 Chef::Log.info ("	**	About to install from my_cookbook	**	")
 #include_recipe "ntp"
-include_recipe "my_cookbook::my_flowdock"
 Chef::Log.info ("	**	Finished  install from my_cookbook	**	")
 
