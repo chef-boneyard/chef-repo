@@ -1,0 +1,16 @@
+instances:
+<% @instances.each do |i| -%>
+  - varnishstat: <%= i["varnishstat"] || "/usr/bin/varnishstat" %>
+  <% if i.key?("name") -%>
+    name: <%= i["name"] %>
+  <% end -%>
+  <% if i.key?("tags") -%>
+    tags:
+    <% i["tags"].each do |t| -%>
+    -  <%= t %>
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+init_config:
+# Nothing to configure here

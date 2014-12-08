@@ -1,0 +1,25 @@
+init_config:
+# empty by design
+
+instances:
+<% @instances.each do |i| -%>
+  - host: <%= i["server"] %>
+    port: <%= i["port"] || 5432 %>
+    username: <%= i["username"] %>
+    password: <%= i["password"] %>
+    <% if i.key?("tags") -%>
+    tags:
+        <% i["tags"].each do |t| -%>
+      - <%= t %>
+      	<% end -%>
+    <% end -%>
+    <%- if i.key?('dbname') %>
+    dbname: <%= i['dbname'] %>
+    <% end -%>
+    <% if i.key?("relations") -%>
+    relations:
+        <% i["relations"].each do |r| -%>
+      - <%= r %>
+        <% end -%>
+    <% end -%>
+<% end -%>

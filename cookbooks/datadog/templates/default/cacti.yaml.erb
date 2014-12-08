@@ -1,0 +1,25 @@
+instances:
+    # The Cacti checks requires access to the Cacti DB in MySQL and to the RRD
+    # files that contain the metrics tracked in Cacti.
+    # In almost all cases, you'll only need one instance pointing to the Cacti
+    # database.
+    #
+    # The `rrd_path` will probably be '/var/lib/cacti/rra' on Ubuntu
+    # or '/var/www/html/cacti/rra' on any other machines.
+    #
+    # The `rrd_whitelist` is a path to a text file that has a list of patterns,
+    # one per line, that should be fetched. If no whitelist is specified, all
+    # metrics will be fetched.
+    #
+  <% node.datadog.cacti.instances.each do |i| -%>
+    - mysql_host: <%= i['mysql_host'] %>
+      mysql_user: <%= i['mysql_user'] %>
+      mysql_password: <%= i['mysql_password'] %>
+      rrd_path: <%= i['rrd_path'] %>
+      <% if i.defined?('rrd_path') -%>
+      rrd_whitelist: <%= i['rrd_whitelist'] %>
+      <% end -%>
+  <% end -%>
+
+# Nothing to configure here
+init_config:

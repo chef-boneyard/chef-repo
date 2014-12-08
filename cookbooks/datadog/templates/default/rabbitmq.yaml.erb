@@ -1,0 +1,18 @@
+instances:
+  # for every instance a 'rabbitmq_api_url' must be provided, pointing to the api
+  # url of the RabbitMQ Managment Plugin (http://www.rabbitmq.com/management.html)
+  # optional: 'rabbitmq_user' (default: guest) and 'rabbitmq_pass' (default: guest)
+<% @instances.each do |i| -%>
+  - rabbitmq_api_url: <%= i['api_url'] %>
+    rabbitmq_user: <%= i['user'] || 'guest' %>
+    rabbitmq_pass: <%= i['pass'] || 'guest' %>
+    tags:
+  <% if i.key?('tags') -%>
+    <% i['tags'].each do |t| -%>
+    - <%= t %>
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+# Nothing to configure here
+init_config:

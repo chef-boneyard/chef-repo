@@ -1,0 +1,79 @@
+<% excluded_keys = ["host", "port", "user", "password", "name"] -%>
+instances:
+  <% @instances.each do |i| -%>
+  - host: <%= i['server'] %>
+    port: <%= i['port'] || 7199%>
+    <% if i['user'] -%>
+    user: <%= i['username'] %>
+    <% end -%>
+    <% if i['password'] -%>
+    password: <%= i['password'] %>
+    <% end -%>
+    <% if i['instance'] -%>
+    name: <%= i['instance'] %>
+    <% end -%>
+    <% (i.keys - excluded_keys).each do |key| -%>
+    <%= key %>: <%= i[key] %>
+    <% end -%>
+  <% end -%>
+
+# List of metrics to be collected by the integration
+# You should not have to modify this.
+init_config:
+  conf:
+    - include:
+        domain: org.apache.cassandra.db
+        attribute:
+          - BloomFilterDiskSpaceUsed
+          - BloomFilterFalsePositives
+          - BloomFilterFalseRatio
+          - Capacity
+          - CompressionRatio
+          - CompletedTasks
+          - ExceptionCount
+          - Hits
+          - RecentHitRate
+          - RowCacheRecentHitRate
+          - KeyCacheRecentHitRate
+          - LiveDiskSpaceUsed
+          - LiveSSTableCount
+          - Load
+          - MaxRowSize
+          - MeanRowSize
+          - MemtableColumnsCount
+          - MemtableDataSize
+          - MemtableSwitchCount
+          - MinRowSize
+          - ReadCount
+          - RecentReadLatencyMicros
+          - RecentWriteLatencyMicros
+          - Requests
+          - Size
+          - TotalDiskSpaceUsed
+          - TotalReadLatencyMicros
+          - TotalWriteLatencyMicros
+          - UpdateInterval
+          - WriteCount
+          - PendingTasks
+      exclude:
+        keyspace: system
+        attribute:
+          - MinimumCompactionThreshold
+          - MaximumCompactionThreshold
+          - RowCacheKeysToSave
+          - KeyCacheSavePeriodInSeconds
+          - RowCacheSavePeriodInSeconds
+          - PendingTasks
+          - Scores
+          - RpcTimeout
+    - include:
+        domain: org.apache.cassandra.internal
+        attribute:
+          - ActiveCount
+          - CompletedTasks
+          - CurrentlyBlockedTasks
+          - TotalBlockedTasks
+    - include:
+        domain: org.apache.cassandra.net
+        attribute:
+          - TotalTimeouts
