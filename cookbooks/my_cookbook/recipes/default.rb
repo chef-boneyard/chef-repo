@@ -16,10 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-message = node['my_cookbook']['message']
+message = node['my_cookbook']['role']
 
-Chef::Log.info ("	**	 #{message}, About to install from my_cookbook	**	")
+Chef::Log.info ("	**	[#{message}] About to install from my_cookbook	**	")
 include_recipe "ntp"
 include_recipe "chef_handler"
-Chef::Log.info ("	**	 #{message}, Finished  install from my_cookbook	**	")
+Chef::Log.info ("	**	 [#{message}] Finished  install from my_cookbook	**	")
 
