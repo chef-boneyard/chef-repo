@@ -21,6 +21,7 @@ message = "       **  ROLE        [#{node['my_cookbook']['role']}] install from 
 Chef::Log.info ("#{message}")
 include_recipe "ntp"
 include_recipe "chef_handler"
+include_recipe "my_cookbook::my_flowdock"
 
 template '/tmp/message' do
   source 'message.erb'
@@ -37,6 +38,8 @@ template '/tmp/fqdn' do
   fqdn: node['fqdn']
   )
 end
+
+
 
 
 
