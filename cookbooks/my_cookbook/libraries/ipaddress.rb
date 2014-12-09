@@ -1,5 +1,5 @@
-class Chef::Recipe
-  def netmask(ipaddress)
+class Chef::Recipe::IPAddress
+  def self.netmask(ipaddress)
     IPAddress(ipaddress).netmask
   end
 end

@@ -43,7 +43,15 @@ template '/tmp/fqdn' do
   )
 end
 
+capistrano_deploy_dirs do
+  deploy_to "/srv"
+end
 
+
+my_cookbook "Ohai" do
+  title "Chef"
+
+end
 
 
 
