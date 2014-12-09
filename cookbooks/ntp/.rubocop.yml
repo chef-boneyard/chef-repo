@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - vendor/**
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+HashSyntax:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+MethodLength:
+  Max: 30
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
