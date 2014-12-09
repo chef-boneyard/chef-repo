@@ -39,6 +39,8 @@
   @{PROC}/*/net/if_inet6 r,
   @{NTPD_DEVICE} rw,
 
+  /{,s}bin/      r,
+  /usr/{,s}bin/  r,
   /usr/sbin/ntpd rmix,
 
   /etc/ntp.conf r,

@@ -18,11 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+::Chef::Recipe.send(:include, Opscode::Ntp::Helper)
+
 if platform_family?('windows')
   include_recipe 'ntp::windows_client'
 else
-
-  ::Chef::Recipe.send(:include, Opscode::Ntp::Helper)
 
   node['ntp']['packages'].each do |ntppkg|
     package ntppkg

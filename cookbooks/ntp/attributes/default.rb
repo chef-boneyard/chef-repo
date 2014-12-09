@@ -44,12 +44,17 @@ default['ntp']['listen'] = nil
 default['ntp']['listen_network'] = nil
 default['ntp']['apparmor_enabled'] = false
 default['ntp']['monitor'] = false
+default['ntp']['statistics'] = true
 
 # overrides on a platform-by-platform basis
 case node['platform_family']
 when 'debian'
   default['ntp']['service'] = 'ntp'
-  default['ntp']['apparmor_enabled'] = true if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 8.04
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 8.04
+    if File.exists? '/etc/init.d/apparmor'
+      default['ntp']['apparmor_enabled'] = true
+    end
+end
 when 'rhel'
   default['ntp']['packages'] = %w(ntp) if node['platform_version'].to_i < 6
 when 'windows'
@@ -61,6 +66,7 @@ when 'windows'
   default['ntp']['package_url'] = 'http://www.meinbergglobal.com/download/ntp/windows/ntp-4.2.6p5@london-o-lpv-win32-setup.exe'
   default['ntp']['vs_runtime_url'] = 'http://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe'
   default['ntp']['vs_runtime_productname'] = 'Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022'
+  default['ntp']['statistics'] = false
 when 'freebsd'
   default['ntp']['packages'] = %w(ntp)
   default['ntp']['varlibdir'] = '/var/db'
