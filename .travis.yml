@@ -2,7 +2,7 @@ language: ruby
 bundler_args: --without development
 script: "bundle exec rake build"
 rvm:
-  - 1.9.3
+  - 2.0.0
 gemfile:
   - Gemfile
 branches:
