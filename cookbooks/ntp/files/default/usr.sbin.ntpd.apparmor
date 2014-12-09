@@ -1,0 +1,83 @@
+# vim:syntax=apparmor
+#
+# Maintained by Chef
+#
+# Updated for Ubuntu by: Jamie Strandboge <jamie@canonical.com>
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2005 Novell/SUSE
+#    Copyright (C) 2009-2012 Canonical Ltd.
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+#include <tunables/global>
+#include <tunables/ntpd>
+/usr/sbin/ntpd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+
+  capability ipc_lock,
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+  capability sys_chroot,
+  capability sys_resource,
+  capability sys_time,
+  capability sys_nice,
+
+  network inet dgram,
+  network inet6 dgram,
+  network inet stream,
+  network inet6 stream,
+
+  @{PROC}/net/if_inet6 r,
+  @{PROC}/*/net/if_inet6 r,
+  @{NTPD_DEVICE} rw,
+
+  /usr/sbin/ntpd rmix,
+
+  /etc/ntp.conf r,
+  /etc/ntp.conf.dhcp r,
+  /etc/ntpd.conf r,
+  /etc/ntpd.conf.tmp r,
+  /var/lib/ntp/ntp.conf.dhcp r,
+
+  /etc/ntp.leapseconds r,
+
+  /etc/ntp.keys r,
+  /etc/ntp/** r,
+
+  /etc/ntp.drift rwl,
+  /etc/ntp.drift.TEMP rwl,
+  /etc/ntp/drift* rwl,
+  /var/lib/ntp/*drift rw,
+  /var/lib/ntp/*drift.TEMP rw,
+
+  /var/log/ntp w,
+  /var/log/ntp.log w,
+  /var/log/ntpd w,
+  /var/log/ntpstats/clockstats* rwl,
+  /var/log/ntpstats/loopstats*  rwl,
+  /var/log/ntpstats/peerstats*  rwl,
+  /var/log/ntpstats/rawstats*   rwl,
+  /var/log/ntpstats/sysstats*   rwl,
+
+  /{,var/}run/ntpd.pid w,
+
+  # samba4 ntp signing socket
+  /{,var/}run/samba/ntp_signd/socket rw,
+
+  # For use with clocks that report via shared memory (e.g. gpsd),
+  # you may need to give ntpd access to all of shared memory, though
+  # this can be considered dangerous. See https://launchpad.net/bugs/722815
+  # for details. To enable, add this to local/usr.sbin.ntpd:
+  #     capability ipc_owner,
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.sbin.ntpd>
+}
