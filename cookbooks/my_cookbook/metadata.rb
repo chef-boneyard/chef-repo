@@ -9,5 +9,5 @@ version          '0.1.3'
 #added
 depends "chef-client"
 depends "iptables"
-depends "ntp-cookbook"
+#depends "ntp-cookbook"
 depends "chef_handler"
