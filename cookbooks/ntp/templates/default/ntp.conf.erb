@@ -13,30 +13,18 @@
 <% end -%>
 driftfile <%= node['ntp']['driftfile'] %>
 
-<%# Enable logs only if statistics option is defined %>
-<% if node['ntp']['statistics'] -%>
-<%-%>statistics loopstats peerstats clockstats
-<%-%>filegen loopstats file loopstats type day enable
-<%-%>filegen peerstats file peerstats type day enable
-<%-%>filegen clockstats file clockstats type day enable
-<% end -%>
-
-<%# If the ignore attribute is set on the node, then apply it %>
-<% unless node['ntp']['ignore'].nil? -%>
-<%   Array(node['ntp']['ignore']).each do |ignore| -%>
-interface ignore <%= ignore %>
-<%   end -%>
-<% end -%>
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
 
 <%# If the listen attribute is set on the node, then apply it %>
 <% unless node['ntp']['listen'].nil? -%>
-<%   Array(node['ntp']['listen']).each do |listen| -%>
-interface listen <%= listen %>
-<%   end -%>
-<%#  The service must always listen on localhost %>
-<%   unless Array(node['ntp']['listen']).include? '127.0.0.1' -%>
- interface listen 127.0.0.1    interface listen 127.0.0.1
-<%   end -%>
+interface listen <%= node['ntp']['listen'] %>
+  <%# The service must always listen on localhost %>
+  <% if node['ntp']['listen'] != "127.0.0.1" -%>
+interface listen 127.0.0.1
+  <% end -%>
 <% end -%>
 
 <% if node['ntp']['monitor'] -%>
