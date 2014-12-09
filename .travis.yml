@@ -9,3 +9,5 @@ branches:
   only:
     - master
     - develop
+script:
+  - bundle exec rake knife
