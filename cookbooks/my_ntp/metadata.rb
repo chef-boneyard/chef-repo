@@ -6,4 +6,4 @@ description      'Installs/Configures my_ntp'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.1'
 
-depends 'ntp'
+depends 'ntp-cookbook'

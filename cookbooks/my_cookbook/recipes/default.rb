@@ -19,7 +19,7 @@
 message = "       **  ROLE        [#{node['my_cookbook']['role']}] install from my_cookbook  **      "
 
 Chef::Log.info ("#{message}")
-include_recipe "ntp"
+include_recipe "ntp-cookbook"
 include_recipe "chef_handler"
 include_recipe "my_cookbook::my_flowdock"
 include_recipe "my_cookbook::my_ipaddress"
