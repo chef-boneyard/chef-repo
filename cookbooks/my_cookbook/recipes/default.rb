@@ -22,6 +22,10 @@ Chef::Log.info ("#{message}")
 include_recipe "ntp"
 include_recipe "chef_handler"
 include_recipe "my_cookbook::my_flowdock"
+include_recipe "my_cookbook::my_ipaddress"
+
+
+
 
 template '/tmp/message' do
   source 'message.erb'

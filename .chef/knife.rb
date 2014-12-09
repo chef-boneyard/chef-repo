@@ -1,5 +1,4 @@
 # See https://docs.chef.io/config_rb_knife.html for more information on knife configuration options
-knife[:editor]="/bin/vim" 
 
 
 organization_base_name = "papi"
@@ -12,6 +11,10 @@ organization << "-#{current_branch}" unless current_branch == 'master'
 
 current_dir = File.dirname(__FILE__)
 log_level                :info
+#SSL validation of HTTPS requests 
+ssl_verify_mode 	 :verify_peer
+verify_api_cert		 :true
+#end
 log_location             STDOUT
 knife[:editor] = 	"/usr/bin/vim"
 

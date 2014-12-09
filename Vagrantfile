@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
     chef.node_name = "my_server"
     chef.environment = "STAGING"
     chef.add_role "test_server"
+    chef.custom_config_path = "Vagrantfile.chef"
     chef.delete_node = true
     chef.delete_client = true
   end
