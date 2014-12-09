@@ -10,4 +10,5 @@ branches:
     - master
     - develop
 script:
-  - bundle exec rake knife
+  - bundle exec knife inspect
+  - bundle exec knife test

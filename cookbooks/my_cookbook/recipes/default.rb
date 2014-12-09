@@ -23,7 +23,7 @@ Chef::Log.info ("#{message}")
 include_recipe "chef_handler"
 include_recipe "my_cookbook::my_flowdock"
 include_recipe "my_cookbook::my_ipaddress"
-
+include_recipe "chef-slack_handler"
 
 
 
