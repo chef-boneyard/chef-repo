@@ -1,0 +1,8 @@
+#generated virtual conf file of log servers
+
+<%@logservers.each do |logserver|  -%>
+<log>
+  HOST  "<%= logserver['fqdn'] -%>"
+</log>
+
+<% end -%>

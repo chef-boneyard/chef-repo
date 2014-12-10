@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     chef.chef_server_url = "https://api.opscode.com/organizations/papi"
     chef.provisioning_path = "/etc/chef"
     chef.validation_key_path = "/var/chef-repo/.chef/papi-validator.pem"
+    chef.encrypted_data_bag_secret_key_path = "/var/chef-repo/.chef/data_bag_secret_key.pem"
     chef.validation_client_name = "papi-validator"
     chef.node_name = "my_server"
     chef.environment = "STAGING"
