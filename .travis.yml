@@ -1,6 +1,5 @@
 language: ruby
 bundler_args: --without development
-script: "bundle exec rake build"
 rvm:
   - 2.0.0
 gemfile:
@@ -10,5 +9,5 @@ branches:
     - master
     - develop
 script:
-  - bundle exec knife inspect
-  - bundle exec knife test
+  - bundle exec knife cookbook  test my_cookbook
+
