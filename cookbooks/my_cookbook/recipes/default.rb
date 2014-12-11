@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-message = "       **  ROLE        [#{node['my_cookbook']['role']}] writtern by [#{node['my_cookbook']['developer']}] install from my_cookbook  **      "
+message = "       **  ROLE        [#{node['my_cookbook']['role']}] writtern by [#{node['my_cookbook']['developer']}] install from my_cookbook  PLATFORM [#{node['platform']}]**      "
 
 Chef::Log.info ("#{message}")
 #include_recipe "ntp-cookbook"
