@@ -103,5 +103,13 @@ google_account = Chef::EncryptedDataBagItem.load("accounts", "google")
 Chef::Log.info ("TEST --->   encrypted password is:#{google_account["password"]}    <---TEST")
 
 
+file "/tmp/backup_config.json" do
+  owner "root"
+  group "root"
+  mode 0644
+  content data_bag_item('servers', 'backup')['host'].to_json
+end
+
+
 Chef::Log.info ("#{message}")
 
