@@ -17,99 +17,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
 message = "       **  ROLE        [#{node['my_cookbook']['role']}] writtern by [#{node['my_cookbook']['developer']}] install from my_cookbook  PLATFORM [#{node['platform']}]**      "
 
 Chef::Log.info ("#{message}")
-#include_recipe "ntp-cookbook"
 include_recipe "chef_handler"
-include_recipe "my_cookbook::my_flowdock"
-include_recipe "my_cookbook::my_ipaddress"
 include_recipe "chef-slack_handler"
 
 
 
-template '/tmp/message' do
-  source 'message.erb'
-  variables(
-    greet: 'Hallo',
-    who: 'me',
-    from: node['fqdn']
-   )
-end
-
-template '/tmp/fqdn' do
-  source 'fqdn.erb'
-  variables(
-  fqdn: node['fqdn']
-  )
-end
-
-capistrano_deploy_dirs do
-  deploy_to "/srv"
-end
-
-
-my_cookbook "Ohai" do
-  title "Chef"
-
-end
-
-
-
+include_recipe "my_cookbook::my_flowdock"
+include_recipe "my_cookbook::my_ipaddress"
+include_recipe "my_cookbook::resources_and_providers"
+include_recipe "my_cookbook::search_roles"
+include_recipe "my_cookbook::templates"
+include_recipe "my_cookbook::data_bags"
+include_recipe "my_cookbook::definitions"
+#Sample environment and execute
 execute 'print recipe name $msg ' do
   environment 'msg' => "RECIPE [#{recipe_name}]"
   command 'echo $msg > /tmp/recipe_name.txt'
 end
 
+
+#override example
 node.override['my_cookbook']['developer'] = 'someone else '
 
 
 execute 'echo the developer name' do
   command "echo #{node['my_cookbook']['developer']}"
 end
-
-logservers = search(:node, "role:log" )
-
-logservers.each do |srv|
-  log srv.name
-end
-
-
-template "/tmp/list_of_logservers" do
-  source "list_of_logservers.erb"
-  variables(
-    :logservers => logservers
-  )
-end
-
-
-#hook = data_bag_item('hooks', 'request_bin')
-#http_request 'callback' do
-#  url hook['url']
-#end
-
-#same as above, but more elaborate
-search(:hooks, '*:*').each do |hook|
-  http_request 'callback' do
-    url hook['url']
-  end
-end
-
-google_account = Chef::EncryptedDataBagItem.load("accounts", "google")
-
-
-#TEST:
-
-Chef::Log.info ("TEST --->   encrypted password is:#{google_account["password"]}    <---TEST")
-
-
-file "/tmp/backup_config.json" do
-  owner "root"
-  group "root"
-  mode 0644
-  content data_bag_item('servers', 'backup')['host'].to_json
-end
-
 
 Chef::Log.info ("#{message}")
 
