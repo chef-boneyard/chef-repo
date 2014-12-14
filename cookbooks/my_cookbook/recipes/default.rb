@@ -24,8 +24,7 @@ message = "       **  ROLE        [#{node['my_cookbook']['role']}] writtern by [
 Chef::Log.info ("#{message}")
 include_recipe "chef_handler"
 include_recipe "chef-slack_handler"
-
-
+include_recipe 'build-essential::default'
 
 include_recipe "my_cookbook::my_flowdock"
 include_recipe "my_cookbook::my_ipaddress"
@@ -35,6 +34,7 @@ include_recipe "my_cookbook::templates"
 include_recipe "my_cookbook::data_bags"
 include_recipe "my_cookbook::definitions"
 include_recipe "my_cookbook::idempotent_only_if"
+include_recipe "my_cookbook::from_source"
 
 #Sample environment and execute
 execute 'print recipe name $msg ' do
