@@ -14,3 +14,14 @@ template '/tmp/fqdn' do
   fqdn: node['fqdn']
   )
 end
+
+
+#Added an ERB template:
+
+template "/etc/logrotate.conf" do
+  source "logrotate.conf.erb"
+  variables(
+    how_often: "weekly",
+    keep: 31
+  )
+end
