@@ -6,7 +6,7 @@ bash "Install NGINX from source" do
     wget http://nginx.org/download/nginx-#{version}.tar.gz
     tar zxf nginx-#{version}.tar.gz &&
     cd nginx-#{version} &&
-    ./configure && make && make install
+    ./configure --without-http_rewrite_module    --without-http_gzip_module && make && make install
   EOH
   not_if "test -f /usr/local/nginx/sbin/nginx"
 end
