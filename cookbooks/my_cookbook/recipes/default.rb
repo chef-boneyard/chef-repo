@@ -34,6 +34,8 @@ include_recipe "my_cookbook::search_roles"
 include_recipe "my_cookbook::templates"
 include_recipe "my_cookbook::data_bags"
 include_recipe "my_cookbook::definitions"
+include_recipe "my_cookbook::idempotent_only_if"
+
 #Sample environment and execute
 execute 'print recipe name $msg ' do
   environment 'msg' => "RECIPE [#{recipe_name}]"

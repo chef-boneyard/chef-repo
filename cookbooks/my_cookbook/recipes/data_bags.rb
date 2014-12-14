@@ -39,6 +39,7 @@ Chef::Log.info ("TEST --->   encrypted password is:#{google_account["password"]}
 search(:hooks, '*:*').each do |hook|
   http_request 'callback' do
     url hook['url']
+    only_if { node['my_cookbook']['callback']['enabled'] }
   end
 end
 
