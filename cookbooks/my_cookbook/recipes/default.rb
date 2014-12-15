@@ -35,6 +35,7 @@ include_recipe "my_cookbook::data_bags"
 include_recipe "my_cookbook::definitions"
 include_recipe "my_cookbook::idempotent_only_if"
 include_recipe "my_cookbook::from_source"
+include_recipe "my_cookbook::notify_trigger"
 
 #Sample environment and execute
 execute 'print recipe name $msg ' do
