@@ -36,6 +36,7 @@ include_recipe "my_cookbook::definitions"
 include_recipe "my_cookbook::idempotent_only_if"
 include_recipe "my_cookbook::from_source"
 include_recipe "my_cookbook::notify_trigger"
+include_recipe "my_cookbook::remote_dir"
 
 #Sample environment and execute
 execute 'print recipe name $msg ' do
