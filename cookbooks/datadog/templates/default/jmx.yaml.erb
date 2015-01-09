@@ -1,0 +1,48 @@
+<% excluded_keys = ["host", "server", "conf", "include", "exclude"] -%>
+instances:
+<% @instances.each do |i| -%>
+  - host: <%= i["server"] %>
+    <% (i.keys - excluded_keys).each do |key| -%>
+    <%= key %>: <%= i[key] %>
+    <% end -%>
+  <% if i.key?("include") || i.key?("exclude") -%>
+    conf:
+      <% i["include"].each do |c| -%>
+      - include:
+          <% if c.key?("domain") -%>
+          domain: <%= c["domain"] %>
+          <% end -%>
+          <% if c.key?("bean") -%>
+          bean: <%= c["bean"] %>
+          <% end -%>
+          <% if c.key?("attributes") -%>
+          attribute:
+            <% c["attributes"].each do |a| -%>
+            attribute<%= c["attributes"].index(a) %>:
+              metric_type: <%= a["metric_type"] %>
+              alias: <%= a["alias"] %>
+            <% end -%>
+          <% end -%>
+      <% end -%>
+      <% i["exclude"].each do |c| -%>
+      - exclude:
+          <% if c.key?("domain") -%>
+          domain: <%= c["domain"] %>
+          <% end -%>
+          <% if c.key?("bean") -%>
+          bean: <%= c["bean"] %>
+          <% end -%>
+          <% if c.key?("attributes") -%>
+          attribute:
+            <% c["attributes"].each do |a| -%>
+            attribute<%= c["attributes"].index(a) %>:
+              metric_type: <%= a["metric_type"] %>
+              alias: <%= a["alias"] %>
+            <% end -%>
+          <% end -%>
+      <% end -%>
+  <% end -%>
+<% end -%>
+
+init_config:
+# Nothing to configure here

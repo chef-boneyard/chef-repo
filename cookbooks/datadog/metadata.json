@@ -1,0 +1,47 @@
+{
+  "name": "datadog",
+  "version": "2.0.0",
+  "description": "Installs/Configures datadog components",
+  "long_description": "Where to Find the Code\n======================\nTo submit issues and patches please visit https://github.com/DataDog/chef-datadog.\nThe code is licensed under the Apache License 2.0 (see  LICENSE for details).\n\n[![Build Status](https://secure.travis-ci.org/DataDog/chef-datadog.svg?branch=master)](http://travis-ci.org/DataDog/chef-datadog)\n\nDatadog Cookbook\n================\n\nChef recipes to deploy Datadog's components and configuration automatically.\n\nRequirements\n============\n- python >= 2.6\n- chef >= 10.14\n\nPlatforms\n---------\n\n* Amazon Linux\n* CentOS\n* Debian\n* RedHat\n* Scientific Linux\n* Ubuntu\n\nCookbooks\n---------\n\nThe following Opscode cookbooks are dependencies:\n\n* `apt`\n* `chef_handler`\n* `yum`\n\n\nRecipes\n=======\n\ndefault\n-------\nJust a placeholder for now, when we have more shared components they will probably live there.\n\ndd-agent\n--------\nInstalls the Datadog agent on the target system, sets the API key, and start the service to report on the local system metrics\n\ndd-handler\n----------\nInstalls the [chef-handler-datadog](https://rubygems.org/gems/chef-handler-datadog) gem and invokes the handler at the end of a Chef run to report the details back to the newsfeed.\n\ndogstatsd-(python|ruby)\n-----------------------\nInstalls the language-specific libraries to interact with `dogstatsd`.\n\nother\n-----\nThere are many other integration-specific recipes, that are meant to assist in deploying the correct agent configuration files and dependencies for a given integration.\n\n\nUsage\n=====\n\n1. Add this cookbook to your Chef Server, either by installing with knife or downloading and uploading to your chef-server with knife.\n2. Add your API Key, either to `attributes/default.rb`, or by using the inheritance model and placing it on the node via `environment`, `role` or declaring it in another cookbook at a higher precendence level.\n3. Create an 'application key' for `chef_handler` [here](https://app.datadoghq.com/account/settings#api), and add it to your node, like in Step #2.\n3. Upload the cookbook to chef server via: `knife cookbook upload datadog`\n4. Associate the recipes with the desired `roles`, i.e. \"role:chef-client\" should contain \"datadog::dd-handler\" and a \"role:base\" should start the agent with \"datadog::dd-agent\".\n4. Wait until `chef-client` runs on the target node (or trigger chef-client manually if you're impatient)\n\nWe are not making use of data_bags in this recipe at this time, as it is unlikely that you will have more than one API key and one application key.\n\nFor more deployment details, visit the [Datadog Documentation site](http://docs.datadoghq.com/).\n\n\n",
+  "maintainer": "Datadog",
+  "maintainer_email": "package@datadoghq.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "amazon": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "dependencies": {
+    "apt": ">= 0.0.0",
+    "chef_handler": "~> 1.1.0",
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+    "python": ">= 0.0.0"
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "datadog::default": "Default",
+    "datadog::dd-agent": "Installs the Datadog Agent",
+    "datadog::dd-handler": "Installs a Chef handler for Datadog",
+    "datadog::repository": "Installs the Datadog package repository",
+    "datadog::dogstatsd-python": "Installs the Python dogstatsd package for custom metrics",
+    "datadog::dogstatsd-ruby": "Installs the Ruby dogstatsd package for custom metrics",
+    "datadog::cassandra": "Installs and configures the Cassandra integration",
+    "datadog::couchdb": "Installs and configures the CouchDB integration"
+  }
+}

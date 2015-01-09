@@ -1,0 +1,13 @@
+language: ruby
+bundler_args: --without development
+rvm:
+  - 2.0.0
+gemfile:
+  - Gemfile
+branches:
+  only:
+    - master
+    - develop
+script:
+  - bundle exec knife cookbook  test my_cookbook
+

@@ -1,0 +1,7 @@
+instances:
+  <% @instances.each do |i| -%>
+  - name: <%= i['name'] %>
+    jenkins_home: <%= i['home'] %>
+  <% end -%>
+
+init_config:

@@ -1,0 +1,58 @@
+{
+  "name": "ruby",
+  "description": "Installs Ruby and related packages",
+  "long_description": "Description\n===========\n\nInstalls Ruby and related packages.\n\nRequirements\n============\n\n## Platform\n\nTested on Ubuntu 10.04. Debian and Gentoo should also work fully.\nCentOS, Red Hat, Fedora and Arch are partially supported.\n\nAttributes\n==========\n\n* `node[:languages][:ruby][:default_version]` - The Ruby version to install\n  with the ruby recipe and create symlinks for with the symlinks\n  recipe.\n\nUsage\n=====\n\nPrevious versions of this cookbook gave you no control over which\nversion of Ruby would be installed. We are now in the middle of an\nawkward period where you are equally likely to want 1.8 or 1.9. You\nmay even want both. This is now catered for. To install specific\nversions side-by-side, use the 1.8, 1.9 or 1.9.1 recipes. The ruby\nrecipe will install the version specified by\n`node[:languages][:ruby][:default_version]`. If you want to do something\nother than install these packages, the `ruby_packages` definition is\nprovided as a wrapper around the package resource. Just specify the\nversion number.\n\nFor example, to use the default recipe in a role named \"base\", use\n'ruby' in the run list and set the\n`node[:languages[:ruby][:default_version]` attribute:\n\n    {\n      \"name\": \"base\",\n      \"description\": \"Base role is applied to all systems\",\n      \"json_class\": \"Chef::Role\",\n      \"default_attributes\": {\n      },\n      \"override_attributes\": {\n        \"languages\": {\n          \"ruby\": {\n            \"default_version\": \"1.8\"\n          }\n        }\n      },\n      \"chef_type\": \"role\",\n      \"run_list\": [\n        \"recipe[ruby]\"\n      ]\n    }\n\nMany scripts, including those provided by Rails, don't ask for a\nparticular version of Ruby such as \"ruby1.8\" and simply look for\n\"ruby\" instead. Sometimes a symlink is provided and sometimes the\nexecutable is simply called \"ruby\" in the first place but generally\nspeaking, it is difficult to predict this behaviour, especially when\nRuby Gems is thrown into the mix. The symlinks recipe seeks to relieve\nyou of this headache by creating symlinks for the common executables\npointing to the Ruby version specified by\n`node[:languages][:ruby][:default_version]`. This is also available as a\ndefinition called +ruby_symlinks+, which is a wrapper around the link\nresource. As before, just specify the version number. Non-symlinks\nwill not be overwritten unless you set force to true. You can also set\na path other than /usr/bin if necessary.\n\n*IMPORTANT!* Only Ubuntu, Debian and Gentoo support installing a\n specific Ruby version at all. yum-based distributions install 1.8 by\n default but require you to give the full package version otherwise.\n Maybe some magic could be added to Chef? Arch installs 1.9.2 by\n default but 1.8 is only available from AUR. Additionally, Ubuntu and\n Debian group 1.9.2 with 1.9.1 while Gentoo lumps all 1.9 releases\n together.\n\nLicense and Author\n==================\n\n- Author: Joshua Timberman (<joshua@opscode.com>)\n- James Le Cuirot (<developers@findsyou.com>)\n\n- Copyright: 2009-2010, Opscode, Inc\n- Copyright: 2010, FindsYou Limited\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Opscode, Inc.",
+  "maintainer_email": "cookbooks@opscode.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "arch": ">= 0.0.0",
+    "gentoo": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "languages/ruby/default_version": {
+      "display_name": "Default Ruby version",
+      "recipes": [
+        "ruby",
+        "symlinks"
+      ],
+      "choice": [
+        "1.8",
+        "1.9",
+        "1.9.1"
+      ],
+      "default": "1.8",
+      "description": "The Ruby version to install with the ruby recipe and create symlinks for with the symlinks recipe. Unfortunately this setting only works fully on Ubuntu, Debian and Gentoo.",
+      "calculated": false,
+      "type": "string",
+      "required": "optional"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "ruby": "Installs Ruby and related packages",
+    "1.8": "Installs Ruby 1.8 and related packages",
+    "1.9": "Installs Ruby 1.9 and related packages",
+    "1.9.1": "Installs Ruby 1.9.1 and related packages",
+    "symlinks": "Installs symlinks for the default Ruby version"
+  },
+  "version": "0.9.2"
+}

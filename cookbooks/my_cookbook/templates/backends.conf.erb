@@ -1,0 +1,8 @@
+<%- if @enabled %>
+  <%- @backends.each do |backend| %>
+    <%= backend %>
+   <%- end %>
+  <%- else %>
+  No backends defined!
+<%- end %>
+

@@ -1,0 +1,28 @@
+# By default, this check will run against a single instance - the current
+# machine that the Agent is running on. It will check the WMI performance
+# counters for IIS on that machine. 
+#
+# If you want to check other remote machines as well, you can add one
+# instance per host. Note: If you also want to check the counters on the
+# current machine, you will have to create an instance with empty params.
+
+instances:
+  <% @instances.each do |i| -%>
+    <% if i['host'] == 'localhost' -%>
+  - host: .
+    <% else -%>
+  - host: <%= i['host'] %>
+    <% end -%>
+    <% if i.key?('username') -%>
+    username: <%= i['username'] %>
+    password: <%= i['password'] %>
+    <% end -%>
+    <% if i.key?('tags') -%>
+    tags:
+      <% i['tags'].each do |t| -%>
+      - <%= t %>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+
+init_config:

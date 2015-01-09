@@ -1,0 +1,13 @@
+instances:
+<% @instances.each do |i| -%>
+  - nginx_status_url: <%= i['nginx_status_url'] %>
+  <% if i.key?('tags') -%>
+    tags:
+    <% i['tags'].each do |t| -%>
+    - <%= t %>
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+# Nothing to configure here
+init_config:
