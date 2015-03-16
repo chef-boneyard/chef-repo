@@ -13,6 +13,7 @@ This repository contains several directories, and each directory contains a READ
 * `cookbooks/` - Cookbooks you download or create.
 * `data_bags/` - Store data bags and items in .json in the repository.
 * `roles/` - Store roles in .rb or .json in the repository.
+* `environments/` - Store environments in .rb or .json in the repository.
 
 Configuration
 =============
