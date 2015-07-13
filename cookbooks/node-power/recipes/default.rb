@@ -16,7 +16,11 @@ end
 
 # Check if the kernel is already updated
 if node['kernel']['release'] == '3.13.11-ckt20'
-  Chef::Log.info("Kernel has been patched already (version 3.13.11-ckt20). Nothing to do. Exiting")
+  Chef::Log.info("Kernel has been patched already (version 3.13.11-ckt20)")
+  Chef::Log.info("Trying to load i2c_dev module")
+  execute "modprobe i2c-dev" do
+  end
+  Chef::Log.info("Nothing else to do. Exiting")
   return
 end
 
@@ -41,6 +45,22 @@ execute "tar xf #{patched_kernel_tar}" do
   cwd '/boot'
 end
 
-# Need to reboot the node in order to boot the patched kernel
-execute "reboot" do
+# Get information on the newest versions of packages
+execute "apt-get update" do
 end
+
+apt_package "i2c-tools" do
+  action :install
+end
+
+apt_package "freeipmi" do
+  action :install
+end
+
+# Make sure that i2c-dev loads after reboot
+execute "echo i2c-dev >> /etc/modules" do
+end
+
+# Need to reboot the node in order to boot the patched kernel
+#execute "reboot" do
+#end
