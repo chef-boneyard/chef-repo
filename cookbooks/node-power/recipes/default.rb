@@ -59,7 +59,7 @@ end
 
 # extract the tarball 
 execute "tar xf #{i2c_module_tar}" do
-  cwd '/lib/modules/3.13.11-ckt20'
+  cwd i2c_module_dir
 end
 
 # Get information on the newest versions of packages
@@ -79,5 +79,5 @@ execute "echo i2c-dev >> /etc/modules" do
 end
 
 # Need to reboot the node in order to boot the patched kernel
-#execute "reboot" do
-#end
+execute "reboot" do
+end
