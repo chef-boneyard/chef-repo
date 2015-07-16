@@ -1,7 +1,7 @@
-Deprecated
+Purpose
 ==========
 
-Use of this repository is deprecated. We recommend using the `chef generate repo` command that comes with [ChefDK](http://downloads.chef.io/chef-dk/).
+This repository contains recipes and cookbooks that are useful for Emulab and derived testbeds such as [CloudLab](https://cloudlab.us) and [Apt](https://aptlab.net)
 
 Overview
 ========
