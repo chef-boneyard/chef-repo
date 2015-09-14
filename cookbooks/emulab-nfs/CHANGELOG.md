@@ -1,10 +1,11 @@
-# CHANGELOG for node-power
+emulab-nfs CHANGELOG
+====================
 
-This file is used to list changes made in each version of node-power.
+This file is used to list changes made in each version of the emulab-nfs cookbook.
 
-## 0.1.0:
-
-* Initial release of node-power
+0.1.0
+-----
+- [your_name] - Initial release of emulab-nfs
 
 - - -
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
