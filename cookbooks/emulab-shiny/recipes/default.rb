@@ -30,3 +30,16 @@ bash 'Install Shiny' do
   EOH
   not_if "status shiny-server | grep running"
 end
+
+# Delete the default app
+directory '/srv/shiny-server' do
+  recursive true
+  action :delete
+end
+
+# Clone the repo specified in the attributes file
+git '/srv/shiny-server' do
+  repository node['shiny']['shiny-server-repo'] 
+  revision 'master'
+  action :checkout
+end
