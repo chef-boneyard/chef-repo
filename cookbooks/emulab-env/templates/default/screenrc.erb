@@ -1,0 +1,25 @@
+#######################################################
+#
+# This file is distributed using Chef 
+# More about Chef: http://docs.opscode.com/
+#
+#######################################################
+
+autodetach on
+hardstatus on
+hardstatus alwayslastline
+startup_message off
+deflogin off                    # Do not register the window in utmp
+activity "activity: window ~%"  # Message when activity occurs in a window
+shelltitle $HOST
+
+defscrollback 10000
+encoding UTF-8
+attrcolor b ".I"
+
+hardstatus string "%{.bW}%-w%{.gW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+
+screen -t bash          0
+screen -t bash          1
+screen -t syslog        2 tail -f /var/log/syslog
+select 0

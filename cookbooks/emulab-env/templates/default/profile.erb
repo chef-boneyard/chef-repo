@@ -1,0 +1,34 @@
+#######################################################
+#
+# This file is distributed using Chef
+# More about Chef: http://docs.opscode.com/
+#
+#######################################################
+
+export PS1="\[\033[0;92m\]\t \[\033[0m\](\u@\h)\w(\j) # "
+
+export EDITOR=$(which vi) 
+
+alias ls='ls --color=always -F'
+alias l='ls -l'
+alias la='ls -la'
+alias ll='ls -la --full-time'
+alias lrt='ls -lrt'
+alias lurt='ls -lurt'
+alias lsd='ls -l | grep ^d'
+alias llsd='ls -la | grep ^d'
+alias lls='ls -ls | sort -n'
+alias last='last -ad'
+alias cl='clear'
+alias env='env | sort'
+alias w='w | sort'
+alias nslookup='nslookup -sil'
+alias fuser='fuser -m'
+alias tf='tail -f'
+alias histg='history | grep'
+alias wget='wget --timestamping --passive-ftp'
+alias psg='ps aux --cols 800 | grep -v grep | grep '
+alias wtf='ps auxw | grep -v root | grep -v ssh | grep -v bash | grep -v csh'
+alias sum="ls -l | awk -v SIZE=0 '{SIZE=(SIZE+\$5)} END {print SIZE}'"
+alias dsk="du -sk *"
+alias bc='bc -q'
