@@ -35,11 +35,12 @@ end
 directory '/srv/shiny-server' do
   recursive true
   action :delete
+  not_if { ::File.directory?("/srv/shiny-server/powervis") }
 end
 
 # Clone the repo specified in the attributes file
 git '/srv/shiny-server' do
   repository node['shiny']['shiny-server-repo'] 
-  revision 'master'
   action :checkout
+  not_if { ::File.directory?("/srv/shiny-server/powervis") }
 end
