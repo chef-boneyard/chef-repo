@@ -44,4 +44,5 @@ bash 'Install ggplot2, which is a useful plotting tool' do
   code <<-EOH
     R -e "install.packages('ggplot2', repos='https://cran.rstudio.com/')"
   EOH
+  not_if { ::File.directory?("/usr/local/lib/R/site-library/ggplot2") }
 end
